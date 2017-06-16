@@ -27,7 +27,7 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 
   <welcome-file-list>
-      <welcome-file>index.jsp</welcome-file>
+      <welcome-file>webSocketTest.jsp</welcome-file>
   </welcome-file-list>
 
   <context-param>
@@ -37,7 +37,9 @@
   <listener>
       <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
-
+    <listener>
+        <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+    </listener>
   <servlet>
       <servlet-name>spring_mvc</servlet-name>
       <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -49,7 +51,6 @@
   <servlet-mapping>
     <servlet-name>spring_mvc</servlet-name>
     <url-pattern>*.action</url-pattern>
-
   </servlet-mapping>
 
 </web-app>

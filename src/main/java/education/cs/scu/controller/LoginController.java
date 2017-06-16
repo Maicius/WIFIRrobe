@@ -18,7 +18,7 @@ public class LoginController {
     @Autowired
     LoginService loginService;
 
-    @RequestMapping(value="/userLogin", method= RequestMethod.POST)
+    @RequestMapping(value="/userLogin", method= RequestMethod.GET)
     public User userLogin(HttpServletRequest request,
                              @RequestParam(value="username") String userName,
                              @RequestParam(value="password") String password) throws Exception{
