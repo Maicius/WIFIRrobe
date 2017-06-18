@@ -1,12 +1,15 @@
 package education.cs.scu.controller;
 
 import education.cs.scu.entity.User;
+import education.cs.scu.entity.UserFlow;
 import education.cs.scu.service.LoginService;
+import education.cs.scu.webSocket.Monitor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.sql.Timestamp;
 
 /**
  * Created by maicius on 2017/3/31.
@@ -16,7 +19,7 @@ import javax.servlet.http.HttpSession;
 public class LoginController {
 
     @Autowired
-    LoginService loginService;
+    private LoginService loginService;
 
     @RequestMapping(value="/userLogin", method= RequestMethod.POST)
     public User userLogin(HttpServletRequest request,
@@ -26,9 +29,17 @@ public class LoginController {
         System.out.println(userName);
         User loginUser = loginService.doUserLogin(user);
         HttpSession session = request.getSession();
+
+        //获取当前系统时间，便于Monitor查询时间
+        Timestamp timestamp =new Timestamp(System.currentTimeMillis());
+        UserFlow userFlow = new UserFlow();
+        userFlow.setTimestamp(timestamp);
+
         if(loginUser != null) {
             session.setAttribute("user", loginUser);
             System.out.println("finish:" + loginUser.getNickName());
+            Monitor monitor = new Monitor();
+            monitor.sendMsg();
             return loginUser;
         }else{
             User wrongUser = new User();

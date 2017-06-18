@@ -6,5 +6,5 @@
                                         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
     <bean id="loginService" class="education.cs.scu.service.impl.LoginServiceImpl"/>
-    <bean name="monitor" class="education.cs.scu.webSocket.Monitor" lazy-init="false" init-method="sendMsg"/>
+    <bean id="userVisitDao" class="education.cs.scu.service.impl.UserVisitDaoImpl"/>
 </beans>
