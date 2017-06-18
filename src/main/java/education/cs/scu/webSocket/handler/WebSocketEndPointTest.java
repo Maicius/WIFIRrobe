@@ -10,7 +10,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
  * 注解的值将被用于监听用户连接的终端访问URL地址,客户端可以通过这个URL来连接到WebSocket服务器端
  * @author uptop
  */
-@ServerEndpoint("/websocket")
+@ServerEndpoint(value="/websocket", encoders = {ServerEncoder.class})
 public class WebSocketEndPointTest {
     //静态变量，用来记录当前在线连接数。应该把它设计成线程安全的。
     private static int onlineCount = 0;
@@ -57,9 +57,8 @@ public class WebSocketEndPointTest {
         for (WebSocketEndPointTest item : webSocketSet) {
             try {
                 item.sendMessage(message);
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
-                continue;
             }
         }
     }
@@ -79,11 +78,11 @@ public class WebSocketEndPointTest {
     /**
      * 这个方法与上面几个方法不一样。没有用注解，是根据自己需要添加的方法。
      *
-     * @param message
+     * @param object
      * @throws IOException
      */
-    public void sendMessage(String message) throws IOException {
-        this.session.getBasicRemote().sendText(message);
+    public void sendMessage(Object object) throws IOException, EncodeException {
+        this.session.getBasicRemote().sendObject(object);
 
     }
 
@@ -98,11 +97,11 @@ public class WebSocketEndPointTest {
     public static synchronized void subOnlineCount() {
         WebSocketEndPointTest.onlineCount--;
     }
-    public void sendMsg(String msg) {
+    public void sendMsg(Object object) {
         for (WebSocketEndPointTest item : webSocketSet) {
             try {
-                item.sendMessage(msg);
-            } catch (IOException e) {
+                item.sendMessage(object);
+            } catch (Exception e) {
                 e.printStackTrace();
                 continue;
             }

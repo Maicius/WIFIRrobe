@@ -25,7 +25,6 @@ Welcome<br/><input id="text" type="text"/>
     else {
         alert('当前浏览器 Not support websocket')
     }
-
     //连接发生错误的回调方法
     websocket.onerror = function () {
         setMessageInnerHTML("WebSocket连接发生错误");
