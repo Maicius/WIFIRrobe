@@ -1,5 +1,7 @@
 package education.cs.scu.webSocket.handler;
 
+import education.cs.scu.DBHelper.DBHelper;
+
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
@@ -42,6 +44,7 @@ public class WebSocketEndPointTest {
         webSocketSet.remove(this);  //从set中删除
         subOnlineCount();           //在线数减1
         System.out.println("有一连接关闭！当前连接数:" + getOnlineCount());
+        DBHelper.closeDB();
     }
 
     /**

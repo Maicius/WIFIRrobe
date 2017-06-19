@@ -7,4 +7,5 @@
 
     <bean id="loginService" class="education.cs.scu.service.impl.LoginServiceImpl"/>
     <bean id="userVisitDao" class="education.cs.scu.service.impl.UserVisitDaoImpl"/>
+    <bean id="monitor" class="education.cs.scu.webSocket.Monitor" init-method="sendMsg"/>
 </beans>
