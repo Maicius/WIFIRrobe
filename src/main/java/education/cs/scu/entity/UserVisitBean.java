@@ -11,11 +11,11 @@ public class UserVisitBean {
     private long shopId;
     private String mac;
     private String time;
-    private long totalFlow;
-    private long checkInFlow;
-    private long checkInRate;
-    private long shallowVisitRate;
-    private long deepVisitRate;
+    private int totalFlow;
+    private int checkInFlow;
+    private double checkInRate;
+    private double shallowVisitRate;
+    private double deepVisitRate;
 
     public UserVisitBean() {
 
@@ -45,43 +45,43 @@ public class UserVisitBean {
         this.time = time;
     }
 
-    public long getTotalFlow() {
+    public int getTotalFlow() {
         return totalFlow;
     }
 
-    public void setTotalFlow(long totalFlow) {
+    public void setTotalFlow(int totalFlow) {
         this.totalFlow = totalFlow;
     }
 
-    public long getCheckInFlow() {
+    public int getCheckInFlow() {
         return checkInFlow;
     }
 
-    public void setCheckInFlow(long checkInFlow) {
+    public void setCheckInFlow(int checkInFlow) {
         this.checkInFlow = checkInFlow;
     }
 
-    public long getCheckInRate() {
+    public double getCheckInRate() {
         return checkInRate;
     }
 
-    public void setCheckInRate(long checkInRate) {
+    public void setCheckInRate(double checkInRate) {
         this.checkInRate = checkInRate;
     }
 
-    public long getShallowVisitRate() {
+    public double getShallowVisitRate() {
         return shallowVisitRate;
     }
 
-    public void setShallowVisitRate(long shallowVisitRate) {
+    public void setShallowVisitRate(double shallowVisitRate) {
         this.shallowVisitRate = shallowVisitRate;
     }
 
-    public long getDeepVisitRate() {
+    public double getDeepVisitRate() {
         return deepVisitRate;
     }
 
-    public void setDeepVisitRate(long deepVisitRate) {
+    public void setDeepVisitRate(double deepVisitRate) {
         this.deepVisitRate = deepVisitRate;
     }
 

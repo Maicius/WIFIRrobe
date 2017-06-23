@@ -31,10 +31,10 @@ public class Monitor implements Runnable {
             if (rs.next()) {
                 userFlow.setTime(rs.getString("time"));
                 userFlow.setTotalFlow(rs.getInt("total_flow"));
-                userFlow.setCheckInFlow(rs.getLong("check_in_flow"));
-                userFlow.setCheckInRate(rs.getLong("check_in_rate"));
-                userFlow.setDeepVisitRate(rs.getLong("deep_visit_rate"));
-                userFlow.setShallowVisitRate(rs.getLong("shallow_visit_rate"));
+                userFlow.setCheckInFlow(rs.getInt("check_in_flow"));
+                userFlow.setCheckInRate(rs.getDouble("check_in_rate"));
+                userFlow.setDeepVisitRate(rs.getDouble("deep_visit_rate"));
+                userFlow.setShallowVisitRate(rs.getDouble("shallow_visit_rate"));
                 WebSocketEndPointTest webSocketTest = new WebSocketEndPointTest();
                 System.out.println("推送消息:" + userFlow);
                 webSocketTest.sendMsg(userFlow);
@@ -54,7 +54,7 @@ public class Monitor implements Runnable {
             e.printStackTrace();
         }
         ScheduledExecutorService newScheduledThreadPool = Executors.newSingleThreadScheduledExecutor();
-        newScheduledThreadPool.scheduleWithFixedDelay(new Monitor(), 10, 3, TimeUnit.SECONDS);
+        newScheduledThreadPool.scheduleWithFixedDelay(new Monitor(), 10, 2, TimeUnit.SECONDS);
     }
 }
 
