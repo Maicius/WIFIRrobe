@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="education.cs.scu.mapper.ProbeUserMapper">
+    <select id="queryProbeUser" parameterType="ProbeUser">
+        SELECT shop_name, mmac, mac, visit_time, count(visit_time)
+        WHERE 
+
+    </select>
+</mapper>
