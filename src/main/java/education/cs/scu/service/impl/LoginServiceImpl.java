@@ -1,17 +1,15 @@
 package education.cs.scu.service.impl;
 
-import com.taobao.api.ApiException;
 import com.taobao.api.DefaultTaobaoClient;
 import com.taobao.api.TaobaoClient;
 import com.taobao.api.request.AlibabaAliqinFcSmsNumSendRequest;
 import com.taobao.api.response.AlibabaAliqinFcSmsNumSendResponse;
-import education.cs.scu.Util.VerifyCodeUtil;
+import education.cs.scu.javautils.VerifyCodeUtil;
 import education.cs.scu.entity.User;
 import education.cs.scu.mapper.UserMapper;
 import education.cs.scu.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.sound.sampled.BooleanControl;
 import java.util.Date;
 
 

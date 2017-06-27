@@ -19,26 +19,27 @@ import java.util.List;
 public class ShopController {
     @Autowired
     private ShopService shopService;
-    @RequestMapping(value= "/queryShopInfos", method = RequestMethod.GET)
+
+    @RequestMapping(value = "/queryShopInfos", method = RequestMethod.GET)
     public List<ShopInfo> queryShopInfos(HttpServletRequest request,
-                                 @RequestParam("userName") String userName) throws Exception{
+                                         @RequestParam("userName") String userName) throws Exception {
         User user = new User();
         user.setUserName(userName);
         List<ShopInfo> shopInfos = shopService.queryShopInfos(user);
-        if(shopInfos.size() > 0){
+        if (shopInfos.size() > 0) {
             System.out.println("查询成功");
         }
         return shopInfos;
     }
 
-    @RequestMapping(value= "addShopInfo", method = RequestMethod.GET)
+    @RequestMapping(value = "addShopInfo", method = RequestMethod.GET)
     public String addShoInfo(HttpServletRequest request,
-                                            @RequestParam("userName") String userName,
-                                            @RequestParam("shopName") String shopName,
+                             @RequestParam("userName") String userName,
+                             @RequestParam("shopName") String shopName,
                              @RequestParam("shopAddr") String shopAddr,
                              @RequestParam("shopManager") String shopManager,
                              @RequestParam("shopTelephone") String shopTelephone,
-                             @RequestParam("shopDescribe") String shopDescribe) throws Exception{
+                             @RequestParam("shopDescribe") String shopDescribe) throws Exception {
         ShopInfo shopInfo = new ShopInfo();
         shopInfo.setShop_name(shopName);
         shopInfo.setShop_addr(shopAddr);
@@ -48,14 +49,14 @@ public class ShopController {
         shopInfo.setShop_owner(userName);
         int success = shopService.addShopInfo(shopInfo);
         System.out.println(success);
-        if(success >0){
+        if (success > 0) {
             return "success";
-        }else {
+        } else {
             return "";
         }
     }
 
-    @RequestMapping(value="updateShopInfo", method = RequestMethod.GET)
+    @RequestMapping(value = "updateShopInfo", method = RequestMethod.GET)
     public String addShopInfo(HttpServletRequest request,
                               @RequestParam("userName") String userName,
                               @RequestParam("shopID") Integer shopID,
@@ -63,7 +64,7 @@ public class ShopController {
                               @RequestParam("shopAddr") String shopAddr,
                               @RequestParam("shopManager") String shopManager,
                               @RequestParam("shopTelephone") String shopTelephone,
-                              @RequestParam("shopDescribe") String shopDescribe) throws Exception{
+                              @RequestParam("shopDescribe") String shopDescribe) throws Exception {
         ShopInfo shopInfo = new ShopInfo();
         shopInfo.setShop_id(shopID);
         shopInfo.setShop_name(shopName);
@@ -74,9 +75,9 @@ public class ShopController {
         shopInfo.setShop_owner(userName);
         int success = shopService.updateShopInfo(shopInfo);
         System.err.println(success);
-        if(success >0){
+        if (success > 0) {
             return "success";
-        }else {
+        } else {
             return "";
         }
     }
