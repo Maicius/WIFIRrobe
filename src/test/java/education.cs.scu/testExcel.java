@@ -3,8 +3,8 @@ package education.cs.scu;
 import education.cs.scu.entity.UserVisitTimeBean;
 import education.cs.scu.service.UserVisitTimeService;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -15,7 +15,7 @@ import java.util.List;
  * @author Wang Han
  */
 public class testExcel {
-    @Autowired
+    @Resource
     private UserVisitTimeService userVisitTimeService;
 
     @Test
