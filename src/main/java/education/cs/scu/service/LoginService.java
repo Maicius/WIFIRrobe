@@ -7,4 +7,5 @@ import education.cs.scu.entity.User;
  */
 public interface LoginService {
     User doUserLogin(User user) throws Exception;
+    boolean verifyCode(User user) throws Exception;
 }

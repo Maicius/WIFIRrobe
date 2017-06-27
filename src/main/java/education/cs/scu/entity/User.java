@@ -7,6 +7,8 @@ public class User {
     private String userName;
     private String password;
     private String nickName;
+    private String verifyCode;
+    private String verifyTime;
     public User(){}
 
     public User(String userName, String password){
@@ -36,5 +38,21 @@ public class User {
 
     public void setNickName(String nickName) {
         this.nickName = nickName;
+    }
+
+    public String getVerifyCode() {
+        return verifyCode;
+    }
+
+    public void setVerifyCode(String verifyCode) {
+        this.verifyCode = verifyCode;
+    }
+
+    public String getVerifyTime() {
+        return verifyTime;
+    }
+
+    public void setVerifyTime(String verifyTime) {
+        this.verifyTime = verifyTime;
     }
 }

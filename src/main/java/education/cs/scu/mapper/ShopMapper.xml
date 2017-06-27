@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="education.cs.scu.mapper.ShopMapper">
+
+        <insert id="addShopInfo" parameterType="ShopInfo">
+            INSERT INTO shop_info(shop_name, shop_addr, shop_manager,
+            shop_owner, shop_telephone, shop_describe)
+            VALUES ( #{shop_name}, #{shop_addr}, #{shop_manager}, #{shop_owner},
+            #{shop_telephone}, #{shop_describe});
+        </insert>
+</mapper>

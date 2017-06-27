@@ -318,7 +318,17 @@
       <version>3.9</version>
     </dependency>
 
-
+    <!-- 阿里云 短信 依赖 -->
+    <dependency>
+      <groupId>zhanyun</groupId>
+      <artifactId>zhanyun</artifactId>
+      <version>1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>zhanyun2</groupId>
+      <artifactId>zhanyun2</artifactId>
+      <version>1.0</version>
+    </dependency>
   </dependencies>
     <!-- https://mvnrepository.com/artifact/commons-dbcp/commons-dbcp -->
 

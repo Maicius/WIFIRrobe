@@ -49,4 +49,17 @@ public class LoginController {
         }
     }
 
+    @RequestMapping(value="verifyCode", method = RequestMethod.GET)
+    public String userLogin(HttpServletRequest request,
+                            @RequestParam("userName") String userName) throws Exception{
+        User user = new User();
+        user.setUserName(userName);
+        boolean res = loginService.verifyCode(user);
+        if (res){
+            return "success";
+        }else{
+            return "";
+        }
+    }
+
 }
