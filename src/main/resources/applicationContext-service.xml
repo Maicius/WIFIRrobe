@@ -6,6 +6,7 @@
                                         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
     <bean id="loginService" class="education.cs.scu.service.impl.LoginServiceImpl"/>
-    <bean id="userVisitDao" class="education.cs.scu.service.impl.UserVisitDaoImpl"/>
+    <bean id="userVisitService" class="education.cs.scu.service.impl.UserVisitServiceImpl"/>
+    <bean id="userVisitTimeService" class="education.cs.scu.service.impl.UserVisitTimeServiceImpl"/>
     <bean id="monitor" class="education.cs.scu.webSocket.Monitor" init-method="sendMsg"/>
 </beans>
