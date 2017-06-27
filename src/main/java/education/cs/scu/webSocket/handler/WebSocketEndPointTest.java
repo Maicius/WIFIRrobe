@@ -42,7 +42,9 @@ public class WebSocketEndPointTest {
         webSocketSet.remove(this);  //从set中删除
         subOnlineCount();           //在线数减1
         System.out.println("有一连接关闭！当前连接数:" + getOnlineCount());
-        //DBHelper.closeDB();
+        if(getOnlineCount() < 1) {
+            //DBHelper.closeDB();
+        }
     }
 
     /**

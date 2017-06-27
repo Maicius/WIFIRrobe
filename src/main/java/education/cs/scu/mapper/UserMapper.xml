@@ -8,8 +8,9 @@
         <result column="nickName" property="nickName"/>
     </resultMap>
     <select id="doUserLogin" parameterType="User" resultMap="doUserLoginMap">
-        SELECT * FROM test
+        SELECT * FROM manager
         WHERE  username = #{userName}
         AND password = #{password}
+        AND verifyCode = #{verifyCode}
     </select>
 </mapper>

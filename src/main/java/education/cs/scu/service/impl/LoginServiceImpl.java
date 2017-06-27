@@ -53,7 +53,7 @@ public class LoginServiceImpl implements LoginService{
             user.setVerifyTime(String.valueOf(new Date()));
             System.out.println(rsp.getBody());
             return true;
-        } catch (ApiException e) {
+        } catch (Exception e) {
              e.printStackTrace();
              return false;
         }

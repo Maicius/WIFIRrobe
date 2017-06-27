@@ -11,9 +11,10 @@ public class User {
     private String verifyTime;
     public User(){}
 
-    public User(String userName, String password){
+    public User(String userName, String password, String verifyCode){
         this.userName = userName;
         this.password = password;
+        this.verifyCode = verifyCode;
     }
 
     public String getUserName() {

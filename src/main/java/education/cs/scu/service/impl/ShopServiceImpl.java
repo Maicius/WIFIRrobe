@@ -15,11 +15,15 @@ public class ShopServiceImpl implements  ShopService{
 
     @Autowired
     ShopMapper shopMapper;
-    public List<ShopInfo> queryShopInfos(User user) {
+    public List<ShopInfo> queryShopInfos(User user) throws Exception {
         return shopMapper.queryShopInfos(user);
     }
 
-    public int addShopInfo(ShopInfo shopInfo){
+    public int addShopInfo(ShopInfo shopInfo) throws Exception{
         return shopMapper.addShopInfo(shopInfo);
+    }
+
+    public int updateShopInfo(ShopInfo shopInfo) throws Exception{
+        return shopMapper.updateShopInfo(shopInfo);
     }
 }

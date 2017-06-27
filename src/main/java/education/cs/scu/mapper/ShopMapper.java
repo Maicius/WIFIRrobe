@@ -10,6 +10,6 @@ import java.util.List;
  */
 public interface ShopMapper {
     List<ShopInfo> queryShopInfos(User user);
-
     int addShopInfo(ShopInfo shopInfo);
+    int updateShopInfo(ShopInfo shopInfo);
 }

@@ -24,9 +24,10 @@ public class LoginController {
     @RequestMapping(value="/userLogin", method= RequestMethod.POST)
     public User userLogin(HttpServletRequest request,
                              @RequestParam(value="username") String userName,
-                             @RequestParam(value="password") String password) throws Exception{
-        User user = new User(userName, password);
-        System.out.println(userName);
+                             @RequestParam(value="password") String password,
+                          @RequestParam(value="verifyCode") String verifyCode) throws Exception{
+        User user = new User(userName, password, verifyCode);
+        System.err.println(userName);
         User loginUser = loginService.doUserLogin(user);
         HttpSession session = request.getSession();
 
@@ -43,9 +44,7 @@ public class LoginController {
             return loginUser;
         }else{
             User wrongUser = new User();
-            wrongUser.setNickName("该用户不存在");
-            session.setAttribute("user", wrongUser);
-            return null;
+            return wrongUser;
         }
     }
 

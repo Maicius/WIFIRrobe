@@ -25,6 +25,9 @@ public class ShopController {
         User user = new User();
         user.setUserName(userName);
         List<ShopInfo> shopInfos = shopService.queryShopInfos(user);
+        if(shopInfos.size() > 0){
+            System.out.println("查询成功");
+        }
         return shopInfos;
     }
 
@@ -45,6 +48,32 @@ public class ShopController {
         shopInfo.setShop_owner(userName);
         int success = shopService.addShopInfo(shopInfo);
         System.out.println(success);
+        if(success >0){
+            return "success";
+        }else {
+            return "";
+        }
+    }
+
+    @RequestMapping(value="updateShopInfo", method = RequestMethod.GET)
+    public String addShopInfo(HttpServletRequest request,
+                              @RequestParam("userName") String userName,
+                              @RequestParam("shopID") Integer shopID,
+                              @RequestParam("shopName") String shopName,
+                              @RequestParam("shopAddr") String shopAddr,
+                              @RequestParam("shopManager") String shopManager,
+                              @RequestParam("shopTelephone") String shopTelephone,
+                              @RequestParam("shopDescribe") String shopDescribe) throws Exception{
+        ShopInfo shopInfo = new ShopInfo();
+        shopInfo.setShop_id(shopID);
+        shopInfo.setShop_name(shopName);
+        shopInfo.setShop_addr(shopAddr);
+        shopInfo.setShop_telephone(shopTelephone);
+        shopInfo.setShop_manager(shopManager);
+        shopInfo.setShop_describe(shopDescribe);
+        shopInfo.setShop_owner(userName);
+        int success = shopService.updateShopInfo(shopInfo);
+        System.err.println(success);
         if(success >0){
             return "success";
         }else {
