@@ -1,5 +1,6 @@
 package education.cs.scu.service.impl;
 
+import education.cs.scu.entity.ProbeInfo;
 import education.cs.scu.entity.ShopInfo;
 import education.cs.scu.entity.User;
 import education.cs.scu.mapper.ShopMapper;
@@ -25,5 +26,13 @@ public class ShopServiceImpl implements  ShopService{
 
     public int updateShopInfo(ShopInfo shopInfo) throws Exception{
         return shopMapper.updateShopInfo(shopInfo);
+    }
+
+    public List<ProbeInfo> queryProbeInfos(User user) throws Exception{
+        return shopMapper.queryProbeInfos(user);
+    }
+
+    public List<ProbeInfo> queryshopProbeInfos(ShopInfo shopInfo) throws Exception {
+        return shopMapper.queryShopProbeInfo(shopInfo);
     }
 }

@@ -1,5 +1,6 @@
 package education.cs.scu.controller;
 
+import education.cs.scu.entity.ProbeInfo;
 import education.cs.scu.entity.ShopInfo;
 import education.cs.scu.entity.User;
 import education.cs.scu.service.ShopService;
@@ -80,5 +81,22 @@ public class ShopController {
         } else {
             return "";
         }
+    }
+
+    @RequestMapping(value = "queryProbeInfos", method = RequestMethod.GET)
+    public List<ProbeInfo> queryProbeInfos(HttpServletRequest request,
+                                           @RequestParam("userName") String userName) throws Exception{
+        User user = new User();
+        user.setUserName(userName);
+        return  shopService.queryProbeInfos(user);
+    }
+    @RequestMapping(value = "queryShopProbeInfos", method = RequestMethod.GET)
+    public List<ProbeInfo> queryShopProbeInfos(HttpServletRequest request,
+                                           @RequestParam("userName") String userName,
+                                           @RequestParam("shop_id") int shop_id) throws Exception{
+        ShopInfo shopInfo = new ShopInfo();
+        shopInfo.setShop_owner(userName);
+        shopInfo.setShop_id(shop_id);
+        return  shopService.queryshopProbeInfos(shopInfo);
     }
 }
