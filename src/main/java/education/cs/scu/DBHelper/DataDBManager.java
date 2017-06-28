@@ -28,7 +28,7 @@ public class DataDBManager extends DBHelper {
 				"        SELECT max(b.time)\n" +
 				"        FROM user_visit b\n" +
 				"        )";
-		System.out.println("query...");
+		//System.out.println("query...");
         preparedStatement = dbConnection.prepareStatement(logSql);
         setRs(preparedStatement.executeQuery());
 		return getRs();

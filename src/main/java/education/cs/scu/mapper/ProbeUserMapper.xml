@@ -4,7 +4,7 @@
 <mapper namespace="education.cs.scu.mapper.ProbeUserMapper">
     <select id="queryProbeUser" parameterType="ProbeUser">
         SELECT shop_name, mmac, mac, visit_time, count(visit_time)
-        WHERE 
+        WHERE
 
     </select>
 </mapper>

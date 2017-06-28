@@ -26,7 +26,7 @@ public class Monitor implements Runnable {
 
     public void run() {
         try {
-            System.out.println("clockDBManager" + clockDataDBManager.toString());
+            //System.out.println("clockDBManager" + clockDataDBManager.toString());
             rs = clockDataDBManager.executeQuery();
             if (rs.next()) {
                 userFlow.setTime(rs.getString("time"));
@@ -36,7 +36,7 @@ public class Monitor implements Runnable {
                 userFlow.setDeepVisitRate(rs.getDouble("deep_visit_rate"));
                 userFlow.setShallowVisitRate(rs.getDouble("shallow_visit_rate"));
                 WebSocketEndPointTest webSocketTest = new WebSocketEndPointTest();
-                System.out.println("推送消息:" + userFlow);
+//                System.out.println("推送消息:" + userFlow);
                 webSocketTest.sendMsg(userFlow);
             }
             //UserFlow userFlow = userVisitDao.queryUserVisit();

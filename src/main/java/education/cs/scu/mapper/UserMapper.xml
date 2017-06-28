@@ -13,4 +13,10 @@
         AND password = #{password}
         AND verifyCode = #{verifyCode}
     </select>
+
+    <update id="updateVerifyCode" parameterType="User">
+        UPDATE manager SET verifyCode = #{verifyCode}
+        WHERE userName=#{userName}
+    </update>
+
 </mapper>

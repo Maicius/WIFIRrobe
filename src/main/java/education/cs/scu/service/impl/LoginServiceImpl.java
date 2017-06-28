@@ -4,12 +4,16 @@ import com.taobao.api.DefaultTaobaoClient;
 import com.taobao.api.TaobaoClient;
 import com.taobao.api.request.AlibabaAliqinFcSmsNumSendRequest;
 import com.taobao.api.response.AlibabaAliqinFcSmsNumSendResponse;
+import education.cs.scu.entity.AlidayuSMS;
 import education.cs.scu.javautils.VerifyCodeUtil;
 import education.cs.scu.entity.User;
 import education.cs.scu.mapper.UserMapper;
 import education.cs.scu.service.LoginService;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 
 
@@ -23,15 +27,20 @@ public class LoginServiceImpl implements LoginService{
     public User doUserLogin(User user) throws Exception{
         return userMapper.doUserLogin(user);
     }
-    public boolean verifyCode(User user) throws Exception {
+    public boolean verifyCode(User user, HttpServletRequest request) throws Exception {
         String url = "http://gw.api.taobao.com/router/rest";
         int  code = VerifyCodeUtil.createVerifyCode();
         TaobaoClient client = new DefaultTaobaoClient(url,
                 "23780335",
                         "e158afdc661f0d72cf0855b05900f774");
+        AlidayuSMS alidayuSMS = new AlidayuSMS();
+        alidayuSMS.setCode(String.valueOf(code));
+        alidayuSMS.setName(user.getUserName());
+        ObjectMapper objectMapper = new ObjectMapper();
+        String json = objectMapper.writeValueAsString(alidayuSMS);
 
         AlibabaAliqinFcSmsNumSendRequest req = new AlibabaAliqinFcSmsNumSendRequest();
-        req.setExtend("1");
+
         //必须填写normal
         req.setSmsType("normal");
         //应用名称
@@ -39,21 +48,29 @@ public class LoginServiceImpl implements LoginService{
         //电话号码
         req.setRecNum(user.getUserName());
         //模板
-        req.setExtend(user.getUserName());
-        req.setSmsFreeSignName("SCUNET");
-
-        req.setSmsParamString("{\"name\":"+user.getUserName() + ", \"code\":" + String.valueOf(code)+"}");
         req.setSmsTemplateCode("SMS_74350014");
+        req.setExtend(user.getUserName());
+        req.setSmsParamString(json);
         try {
             AlibabaAliqinFcSmsNumSendResponse rsp = client.execute(req);
-            // 这里是我设置的一个保存验证码 机制。按照实际需求，自行设计
             user.setVerifyCode(String.valueOf(code));
             user.setVerifyTime(String.valueOf(new Date()));
             System.out.println(rsp.getBody());
+            HttpSession session = request.getSession();
+            session.setAttribute("verifyCode", String.valueOf(code));
+
+            int res = userMapper.updateVerifyCode(user);
+            System.err.println("验证码"+code);
+            System.err.println(session);
             return true;
         } catch (Exception e) {
              e.printStackTrace();
              return false;
         }
+    }
+
+    public int updateVerifyCode(User user) throws Exception {
+        user.setVerifyCode(String.valueOf(VerifyCodeUtil.createVerifyCode()));
+        return userMapper.updateVerifyCode(user);
     }
 }

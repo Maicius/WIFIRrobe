@@ -25,7 +25,7 @@ public class UserFlowEncoder implements Encoder.Text<UserVisitBean> {
                 .write("jumpRatio", userDiagramData.getShallowVisitRate())
                 .writeEnd()
                 .flush();
-        System.out.println(writer.toString());
+        //System.out.println(writer.toString());
         return writer.toString();
     }
 
