@@ -34,8 +34,6 @@ public class LoginController {
         User user = new User(userName, password, verifyCode);
         System.err.println(userName);
         User loginUser = loginService.doUserLogin(user);
-
-
         //获取当前系统时间，便于Monitor查询时间
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         UserFlow userFlow = new UserFlow();

@@ -11,4 +11,5 @@
     <bean id="monitor" class="education.cs.scu.webSocket.Monitor" init-method="sendMsg"/>
     <bean id="shopService" class="education.cs.scu.service.impl.ShopServiceImpl"/>
     <bean id="propertyService" class="education.cs.scu.service.impl.PropertyServiceImpl"/>
+    <bean id="queryHistoryData" class="education.cs.scu.service.impl.QueryHistoryDataServiceImpl"/>
 </beans>
