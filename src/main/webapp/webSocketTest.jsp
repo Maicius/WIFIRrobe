@@ -5,18 +5,18 @@
     <title>index Page</title>
 </head>
 <body>
-Welcome<br/><input id="text" type="text"/>
-<button onclick="send()">发送消息</button>
-<hr/>
-<button onclick="closeWebSocket()">关闭WebSocket连接</button>
-<hr/>
-<div id="message"></div>
+<%--Welcome<br/><input id="text" type="text"/>--%>
+<%--<button onclick="send()">发送消息</button>--%>
+<%--<hr/>--%>
+<%--<button onclick="closeWebSocket()">关闭WebSocket连接</button>--%>
+<%--<hr/>--%>
+<%--<div id="message"></div>--%>
 <table id="tb" class="altrowstable">
-    <th align="center"  colspan="9">实时信息监控</th>
+    <th align="center"  colspan="9">基于WIFI探针的商业大数据分析</th>
 </table>
 </body>
 
-<script type="text/javascript">
+<%--<script type="text/javascript">
     var websocket = null;
     //判断当前浏览器是否支持WebSocket
     if ('WebSocket' in window) {
@@ -78,5 +78,5 @@ Welcome<br/><input id="text" type="text"/>
         var message = document.getElementById('text').value;
         websocket.send(message);
     }
-</script>
+</script>--%>
 </html>

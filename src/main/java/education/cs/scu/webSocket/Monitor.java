@@ -26,6 +26,8 @@ public class Monitor implements Runnable {
 
     public void run() {
         try {
+            Connection conn = DBHelper.createInstance();
+            clockDataDBManager = new DataDBManager(conn);
             //System.out.println("clockDBManager" + clockDataDBManager.toString());
             rs = clockDataDBManager.executeQuery();
             if (rs.next()) {
@@ -39,6 +41,7 @@ public class Monitor implements Runnable {
 //                System.out.println("推送消息:" + userFlow);
                 webSocketTest.sendMsg(userFlow);
             }
+            DBHelper.closeDB();
             //UserFlow userFlow = userVisitDao.queryUserVisit();
 
         }catch (Exception e){
@@ -47,12 +50,6 @@ public class Monitor implements Runnable {
     }
     public void sendMsg() {
         System.out.println("sendMsg");
-        try {
-            Connection conn = DBHelper.createInstance();
-            clockDataDBManager = new DataDBManager(conn);
-        }catch(Exception e){
-            e.printStackTrace();
-        }
         ScheduledExecutorService newScheduledThreadPool = Executors.newSingleThreadScheduledExecutor();
         newScheduledThreadPool.scheduleWithFixedDelay(new Monitor(), 10, 2, TimeUnit.SECONDS);
     }

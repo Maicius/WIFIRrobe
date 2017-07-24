@@ -20,10 +20,12 @@ public  class DBHelper {
     }
     
 	public static Connection createInstance() throws SQLException {
-        initDB();
-        dbConnection = DriverManager.getConnection(URL, USER, PASS);
-		System.out.println("SqlManager:Connect to database successful.");
-        return dbConnection;
+
+			initDB();
+			dbConnection = DriverManager.getConnection(URL, USER, PASS);
+			System.out.println("SqlManager:Connect to database successful.");
+
+		return dbConnection;
 	}
 
 	// 加载驱动
