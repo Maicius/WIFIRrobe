@@ -10,7 +10,7 @@ import redis.clients.jedis.JedisPoolConfig;
 public class RedisPool {
     private static String URL = "127.0.0.1";
     private static int PORT = 6379;
-    private static String PASSOWRD = "";
+    private static String PASSOWRD = "110110";
 
     //连接实例的最啊的数目，默认值为8
     //赋值为-1表示不限制；
@@ -42,7 +42,7 @@ public class RedisPool {
             config.setMaxIdle(MAX_IDLE);
             config.setMaxWaitMillis(MAX_WAIT);
             config.setTestOnBorrow(TEST_ON_BORROW);
-            jedisPool = new JedisPool(config, URL, PORT, TIMEOUT);
+            jedisPool = new JedisPool(config, URL, PORT, TIMEOUT, PASSOWRD);
         }catch(Exception e) {
             e.printStackTrace();
         }

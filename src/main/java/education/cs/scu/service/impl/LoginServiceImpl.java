@@ -10,22 +10,23 @@ import education.cs.scu.entity.User;
 import education.cs.scu.mapper.UserMapper;
 import education.cs.scu.service.LoginService;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.util.JSONPObject;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
-
-
 /**
  * Created by maicius on 2017/3/31.
  */
 public class LoginServiceImpl implements LoginService{
     @Autowired
     private UserMapper userMapper;
-
+    ObjectMapper userJsonMapper = new ObjectMapper();
     public User doUserLogin(User user) throws Exception{
-        return userMapper.doUserLogin(user);
+        String json = userJsonMapper.writeValueAsString(user);
+
+                return userMapper.doUserLogin(user);
     }
     public boolean verifyCode(User user, HttpServletRequest request) throws Exception {
         String url = "http://gw.api.taobao.com/router/rest";
