@@ -3,7 +3,6 @@ package education.cs.scu.controller;
 import education.cs.scu.entity.User;
 import education.cs.scu.entity.UserFlow;
 import education.cs.scu.service.LoginService;
-import education.cs.scu.webSocket.Monitor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +19,6 @@ public class LoginController {
 
     @Autowired
     private LoginService loginService;
-
 
     @RequestMapping(value = "/userLogin", method = RequestMethod.GET)
     public User userLogin(HttpServletRequest request,
@@ -42,12 +40,6 @@ public class LoginController {
         if (loginUser != null) {
             session.setAttribute("user", loginUser);
             System.out.println("finish:" + loginUser.getNickName());
-            Monitor monitor = new Monitor();
-            monitor.sendMsg();
-            //登陆成功之后随机赋予验证码新值，避免重复登陆
-            int res = loginService.updateVerifyCode(user);
-            if (res >0 )
-                System.out.println("验证码已更新");
             return loginUser;
         } else {
             //返回一个空对象
@@ -56,12 +48,12 @@ public class LoginController {
     }
 
     @RequestMapping(value = "verifyCode", method = RequestMethod.GET)
-    public User userLogin(HttpServletRequest request,
+    public User userVerify(HttpServletRequest request,
                             @RequestParam("userName") String userName) throws Exception {
         User user = new User();
         user.setUserName(userName);
-        boolean res = loginService.verifyCode(user, request);
-        if (res) {
+        String res = loginService.verifyCode(user);
+        if (res.length() > 0) {
             return user;
         } else {
             return new User();

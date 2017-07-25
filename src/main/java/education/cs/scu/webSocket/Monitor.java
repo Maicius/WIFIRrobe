@@ -7,9 +7,6 @@ import education.cs.scu.webSocket.handler.WebSocketEndPointTest;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 
 public class Monitor implements Runnable {
@@ -49,9 +46,9 @@ public class Monitor implements Runnable {
         }
     }
     public void sendMsg() {
-        System.out.println("sendMsg");
-        ScheduledExecutorService newScheduledThreadPool = Executors.newSingleThreadScheduledExecutor();
-        newScheduledThreadPool.scheduleWithFixedDelay(new Monitor(), 10, 2, TimeUnit.SECONDS);
+//        System.out.println("sendMsg");
+//        ScheduledExecutorService newScheduledThreadPool = Executors.newSingleThreadScheduledExecutor();
+//        newScheduledThreadPool.scheduleWithFixedDelay(new Monitor(), 10, 2, TimeUnit.SECONDS);
     }
 }
 

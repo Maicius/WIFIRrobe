@@ -4,6 +4,7 @@ import com.taobao.api.DefaultTaobaoClient;
 import com.taobao.api.TaobaoClient;
 import com.taobao.api.request.AlibabaAliqinFcSmsNumSendRequest;
 import com.taobao.api.response.AlibabaAliqinFcSmsNumSendResponse;
+import education.cs.scu.DAO.LoginDAO;
 import education.cs.scu.DBHelper.RedisPool;
 import education.cs.scu.entity.AlidayuSMS;
 import education.cs.scu.entity.User;
@@ -25,21 +26,15 @@ import java.util.Map;
 public class LoginServiceImpl implements LoginService{
     @Autowired
     private UserMapper userMapper;
-    ObjectMapper userJsonMapper = new ObjectMapper();
-    private Jedis jedis;
+
+    @Autowired
+    private LoginDAO loginDAO;
+
     public User doUserLogin(User user) throws Exception{
-        jedis = RedisPool.getJedis();
-        Map<String, String> userMap = jedis.hgetAll(user.getUserName());
-        User loginUser = new User();
-        if( user.getPassword().equals(userMap.get("password")) &&
-                user.getVerifyCode().equals(userMap.get("verifyCode"))) {
-            //登陆成功返回用户名
-            loginUser.setUserName(userMap.get("userName"));
-        }
-        return loginUser;
+        return loginDAO.doUserLogin(user);
         //return userMapper.doUserLogin(user);
     }
-    public boolean verifyCode(User user, HttpServletRequest request) throws Exception {
+    public String verifyCode(User user) throws Exception {
         String url = "http://gw.api.taobao.com/router/rest";
         int  code = VerifyCodeUtil.createVerifyCode();
         TaobaoClient client = new DefaultTaobaoClient(url,
@@ -68,24 +63,19 @@ public class LoginServiceImpl implements LoginService{
             user.setVerifyCode(String.valueOf(code));
             user.setVerifyTime(String.valueOf(new Date()));
             System.out.println(rsp.getBody());
-            HttpSession session = request.getSession();
-            session.setAttribute("verifyCode", String.valueOf(code));
-
-            int res = userMapper.updateVerifyCode(user);
+//            HttpSession session = request.getSession();
+//            session.setAttribute("verifyCode", String.valueOf(code));
+            //int res = userMapper.updateVerifyCode(user);
+            int res = loginDAO.updateRedisVerifyCode(user);
             System.err.println("验证码"+code);
-            System.err.println(session);
-            return true;
+            return String.valueOf(code);
         } catch (Exception e) {
              e.printStackTrace();
-             return false;
+             return "";
         }
     }
 
     public int updateVerifyCode(User user) throws Exception {
-        user.setVerifyCode(String.valueOf(VerifyCodeUtil.createVerifyCode()));
-        return userMapper.updateVerifyCode(user);
-    }
-    public int updateRedisVerifyCode(User user) throws Exception {
         user.setVerifyCode(String.valueOf(VerifyCodeUtil.createVerifyCode()));
         return userMapper.updateVerifyCode(user);
     }

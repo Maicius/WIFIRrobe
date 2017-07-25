@@ -8,8 +8,9 @@
     <bean id="loginService" class="education.cs.scu.service.impl.LoginServiceImpl"/>
     <bean id="userVisitService" class="education.cs.scu.service.impl.UserVisitServiceImpl"/>
     <bean id="userVisitTimeService" class="education.cs.scu.service.impl.UserVisitTimeServiceImpl"/>
-    <bean id="monitor" class="education.cs.scu.webSocket.Monitor" init-method="sendMsg"/>
+    <!--<bean id="monitor" class="education.cs.scu.webSocket.Monitor" init-method="sendMsg"/>-->
     <bean id="shopService" class="education.cs.scu.service.impl.ShopServiceImpl"/>
     <bean id="propertyService" class="education.cs.scu.service.impl.PropertyServiceImpl"/>
     <bean id="queryHistoryData" class="education.cs.scu.service.impl.QueryHistoryDataServiceImpl"/>
+    <bean id="loginDAO" class="education.cs.scu.DAO.LoginDAO"/>
 </beans>
