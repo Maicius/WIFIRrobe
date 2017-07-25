@@ -4,18 +4,21 @@ import com.taobao.api.DefaultTaobaoClient;
 import com.taobao.api.TaobaoClient;
 import com.taobao.api.request.AlibabaAliqinFcSmsNumSendRequest;
 import com.taobao.api.response.AlibabaAliqinFcSmsNumSendResponse;
+import education.cs.scu.DBHelper.RedisPool;
 import education.cs.scu.entity.AlidayuSMS;
-import education.cs.scu.javautils.VerifyCodeUtil;
 import education.cs.scu.entity.User;
+import education.cs.scu.javautils.VerifyCodeUtil;
 import education.cs.scu.mapper.UserMapper;
 import education.cs.scu.service.LoginService;
 import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.util.JSONPObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import redis.clients.jedis.Jedis;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
+import java.util.Map;
+
 /**
  * Created by maicius on 2017/3/31.
  */
@@ -23,10 +26,18 @@ public class LoginServiceImpl implements LoginService{
     @Autowired
     private UserMapper userMapper;
     ObjectMapper userJsonMapper = new ObjectMapper();
+    private Jedis jedis;
     public User doUserLogin(User user) throws Exception{
-        String json = userJsonMapper.writeValueAsString(user);
-
-                return userMapper.doUserLogin(user);
+        jedis = RedisPool.getJedis();
+        Map<String, String> userMap = jedis.hgetAll(user.getUserName());
+        User loginUser = new User();
+        if( user.getPassword().equals(userMap.get("password")) &&
+                user.getVerifyCode().equals(userMap.get("verifyCode"))) {
+            //登陆成功返回用户名
+            loginUser.setUserName(userMap.get("userName"));
+        }
+        return loginUser;
+        //return userMapper.doUserLogin(user);
     }
     public boolean verifyCode(User user, HttpServletRequest request) throws Exception {
         String url = "http://gw.api.taobao.com/router/rest";
@@ -71,6 +82,10 @@ public class LoginServiceImpl implements LoginService{
     }
 
     public int updateVerifyCode(User user) throws Exception {
+        user.setVerifyCode(String.valueOf(VerifyCodeUtil.createVerifyCode()));
+        return userMapper.updateVerifyCode(user);
+    }
+    public int updateRedisVerifyCode(User user) throws Exception {
         user.setVerifyCode(String.valueOf(VerifyCodeUtil.createVerifyCode()));
         return userMapper.updateVerifyCode(user);
     }
