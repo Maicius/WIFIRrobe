@@ -17,6 +17,14 @@ public class queryHistoryDataController {
     @Autowired
     private QueryHistoryDataService queryHistoryDataService;
 
+    /**
+     * 根据月度查询活跃数据
+     * @param request
+     * @param userName
+     * @param activityMonth
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "/queryActivityMonth", method = RequestMethod.GET)
     public List<HistoryData> queryActivityMonth(HttpServletRequest request,
                                                 @RequestParam("userName") String userName,
@@ -27,6 +35,14 @@ public class queryHistoryDataController {
         return queryHistoryDataService.queryActivityMonth(historyData);
     }
 
+    /**
+     * 根据年度查询活跃信息
+     * @param request
+     * @param userName
+     * @param activityYear
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "/queryActivityYear", method = RequestMethod.GET)
     public List<HistoryData> queryActivityYear(HttpServletRequest request,
                                                @RequestParam("userName") String userName,
@@ -38,6 +54,14 @@ public class queryHistoryDataController {
         return queryHistoryDataService.queryActivityYear(historyData);
     }
 
+    /**
+     * 根据日期查询一天中每个小时的活跃信息
+     * @param request
+     * @param userName
+     * @param activityDay
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "/queryActivityDay", method = RequestMethod.GET)
     public List<HistoryData> queryActivityDay(HttpServletRequest request,
                                               @RequestParam("userName") String userName,

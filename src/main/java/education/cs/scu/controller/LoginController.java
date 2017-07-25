@@ -10,7 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
 
-/**
+/**登陆控制类
+ * 负责管理用户登陆时的验证信息
  * Created by maicius on 2017/3/31.
  */
 @CrossOrigin
@@ -20,6 +21,15 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
 
+    /**
+     * 控制用户登登陆
+     * @param request 保存session
+     * @param userName
+     * @param password
+     * @param verifyCode
+     * @return 返回用户昵称
+     * @throws Exception
+     */
     @RequestMapping(value = "/userLogin", method = RequestMethod.GET)
     public User userLogin(HttpServletRequest request,
                           @RequestParam(value = "userName") String userName,
@@ -47,6 +57,14 @@ public class LoginController {
         }
     }
 
+    /**
+     * 控制验证码发送
+     * 根据用户名发送验证码
+     * @param request
+     * @param userName
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "verifyCode", method = RequestMethod.GET)
     public User userVerify(HttpServletRequest request,
                             @RequestParam("userName") String userName) throws Exception {

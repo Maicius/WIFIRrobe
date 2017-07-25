@@ -11,9 +11,16 @@ import java.util.Map;
  */
 public class LoginDAO {
     private static Jedis jedis;
+
+    /**
+     * 用户登陆类
+     * 根据key值从Redis Hash中提取数据并进行验证
+     * @param user
+     * @return 带有用户昵称的用户对象
+     * @throws Exception
+     */
     public User doUserLogin(User user) throws Exception {
         jedis = RedisPool.getJedis();
-
         Map<String, String> userMap = jedis.hgetAll(user.getUserName());
         User loginUser = new User();
         if (user.getPassword().equals(userMap.get("password")) &&
