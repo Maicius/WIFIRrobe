@@ -4,8 +4,6 @@ import com.taobao.api.DefaultTaobaoClient;
 import com.taobao.api.TaobaoClient;
 import com.taobao.api.request.AlibabaAliqinFcSmsNumSendRequest;
 import com.taobao.api.response.AlibabaAliqinFcSmsNumSendResponse;
-import education.cs.scu.DAO.LoginDAO;
-import education.cs.scu.DBHelper.RedisPool;
 import education.cs.scu.entity.AlidayuSMS;
 import education.cs.scu.entity.User;
 import education.cs.scu.javautils.VerifyCodeUtil;
@@ -13,12 +11,8 @@ import education.cs.scu.mapper.UserMapper;
 import education.cs.scu.service.LoginService;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import redis.clients.jedis.Jedis;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.Date;
-import java.util.Map;
 
 /**
  * Created by maicius on 2017/3/31.
@@ -26,13 +20,9 @@ import java.util.Map;
 public class LoginServiceImpl implements LoginService{
     @Autowired
     private UserMapper userMapper;
-
-    @Autowired
-    private LoginDAO loginDAO;
-
     public User doUserLogin(User user) throws Exception{
-        return loginDAO.doUserLogin(user);
-        //return userMapper.doUserLogin(user);
+        //return loginDAO.doUserLogin(user);
+        return userMapper.doUserLogin(user);
     }
     public String verifyCode(User user) throws Exception {
         String url = "http://gw.api.taobao.com/router/rest";
@@ -66,7 +56,7 @@ public class LoginServiceImpl implements LoginService{
 //            HttpSession session = request.getSession();
 //            session.setAttribute("verifyCode", String.valueOf(code));
             //int res = userMapper.updateVerifyCode(user);
-            int res = loginDAO.updateRedisVerifyCode(user);
+            int res = userMapper.updateVerifyCode(user);
             System.err.println("验证码"+code);
             return String.valueOf(code);
         } catch (Exception e) {

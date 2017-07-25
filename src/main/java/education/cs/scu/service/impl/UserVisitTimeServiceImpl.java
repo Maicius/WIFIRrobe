@@ -20,7 +20,6 @@ public class UserVisitTimeServiceImpl implements UserVisitTimeService {
     @Autowired
     private UserVisitTimeMapper userVisitTimeMapper;
 
-
     public String getFirstVisitTIme(int shopId, String mac) {
         String firstTime = null;
         try {

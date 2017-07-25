@@ -12,5 +12,5 @@
     <bean id="shopService" class="education.cs.scu.service.impl.ShopServiceImpl"/>
     <bean id="propertyService" class="education.cs.scu.service.impl.PropertyServiceImpl"/>
     <bean id="queryHistoryData" class="education.cs.scu.service.impl.QueryHistoryDataServiceImpl"/>
-    <bean id="loginDAO" class="education.cs.scu.DAO.LoginDAO"/>
+    <bean id="userMapper" class="education.cs.scu.mapper.Impl.UserMapperImpl"/>
 </beans>
