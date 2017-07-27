@@ -3,6 +3,8 @@ package education.cs.scu.mapper.Impl;
 import education.cs.scu.DBHelper.RedisPool;
 import education.cs.scu.entity.User;
 import education.cs.scu.mapper.UserMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import redis.clients.jedis.Jedis;
 
 import java.util.Map;
@@ -13,6 +15,8 @@ import java.util.Map;
 public class UserMapperImpl implements UserMapper {
     private static Jedis jedis;
 
+    @Autowired
+    private RedisTemplate redisTemplate;
     /**
      * 用户登陆类
      * 根据key值从Redis Hash中提取数据并进行验证
@@ -20,6 +24,9 @@ public class UserMapperImpl implements UserMapper {
      * @return 带有用户昵称的用户对象
      * @throws Exception
      */
+    public User doUserLogin2(User user) throws Exception{
+        return null;
+    }
     public User doUserLogin(User user) throws Exception {
         jedis = RedisPool.getJedis();
         User loginUser = new User();
