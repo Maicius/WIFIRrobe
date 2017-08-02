@@ -35,7 +35,11 @@ public class RedisPool {
     /**
      * 初始化Redis连接池
      */
-    static {
+    RedisPool(){
+        initRedisPool();
+    }
+
+    static void initRedisPool(){
         try{
             JedisPoolConfig config = new JedisPoolConfig();
             config.setMaxTotal(MAX_ACTIVE);
@@ -47,16 +51,17 @@ public class RedisPool {
             e.printStackTrace();
         }
     }
+
     /**
      * 获取Jedis实例
      */
     public synchronized static Jedis getJedis(){
         try{
             if (jedisPool != null) {
-                Jedis resource = jedisPool.getResource();
-                return resource;
+                return  jedisPool.getResource();
             } else {
-                return null;
+                initRedisPool();
+                return jedisPool.getResource();
             }
         } catch (Exception e){
             e.printStackTrace();
