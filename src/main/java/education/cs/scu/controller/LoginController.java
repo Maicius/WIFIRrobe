@@ -53,6 +53,7 @@ public class LoginController {
             return loginUser;
         } else {
             //返回一个空对象
+            System.out.println("failed to login");
             return new User();
         }
     }
@@ -77,5 +78,4 @@ public class LoginController {
             return new User();
         }
     }
-
 }

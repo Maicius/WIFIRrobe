@@ -13,7 +13,7 @@ import java.util.Map;
  * Created by maicius on 2017/7/26.
  */
 public class UserMapperImpl implements UserMapper {
-    private static Jedis jedis;
+    private static Jedis jedis ;
 
     @Autowired
     private RedisTemplate redisTemplate;
@@ -42,13 +42,9 @@ public class UserMapperImpl implements UserMapper {
                 //登陆成功清除验证码
                 jedis.hset(loginUser.getUserName(), "verifyCode", "");
             }
-            RedisPool.returnResource(jedis);
         }catch(Exception e){
             //发生错误时强制关闭实例
             e.printStackTrace();
-            if(jedis != null){
-                RedisPool.returnResource(jedis);
-            }
         }
         return loginUser;
     }
@@ -63,7 +59,7 @@ public class UserMapperImpl implements UserMapper {
         jedis = RedisPool.getJedis();
         jedis.hset(user.getUserName(), "verifyTime", user.getVerifyTime());
         Long ret =  jedis.hset(user.getUserName(), "verifyCode", user.getVerifyCode());
-        RedisPool.returnResource(jedis);
+        //RedisPool.returnResource(jedis);
         return ret.intValue();
         //user.setVerifyCode(String.valueOf(VerifyCodeUtil.createVerifyCode()));
     }
