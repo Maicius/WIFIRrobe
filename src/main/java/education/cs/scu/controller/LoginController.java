@@ -1,16 +1,21 @@
 package education.cs.scu.controller;
 
+import education.cs.scu.entity.ProbeUser;
 import education.cs.scu.entity.User;
 import education.cs.scu.entity.UserFlow;
 import education.cs.scu.service.LoginService;
+import education.cs.scu.service.ProbeUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
-/**登陆控制类
+/**
+ * 登陆控制类
  * 负责管理用户登陆时的验证信息
  * Created by maicius on 2017/3/31.
  */
@@ -21,9 +26,54 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
 
+    @Autowired
+    private ProbeUserService probeUserService;
+    List<ProbeUser> probeUsers = new ArrayList<ProbeUser>();
+
+    /**
+     * 用来测试的
+     */
+    @RequestMapping(value = "testRedis", method = RequestMethod.GET)
+    public void testRedis(HttpServletRequest request,
+                          @RequestParam("userName") String userName) throws Exception {
+        ProbeUser probeUser = new ProbeUser();
+        probeUser.setMac("aa.bb.cc.dd.ee.ff");
+        probeUser.setAddr("四川省成都市双流区四川大学江安校区西园7舍");
+        probeUser.setMmac("10000");
+        probeUser.setBrand("brand_01");
+        probeUser.setActivity_degree("30");
+
+        ProbeUser probeUser1 = new ProbeUser();
+        probeUser1.setMac("FF.FF.FF.FF.FF.FF");
+        probeUser1.setAddr("四川省成都市双流区四川大学江安校区西园8舍");
+        probeUser1.setMmac("11111");
+        probeUser1.setBrand("brand_02");
+        probeUser1.setActivity_degree("40");
+
+        for (int i = 0;i<10;i++) {
+            if (i < 5) {
+                probeUsers.add(probeUser);
+            }else {
+                probeUsers.add(probeUser1);
+            }
+
+        }
+
+        try {
+            probeUserService.setProbeUser(probeUsers);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        List<ProbeUser> list = probeUserService.queryProbeUser(new User());
+        for (ProbeUser probeUser3 :list) {
+            System.out.println(probeUser3.getAddr()+ ":" +probeUser3.getMac());
+        }
+    }
+
     /**
      * 控制用户登登陆
-     * @param request 保存session
+     *
+     * @param request    保存session
      * @param userName
      * @param password
      * @param verifyCode
@@ -61,6 +111,7 @@ public class LoginController {
     /**
      * 控制验证码发送
      * 根据用户名发送验证码
+     *
      * @param request
      * @param userName
      * @return
@@ -68,7 +119,7 @@ public class LoginController {
      */
     @RequestMapping(value = "verifyCode", method = RequestMethod.GET)
     public User userVerify(HttpServletRequest request,
-                            @RequestParam("userName") String userName) throws Exception {
+                           @RequestParam("userName") String userName) throws Exception {
         User user = new User();
         user.setUserName(userName);
         String res = loginService.verifyCode(user);

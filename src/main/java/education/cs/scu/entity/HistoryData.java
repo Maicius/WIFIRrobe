@@ -1,9 +1,13 @@
 package education.cs.scu.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by maicius on 2017/6/29.
  */
-public class HistoryData {
+public class HistoryData implements Serializable{
+
+    private static final long serialVersionUID = 3171640576290115576L;
     private String year;
     private String mongth;
     private String day;

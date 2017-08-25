@@ -1,11 +1,15 @@
 package education.cs.scu.entity;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by maicius on 2017/6/28.
  */
-public class PropertyBean {
-    private static final long serialVersinUID = 351877796426921776L;
+public class PropertyBean implements Serializable {
 
+    private static final long serialVersionUID = 351877796426921776L;
     private int propertyId;
     private int shopId;
     private String mmac;
@@ -20,7 +24,7 @@ public class PropertyBean {
     }
 
     public static long getSerialVersinUID() {
-        return serialVersinUID;
+        return serialVersionUID;
     }
 
     public int getPropertyId() {

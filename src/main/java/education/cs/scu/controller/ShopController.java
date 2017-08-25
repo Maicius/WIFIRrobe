@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,6 +24,7 @@ public class ShopController {
 
     /**
      * 查询商场信息
+     *
      * @param request
      * @param userName
      * @return 商场列表
@@ -30,18 +32,26 @@ public class ShopController {
      */
     @RequestMapping(value = "/queryShopInfos", method = RequestMethod.GET)
     public List<ShopInfo> queryShopInfos(HttpServletRequest request,
-                                         @RequestParam("userName") String userName) throws Exception {
-        User user = new User();
-        user.setUserName(userName);
-        List<ShopInfo> shopInfos = shopService.queryShopInfos(user);
-        if (shopInfos.size() > 0) {
+                                         @RequestParam("userName") String userName,
+                                         @RequestParam("shopId") int shopId) throws Exception {
+
+        ShopInfo shopInfo = new ShopInfo();
+        shopInfo.setShop_id(shopId);
+        shopInfo.setShop_owner(userName);
+        List<ShopInfo> shopInfos = new ArrayList<ShopInfo>();
+        shopInfos.add(shopInfo);
+
+        List<ShopInfo> resShopInfos = shopService.queryShopInfos(shopInfos);
+
+        if (resShopInfos.size() > 0) {
             System.out.println("查询成功");
         }
-        return shopInfos;
+        return resShopInfos;
     }
 
     /**
      * 增加商场信息
+     *
      * @param request
      * @param userName
      * @param shopName
@@ -79,6 +89,7 @@ public class ShopController {
 
     /**
      * 更新商场信息
+     *
      * @param request
      * @param userName
      * @param shopID
@@ -118,6 +129,7 @@ public class ShopController {
 
     /**
      * 根据用户名查询探针信息
+     *
      * @param request
      * @param userName
      * @return
@@ -125,14 +137,18 @@ public class ShopController {
      */
     @RequestMapping(value = "queryProbeInfos", method = RequestMethod.GET)
     public List<ProbeInfo> queryProbeInfos(HttpServletRequest request,
-                                           @RequestParam("userName") String userName) throws Exception{
-        User user = new User();
-        user.setUserName(userName);
-        return  shopService.queryProbeInfos(user);
+                                           @RequestParam("userName") String userName,
+                                           @RequestParam("shopId") int shopId) throws Exception {
+        ShopInfo shopInfo = new ShopInfo();
+        shopInfo.setShop_id(shopId);
+        shopInfo.setShop_owner(userName);
+
+        return shopService.queryProbeInfos(shopInfo);
     }
 
     /**
      * 根据用户名和商场ID查询探针
+     *
      * @param request
      * @param userName
      * @param shop_id
@@ -141,11 +157,11 @@ public class ShopController {
      */
     @RequestMapping(value = "queryShopProbeInfos", method = RequestMethod.GET)
     public List<ProbeInfo> queryShopProbeInfos(HttpServletRequest request,
-                                           @RequestParam("userName") String userName,
-                                           @RequestParam("shop_id") int shop_id) throws Exception{
+                                               @RequestParam("userName") String userName,
+                                               @RequestParam("shop_id") int shop_id) throws Exception {
         ShopInfo shopInfo = new ShopInfo();
         shopInfo.setShop_owner(userName);
         shopInfo.setShop_id(shop_id);
-        return  shopService.queryshopProbeInfos(shopInfo);
+        return shopService.queryshopProbeInfos(shopInfo);
     }
 }

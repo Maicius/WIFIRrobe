@@ -17,19 +17,21 @@ import java.util.Date;
 /**
  * Created by maicius on 2017/3/31.
  */
-public class LoginServiceImpl implements LoginService{
+public class LoginServiceImpl implements LoginService {
     @Autowired
     private UserMapper userMapper;
-    public User doUserLogin(User user) throws Exception{
+
+    public User doUserLogin(User user) throws Exception {
         //return loginDAO.doUserLogin(user);
         return userMapper.doUserLogin(user);
     }
+
     public String verifyCode(User user) throws Exception {
         String url = "http://gw.api.taobao.com/router/rest";
-        int  code = VerifyCodeUtil.createVerifyCode();
+        int code = VerifyCodeUtil.createVerifyCode();
         TaobaoClient client = new DefaultTaobaoClient(url,
                 "23780335",
-                        "e158afdc661f0d72cf0855b05900f774");
+                "e158afdc661f0d72cf0855b05900f774");
         AlidayuSMS alidayuSMS = new AlidayuSMS();
         alidayuSMS.setCode(String.valueOf(code));
         alidayuSMS.setName(user.getUserName());
@@ -57,11 +59,11 @@ public class LoginServiceImpl implements LoginService{
 //            session.setAttribute("verifyCode", String.valueOf(code));
             //int res = userMapper.updateVerifyCode(user);
             int res = userMapper.updateVerifyCode(user);
-            System.err.println("验证码"+code);
+            System.err.println("验证码" + code);
             return String.valueOf(code);
         } catch (Exception e) {
-             e.printStackTrace();
-             return "";
+            e.printStackTrace();
+            return "";
         }
     }
 

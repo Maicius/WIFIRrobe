@@ -16,8 +16,9 @@ public class ShopServiceImpl implements  ShopService{
 
     @Autowired
     ShopMapper shopMapper;
-    public List<ShopInfo> queryShopInfos(User user) throws Exception {
-        return shopMapper.queryShopInfos(user);
+
+    public List<ShopInfo> queryShopInfos(List<ShopInfo> shopInfos) throws Exception {
+        return shopMapper.queryShopInfos(shopInfos);
     }
 
     public int addShopInfo(ShopInfo shopInfo) throws Exception{
@@ -28,8 +29,8 @@ public class ShopServiceImpl implements  ShopService{
         return shopMapper.updateShopInfo(shopInfo);
     }
 
-    public List<ProbeInfo> queryProbeInfos(User user) throws Exception{
-        return shopMapper.queryProbeInfos(user);
+    public List<ProbeInfo> queryProbeInfos(ShopInfo shopInfo) throws Exception{
+        return shopMapper.queryProbeInfos(shopInfo);
     }
 
     public List<ProbeInfo> queryshopProbeInfos(ShopInfo shopInfo) throws Exception {

@@ -1,11 +1,14 @@
 package education.cs.scu.entity;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
  * Created by maicius on 2017/6/28.
  */
-public class ProbeUser {
+public class ProbeUser implements Serializable{
+
+    private static final long serialVersionUID = -114946284919754742L;
     private String mmac;
     private String addr;
     private String mac;

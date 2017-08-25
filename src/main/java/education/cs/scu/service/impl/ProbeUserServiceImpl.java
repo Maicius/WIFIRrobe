@@ -12,9 +12,15 @@ import java.util.List;
  * Created by maicius on 2017/6/28.
  */
 public class ProbeUserServiceImpl implements ProbeUserService{
+
     @Autowired
     private ProbeUserMapper probeUserMapper;
+
     public List<ProbeUser> queryProbeUser(User user) throws Exception {
         return probeUserMapper.queryProbeUser(user);
+    }
+
+    public void setProbeUser(List<ProbeUser> probeUser) throws Exception {
+        probeUserMapper.setProbeUser(probeUser);
     }
 }

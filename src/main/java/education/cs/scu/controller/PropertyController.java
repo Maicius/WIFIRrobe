@@ -20,6 +20,7 @@ public class PropertyController {
 
     /**
      * 属性设置类
+     *
      * @param request
      * @param shop_id
      * @param mmac
@@ -60,6 +61,7 @@ public class PropertyController {
 
     /**
      * 新增属性
+     *
      * @param request
      * @param shop_id
      * @param mmac
@@ -80,6 +82,7 @@ public class PropertyController {
                            @RequestParam("visitRssi") Integer visitRssi,
                            @RequestParam("activityDegree") String activityDegree,
                            @RequestParam("visitTimeSplit") String visitTimeSplit) throws Exception {
+
         PropertyBean propertyBean = new PropertyBean();
         propertyBean.setShopId(shop_id);
         propertyBean.setMmac(mmac);
@@ -89,6 +92,7 @@ public class PropertyController {
         propertyBean.setActivityDegree(activityDegree);
         propertyBean.setVisitTimeSplit(visitTimeSplit);
         propertyBean.setPropertyType(false);
+
         int res = propertyService.addProperty(propertyBean);
         if (res > 0) {
             return 1;
@@ -98,17 +102,18 @@ public class PropertyController {
     }
 
     /**
-     *  查询属性
+     * 查询属性
+     *
      * @param request
      * @param shop_id
      * @param mmac
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/queryProperty", method=RequestMethod.GET)
+    @RequestMapping(value = "/queryProperty", method = RequestMethod.GET)
     public PropertyBean queryProperty(HttpServletRequest request,
                                       @RequestParam("shop_id") Integer shop_id,
-                                      @RequestParam("mmac") String mmac) throws Exception{
+                                      @RequestParam("mmac") String mmac) throws Exception {
         PropertyBean propertyBean = new PropertyBean();
         propertyBean.setShopId(shop_id);
         propertyBean.setMmac(mmac);

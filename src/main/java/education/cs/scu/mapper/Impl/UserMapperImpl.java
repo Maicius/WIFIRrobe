@@ -1,22 +1,22 @@
 package education.cs.scu.mapper.Impl;
 
-import education.cs.scu.DBHelper.RedisPool;
+
 import education.cs.scu.entity.User;
 import education.cs.scu.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
-import redis.clients.jedis.Jedis;
 
 import java.util.Map;
 
 /**
  * Created by maicius on 2017/7/26.
+ * Edited by lch on 2017/8/25
  */
 public class UserMapperImpl implements UserMapper {
-    private static Jedis jedis ;
 
     @Autowired
-    private RedisTemplate redisTemplate;
+    private RedisTemplate<String,Object> redisTemplate;
     /**
      * 用户登陆类
      * 根据key值从Redis Hash中提取数据并进行验证
@@ -28,19 +28,19 @@ public class UserMapperImpl implements UserMapper {
         return null;
     }
     public User doUserLogin(User user) throws Exception {
-        jedis = RedisPool.getJedis();
         User loginUser = new User();
         try {
-            Map<String, String> userMap = jedis.hgetAll(user.getUserName());
+            HashOperations<String,Object,Object> hashOperations = redisTemplate.opsForHash();
+            Map<Object, Object> userMap = hashOperations.entries(user.getUserName());
 
             if (user.getPassword().equals(userMap.get("password")) &&
                     user.getVerifyCode().equals(userMap.get("verifyCode"))) {
                 //登陆成功返回用户名
                 System.out.println("登陆成功");
-                loginUser.setUserName(userMap.get("userName"));
-                loginUser.setNickName(userMap.get("nickName"));
+                loginUser.setUserName((String) userMap.get("userName"));
+                loginUser.setNickName((String) userMap.get("nickName"));
                 //登陆成功清除验证码
-                jedis.hset(loginUser.getUserName(), "verifyCode", "");
+                hashOperations.put(loginUser.getUserName(),"verifyCode","");
             }
         }catch(Exception e){
             //发生错误时强制关闭实例
@@ -56,11 +56,8 @@ public class UserMapperImpl implements UserMapper {
      * @throws Exception
      */
     public int updateVerifyCode(User user) throws Exception {
-        jedis = RedisPool.getJedis();
-        jedis.hset(user.getUserName(), "verifyTime", user.getVerifyTime());
-        Long ret =  jedis.hset(user.getUserName(), "verifyCode", user.getVerifyCode());
-        //RedisPool.returnResource(jedis);
-        return ret.intValue();
-        //user.setVerifyCode(String.valueOf(VerifyCodeUtil.createVerifyCode()));
+        redisTemplate.opsForHash().put(user.getUserName(),"verifyTime",user.getVerifyTime());
+        redisTemplate.opsForHash().put(user.getUserName(),"verifyCode",user.getVerifyCode());
+        return 1;
     }
 }

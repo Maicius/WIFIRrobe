@@ -1,9 +1,13 @@
 package education.cs.scu.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by maicius on 2017/6/27.
  */
-public class ShopInfo {
+public class ShopInfo implements Serializable{
+
+    private static final long serialVersionUID = -8211531756489532620L;
     private int shop_id;
     private String shop_owner;
     private String shop_addr;

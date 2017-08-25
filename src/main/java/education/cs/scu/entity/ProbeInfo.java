@@ -1,9 +1,13 @@
 package education.cs.scu.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by maicius on 2017/6/28.
  */
-public class ProbeInfo {
+public class ProbeInfo implements Serializable{
+
+    private static final long serialVersionUID = 5759687546989052462L;
     private String mmac;
     private String shop_name;
     private double lat;
