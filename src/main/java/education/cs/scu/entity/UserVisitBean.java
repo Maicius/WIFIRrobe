@@ -1,5 +1,7 @@
 package education.cs.scu.entity;
 
+import java.io.Serializable;
+
 /**
  * 用户访问类
  * <p>
@@ -7,7 +9,7 @@ package education.cs.scu.entity;
  * E-mail address is wanghan0501@vip.qq.com.
  * Copyright © 2017 Wang Han. SCU. All Rights Reserved.
  */
-public class UserVisitBean {
+public class UserVisitBean implements Serializable {
     private long shopId;
     private String mac;
     private String time;

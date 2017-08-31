@@ -129,4 +129,17 @@ public class LoginController {
             return new User();
         }
     }
+
+    @RequestMapping(value="/userRegist", method= RequestMethod.GET)
+    public void userRegist(HttpServletRequest request,
+                           @RequestParam(value="userName") String userName,
+                           @RequestParam(value="password") String password,
+                           @RequestParam(value="nickName") String nickName) throws Exception{
+        User user = new User();
+        user.setUserName(userName);
+        user.setNickName(nickName);
+        user.setPassword(password);
+        System.out.println(userName);
+        loginService.doUserRegist(user);
+    }
 }

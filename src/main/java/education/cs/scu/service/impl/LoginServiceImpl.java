@@ -71,4 +71,14 @@ public class LoginServiceImpl implements LoginService {
         user.setVerifyCode(String.valueOf(VerifyCodeUtil.createVerifyCode()));
         return userMapper.updateVerifyCode(user);
     }
+
+    public void doUserRegist(User user) throws Exception {
+        try {
+            userMapper.doUserRegist(user);
+            System.out.println("注册成功");
+        }catch (Exception e){
+            System.out.println("注册失败");
+            e.printStackTrace();
+        }
+    }
 }

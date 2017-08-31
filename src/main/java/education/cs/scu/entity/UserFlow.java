@@ -1,11 +1,12 @@
 package education.cs.scu.entity;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
  * Created by maicius on 2017/6/18.
  */
-public class UserFlow {
+public class UserFlow  implements Serializable {
     private Timestamp timestamp;
     private int total_flow;
     public UserFlow(){

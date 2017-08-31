@@ -9,13 +9,18 @@
     <bean id="userVisitService" class="education.cs.scu.service.impl.UserVisitServiceImpl"/>
     <bean id="userVisitTimeService" class="education.cs.scu.service.impl.UserVisitTimeServiceImpl"/>
     <!--<bean id="monitor" class="education.cs.scu.webSocket.Monitor" init-method="sendMsg"/>-->
+    <bean id="shopMapper" class="education.cs.scu.mapper.Impl.ShopMapperImpl"/>
     <bean id="shopService" class="education.cs.scu.service.impl.ShopServiceImpl"/>
-    <bean id="propertyService" class="education.cs.scu.service.impl.PropertyServiceImpl"/>
 
+    <bean id="queryHistoryDataMapper" class="education.cs.scu.mapper.Impl.QueryHistoryDataMapperImpl"/>
     <bean id="queryHistoryData" class="education.cs.scu.service.impl.QueryHistoryDataServiceImpl"/>
+
     <bean id="userMapper" class="education.cs.scu.mapper.Impl.UserMapperImpl"/>
 
     <bean id="probeUserMapper" class="education.cs.scu.mapper.Impl.ProbeUserMapperImpl"/>
     <bean id="probeUserService" class="education.cs.scu.service.impl.ProbeUserServiceImpl"/>
+
+    <bean id="propertyMapper" class="education.cs.scu.mapper.Impl.PropertyMapperImpl"/>
+    <bean id="propertyService" class="education.cs.scu.service.impl.PropertyServiceImpl"/>
 
 </beans>
