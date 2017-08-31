@@ -156,10 +156,10 @@ public class ShopController {
     @RequestMapping(value = "queryShopProbeInfos", method = RequestMethod.GET)
     public List<ProbeInfo> queryShopProbeInfos(HttpServletRequest request,
                                                @RequestParam("userName") String userName,
-                                               @RequestParam("shop_id") Long shop_id) throws Exception {
+                                               @RequestParam("shopId") String shop_id) throws Exception {
         ShopInfo shopInfo = new ShopInfo();
         shopInfo.setShop_owner(userName);
-        shopInfo.setShop_id(shop_id);
+        shopInfo.setShop_id(Long.parseLong(shop_id));
         return shopService.queryshopProbeInfos(shopInfo);
     }
 }
