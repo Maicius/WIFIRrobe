@@ -23,4 +23,8 @@
     <bean id="propertyMapper" class="education.cs.scu.mapper.Impl.PropertyMapperImpl"/>
     <bean id="propertyService" class="education.cs.scu.service.impl.PropertyServiceImpl"/>
 
+    <bean id="userFlowMapper" class="education.cs.scu.mapper.Impl.UserFlowMapperImpl"/>
+    <bean id="userVisitMapper" class="education.cs.scu.mapper.Impl.UserVisitMapperImpl"/>
+    <bean id="userVisitTimeMapper" class="education.cs.scu.mapper.Impl.UserVisitTimeMapperImpl"/>
+
 </beans>
