@@ -4,12 +4,14 @@ import education.cs.scu.entity.HistoryData;
 import education.cs.scu.mapper.QueryHistoryDataMapper;
 import education.cs.scu.service.QueryHistoryDataService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * Created by maicius on 2017/6/28.
  */
+@Service
 public class QueryHistoryDataServiceImpl implements QueryHistoryDataService{
     @Autowired
     QueryHistoryDataMapper queryHistoryData;

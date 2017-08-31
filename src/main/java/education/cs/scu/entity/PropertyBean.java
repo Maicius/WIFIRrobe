@@ -10,8 +10,8 @@ import java.util.List;
 public class PropertyBean implements Serializable {
 
     private static final long serialVersionUID = 351877796426921776L;
-    private int propertyId;
-    private int shopId;
+    private Integer propertyId;
+    private Long shopId;
     private String mmac;
     private String visitCycle;
     private double visitRange;
@@ -27,7 +27,7 @@ public class PropertyBean implements Serializable {
         return serialVersionUID;
     }
 
-    public int getPropertyId() {
+    public Integer getPropertyId() {
         return propertyId;
     }
 
@@ -35,11 +35,11 @@ public class PropertyBean implements Serializable {
         this.propertyId = propertyId;
     }
 
-    public int getShopId() {
+    public long getShopId() {
         return shopId;
     }
 
-    public void setShopId(int shopId) {
+    public void setShopId(long shopId) {
         this.shopId = shopId;
     }
 

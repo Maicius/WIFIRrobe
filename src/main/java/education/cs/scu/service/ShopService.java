@@ -14,6 +14,7 @@ public interface ShopService {
     List<ShopInfo> queryShopInfos(List<ShopInfo> shopInfos) throws Exception;
     int addShopInfo(ShopInfo shopInfo) throws Exception;
     int updateShopInfo(ShopInfo shopInfo) throws Exception;
+    long getUniqueShopId() throws  Exception;
     List<ProbeInfo> queryProbeInfos(ShopInfo shopInfo) throws Exception;
     List<ProbeInfo> queryshopProbeInfos(ShopInfo shopInfo) throws Exception;
 }

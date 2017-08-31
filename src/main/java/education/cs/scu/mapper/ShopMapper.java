@@ -13,6 +13,7 @@ public interface ShopMapper {
     List<ShopInfo> queryShopInfos(List<ShopInfo> shopInfos);
     int addShopInfo(ShopInfo shopInfo);
     int updateShopInfo(ShopInfo shopInfo);
+    long getUniqueShopId();
     List<ProbeInfo> queryProbeInfos(ShopInfo shopInfo);
     List<ProbeInfo> queryShopProbeInfo(ShopInfo shopInfo);
 }

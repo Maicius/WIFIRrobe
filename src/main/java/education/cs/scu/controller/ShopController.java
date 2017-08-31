@@ -32,11 +32,9 @@ public class ShopController {
      */
     @RequestMapping(value = "/queryShopInfos", method = RequestMethod.GET)
     public List<ShopInfo> queryShopInfos(HttpServletRequest request,
-                                         @RequestParam("userName") String userName,
-                                         @RequestParam("shopId") int shopId) throws Exception {
+                                         @RequestParam("userName") String userName) throws Exception {
 
         ShopInfo shopInfo = new ShopInfo();
-        shopInfo.setShop_id(shopId);
         shopInfo.setShop_owner(userName);
         List<ShopInfo> shopInfos = new ArrayList<ShopInfo>();
         shopInfos.add(shopInfo);
@@ -70,7 +68,11 @@ public class ShopController {
                              @RequestParam("shopManager") String shopManager,
                              @RequestParam("shopTelephone") String shopTelephone,
                              @RequestParam("shopDescribe") String shopDescribe) throws Exception {
+
+        //localhost:8080/addShopInfo.action?userName=WW&shopName=110110&shopAddr=test&shopManager&shopTelephone=110110&shopDescribe=test
+        long shopID = shopService.getUniqueShopId();
         ShopInfo shopInfo = new ShopInfo();
+        shopInfo.setShop_id(shopID);
         shopInfo.setShop_name(shopName);
         shopInfo.setShop_addr(shopAddr);
         shopInfo.setShop_telephone(shopTelephone);

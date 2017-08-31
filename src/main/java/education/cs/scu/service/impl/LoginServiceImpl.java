@@ -11,12 +11,14 @@ import education.cs.scu.mapper.UserMapper;
 import education.cs.scu.service.LoginService;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
 /**
  * Created by maicius on 2017/3/31.
  */
+@Service
 public class LoginServiceImpl implements LoginService {
     @Autowired
     private UserMapper userMapper;

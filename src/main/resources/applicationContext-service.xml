@@ -5,26 +5,33 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
                                         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <bean id="loginService" class="education.cs.scu.service.impl.LoginServiceImpl"/>
+
+
+
+   <bean id="shopMapper" class="education.cs.scu.mapper.Impl.ShopMapperImpl"/>
+   <bean id="userMapper" class="education.cs.scu.mapper.Impl.UserMapperImpl"/>
+   <bean id="probeUserMapper" class="education.cs.scu.mapper.Impl.ProbeUserMapperImpl"/>
+   <bean id="propertyMapper" class="education.cs.scu.mapper.Impl.PropertyMapperImpl"/>
+   <bean id="queryHistoryDataMapper" class="education.cs.scu.mapper.Impl.QueryHistoryDataMapperImpl"/>
+   <bean id="userFlowMapper" class="education.cs.scu.mapper.Impl.UserFlowMapperImpl"/>
+   <bean id="userVisitMapper" class="education.cs.scu.mapper.Impl.UserVisitMapperImpl"/>
+   <bean id="userVisitTimeMapper" class="education.cs.scu.mapper.Impl.UserVisitTimeMapperImpl"/>
+
+   <!-- <bean id="loginService" class="education.cs.scu.service.impl.LoginServiceImpl"/>
     <bean id="userVisitService" class="education.cs.scu.service.impl.UserVisitServiceImpl"/>
     <bean id="userVisitTimeService" class="education.cs.scu.service.impl.UserVisitTimeServiceImpl"/>
-    <!--<bean id="monitor" class="education.cs.scu.webSocket.Monitor" init-method="sendMsg"/>-->
-    <bean id="shopMapper" class="education.cs.scu.mapper.Impl.ShopMapperImpl"/>
+
     <bean id="shopService" class="education.cs.scu.service.impl.ShopServiceImpl"/>
 
-    <bean id="queryHistoryDataMapper" class="education.cs.scu.mapper.Impl.QueryHistoryDataMapperImpl"/>
+
     <bean id="queryHistoryData" class="education.cs.scu.service.impl.QueryHistoryDataServiceImpl"/>
 
-    <bean id="userMapper" class="education.cs.scu.mapper.Impl.UserMapperImpl"/>
 
-    <bean id="probeUserMapper" class="education.cs.scu.mapper.Impl.ProbeUserMapperImpl"/>
+
+
     <bean id="probeUserService" class="education.cs.scu.service.impl.ProbeUserServiceImpl"/>
 
-    <bean id="propertyMapper" class="education.cs.scu.mapper.Impl.PropertyMapperImpl"/>
-    <bean id="propertyService" class="education.cs.scu.service.impl.PropertyServiceImpl"/>
 
-    <bean id="userFlowMapper" class="education.cs.scu.mapper.Impl.UserFlowMapperImpl"/>
-    <bean id="userVisitMapper" class="education.cs.scu.mapper.Impl.UserVisitMapperImpl"/>
-    <bean id="userVisitTimeMapper" class="education.cs.scu.mapper.Impl.UserVisitTimeMapperImpl"/>
+    <bean id="propertyService" class="education.cs.scu.service.impl.PropertyServiceImpl"/> -->
 
 </beans>

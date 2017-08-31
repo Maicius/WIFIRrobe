@@ -5,6 +5,7 @@ import education.cs.scu.entity.User;
 import education.cs.scu.entity.UserFlow;
 import education.cs.scu.service.LoginService;
 import education.cs.scu.service.ProbeUserService;
+import education.cs.scu.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +26,9 @@ public class LoginController {
 
     @Autowired
     private LoginService loginService;
+
+    @Autowired
+    private ShopService shopService;
 
     @Autowired
     private ProbeUserService probeUserService;
@@ -49,6 +53,7 @@ public class LoginController {
         probeUser1.setMmac("11111");
         probeUser1.setBrand("brand_02");
         probeUser1.setActivity_degree("40");
+        //System.out.println("唯一ID:" +  shopService.getUniqueShopId());
 
         for (int i = 0;i<10;i++) {
             if (i < 5) {
@@ -66,7 +71,7 @@ public class LoginController {
         }
         List<ProbeUser> list = probeUserService.queryProbeUser(new User());
         for (ProbeUser probeUser3 :list) {
-            System.out.println(probeUser3.getAddr()+ ":" +probeUser3.getMac());
+            //System.out.println(probeUser3.getAddr()+ ":" +probeUser3.getMac());
         }
     }
 

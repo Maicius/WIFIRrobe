@@ -13,7 +13,7 @@ public class UserVisitTimeBean implements Serializable {
     // 自增长ID
     private int autoId;
     // 商店ID
-    private int shopId;
+    private Integer shopId;
     // Mac地址
     private String mac;
     // 访问时间
@@ -23,7 +23,7 @@ public class UserVisitTimeBean implements Serializable {
         return serialVersinUID;
     }
 
-    public int getShopId() {
+    public Integer getShopId() {
         return shopId;
     }
 
