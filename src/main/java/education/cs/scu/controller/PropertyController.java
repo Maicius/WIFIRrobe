@@ -34,7 +34,7 @@ public class PropertyController {
      */
     @RequestMapping(value = "/setProperty", method = RequestMethod.GET)
     public int setProperty(HttpServletRequest request,
-                           @RequestParam("shop_id") Integer shop_id,
+                           @RequestParam("shop_id") Long shop_id,
                            @RequestParam("mmac") String mmac,
                            @RequestParam("visitCycle") String visitCycle,
                            @RequestParam("visitRange") Double visitRange,
@@ -75,7 +75,7 @@ public class PropertyController {
      */
     @RequestMapping(value = "/addProperty", method = RequestMethod.GET)
     public int addProperty(HttpServletRequest request,
-                           @RequestParam("shop_id") Integer shop_id,
+                           @RequestParam("shop_id") Long shop_id,
                            @RequestParam("mmac") String mmac,
                            @RequestParam("visitCycle") String visitCycle,
                            @RequestParam("visitRange") Double visitRange,
@@ -112,7 +112,7 @@ public class PropertyController {
      */
     @RequestMapping(value = "/queryProperty", method = RequestMethod.GET)
     public PropertyBean queryProperty(HttpServletRequest request,
-                                      @RequestParam("shop_id") Integer shop_id,
+                                      @RequestParam("shop_id") Long shop_id,
                                       @RequestParam("mmac") String mmac) throws Exception {
         PropertyBean propertyBean = new PropertyBean();
         propertyBean.setShopId(shop_id);

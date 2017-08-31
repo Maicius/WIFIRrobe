@@ -23,6 +23,10 @@ public class ShopServiceImpl implements  ShopService{
         return shopMapper.queryShopInfos(shopInfos);
     }
 
+    public List<ShopInfo> queryShopInfos(ShopInfo shopInfo) throws Exception {
+        return shopMapper.queryShopInfos(shopInfo);
+    }
+
     public int addShopInfo(ShopInfo shopInfo) throws Exception{
         return shopMapper.addShopInfo(shopInfo);
     }

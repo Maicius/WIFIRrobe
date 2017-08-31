@@ -36,10 +36,7 @@ public class ShopController {
 
         ShopInfo shopInfo = new ShopInfo();
         shopInfo.setShop_owner(userName);
-        List<ShopInfo> shopInfos = new ArrayList<ShopInfo>();
-        shopInfos.add(shopInfo);
-
-        List<ShopInfo> resShopInfos = shopService.queryShopInfos(shopInfos);
+        List<ShopInfo> resShopInfos = shopService.queryShopInfos(shopInfo);
 
         if (resShopInfos.size() > 0) {
             System.out.println("查询成功");
@@ -69,7 +66,7 @@ public class ShopController {
                              @RequestParam("shopTelephone") String shopTelephone,
                              @RequestParam("shopDescribe") String shopDescribe) throws Exception {
 
-        //localhost:8080/addShopInfo.action?userName=WW&shopName=110110&shopAddr=test&shopManager&shopTelephone=110110&shopDescribe=test
+        //localhost:8080/addShopInfo.action?userName=110&shopName=110110&shopAddr=test&shopManager&shopTelephone=110110&shopDescribe=test
         long shopID = shopService.getUniqueShopId();
         ShopInfo shopInfo = new ShopInfo();
         shopInfo.setShop_id(shopID);
@@ -84,7 +81,7 @@ public class ShopController {
         if (success > 0) {
             return "success";
         } else {
-            return "";
+            return "failed";
         }
     }
 
@@ -106,12 +103,13 @@ public class ShopController {
     @RequestMapping(value = "updateShopInfo", method = RequestMethod.GET)
     public String addShopInfo(HttpServletRequest request,
                               @RequestParam("userName") String userName,
-                              @RequestParam("shopID") Integer shopID,
+                              @RequestParam("shopID") Long shopID,
                               @RequestParam("shopName") String shopName,
                               @RequestParam("shopAddr") String shopAddr,
                               @RequestParam("shopManager") String shopManager,
                               @RequestParam("shopTelephone") String shopTelephone,
                               @RequestParam("shopDescribe") String shopDescribe) throws Exception {
+//http://localhost:8080/updateShopInfo.action?userName=110&shopID=1504193463328&shopName=110&shopAddr=testNew&shopManager=testNew&shopTelephone=330&shopDescribe=testnew
         ShopInfo shopInfo = new ShopInfo();
         shopInfo.setShop_id(shopID);
         shopInfo.setShop_name(shopName);
@@ -125,7 +123,7 @@ public class ShopController {
         if (success > 0) {
             return "success";
         } else {
-            return "";
+            return "failed";
         }
     }
 
@@ -140,7 +138,7 @@ public class ShopController {
     @RequestMapping(value = "queryProbeInfos", method = RequestMethod.GET)
     public List<ProbeInfo> queryProbeInfos(HttpServletRequest request,
                                            @RequestParam("userName") String userName,
-                                           @RequestParam("shopId") int shopId) throws Exception {
+                                           @RequestParam("shopId") Long shopId) throws Exception {
         ShopInfo shopInfo = new ShopInfo();
         shopInfo.setShop_id(shopId);
         shopInfo.setShop_owner(userName);
@@ -160,7 +158,7 @@ public class ShopController {
     @RequestMapping(value = "queryShopProbeInfos", method = RequestMethod.GET)
     public List<ProbeInfo> queryShopProbeInfos(HttpServletRequest request,
                                                @RequestParam("userName") String userName,
-                                               @RequestParam("shop_id") int shop_id) throws Exception {
+                                               @RequestParam("shop_id") Long shop_id) throws Exception {
         ShopInfo shopInfo = new ShopInfo();
         shopInfo.setShop_owner(userName);
         shopInfo.setShop_id(shop_id);

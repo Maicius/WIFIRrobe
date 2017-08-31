@@ -27,42 +27,74 @@ public class ShopMapperImpl implements ShopMapper {
 
     private static final String SHOP_INFO_KEY = "SHOP_INFO";
     private static final String PROBE_INFO_KEY = "PROBE_INFO";
-    private static final String UNIQUE_SHOP_ID_KEY  = "UNIQUE_SHOP_ID";
+    private static final String UNIQUE_SHOP_ID_KEY = "UNIQUE_SHOP_ID";
 
+    /**
+     * 批量查询多个商店的信息
+     * */
     public List<ShopInfo> queryShopInfos(List<ShopInfo> shopInfos) {
 
         List<ShopInfo> results = new ArrayList<ShopInfo>();
+        List<ShopInfo> temps = new ArrayList<ShopInfo>();
         Map<Object, Object> map = redisTemplate.opsForHash().entries(SHOP_INFO_KEY);
         for (ShopInfo si : shopInfos) {
 
             if (map.containsKey(si.getShop_owner())) {
-                results.add((ShopInfo) map.get(si.getShop_owner()));
+                temps = (List<ShopInfo>) map.get(si.getShop_owner());
+                results.addAll(temps);
                 System.out.println(map.get(si.getShop_owner()));
             }
             //results.add((ShopInfo) redisTemplate.opsForHash().get(SHOP_INFO_KEY, si.getShop_owner()));
         }
-
-
         return results;
     }
 
     /**
-     * 以username作为唯一key，username是用户注册时候的手机号，
+     * 查询一个商店的信息
      * */
+    public List<ShopInfo> queryShopInfos(ShopInfo shopInfo) {
+
+        List<ShopInfo> results = new ArrayList<ShopInfo>();
+        Map<Object, Object> map = redisTemplate.opsForHash().entries(SHOP_INFO_KEY);
+
+        if (map.containsKey(shopInfo.getShop_owner())) {
+            results = (List<ShopInfo>) map.get(shopInfo.getShop_owner());
+            System.out.println(map.get(shopInfo.getShop_owner()));
+        }
+        return results;
+    }
+
+    /**
+     * 以username作为唯一key，username是用户注册时候的手机号，value是一个list对象，里面存放了一个用户的多个商店信息
+     */
     public int addShopInfo(ShopInfo shopInfo) {
         try {
-            redisTemplate.opsForHash().put(SHOP_INFO_KEY, shopInfo.getShop_owner(), shopInfo);
+            List<ShopInfo> shopInfoList = queryShopInfos(shopInfo);
+            shopInfoList.add(shopInfo);
+            redisTemplate.opsForHash().put(SHOP_INFO_KEY, shopInfo.getShop_owner(), shopInfoList);
         } catch (RedisConnectionFailureException e) {
+            return 0;
+        } catch (ClassCastException e) {
             return 0;
         }
         return 1;
     }
 
+    /**
+     * 单条修改
+     * 更新商店信息，先读出list，然后根据shopId进行修改
+     */
     public int updateShopInfo(ShopInfo shopInfo) {
+        List<ShopInfo> shopInfoList = new ArrayList<ShopInfo>();
+        shopInfoList = queryShopInfos(shopInfo);
+        for (int i = 0 ;i< shopInfoList.size() ;i++) {
+            if (shopInfo.getShop_id() == shopInfoList.get(i).getShop_id()) {
+                shopInfoList.set(i,shopInfo);
+            }
+        }
+
         try {
-            redisTemplate.opsForHash().put(SHOP_INFO_KEY, shopInfo.getShop_owner(), shopInfo);
-            //long index = 0;
-            //redisTemplate.opsForList().set(SHOP_INFO_KEY + shopInfo.getShop_id(), index, shopInfo);
+            redisTemplate.opsForHash().put(SHOP_INFO_KEY, shopInfo.getShop_owner(), shopInfoList);
         } catch (RedisConnectionFailureException e) {
             return 0;
         }
@@ -70,15 +102,15 @@ public class ShopMapperImpl implements ShopMapper {
     }
 
     /**
-     * 用于生成唯一的SHOPid**/
+     * 用于生成唯一的SHOP_id
+     **/
     public long getUniqueShopId() {
-        long res = 0;
-        res = System.currentTimeMillis();
-        boolean b = redisTemplate.opsForSet().isMember(UNIQUE_SHOP_ID_KEY,String.valueOf(res));
-        if (b)  {
+        long res = System.currentTimeMillis();
+        boolean b = redisTemplate.opsForSet().isMember(UNIQUE_SHOP_ID_KEY, String.valueOf(res));
+        if (b) {
             res = getUniqueShopId();
         }
-        redisTemplate.opsForSet().add(UNIQUE_SHOP_ID_KEY,String.valueOf(res));
+        redisTemplate.opsForSet().add(UNIQUE_SHOP_ID_KEY, String.valueOf(res));
         return res;
 
     }

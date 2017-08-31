@@ -11,6 +11,7 @@ import java.util.List;
  */
 public interface ShopMapper {
     List<ShopInfo> queryShopInfos(List<ShopInfo> shopInfos);
+    List<ShopInfo> queryShopInfos(ShopInfo shopInfo);
     int addShopInfo(ShopInfo shopInfo);
     int updateShopInfo(ShopInfo shopInfo);
     long getUniqueShopId();
