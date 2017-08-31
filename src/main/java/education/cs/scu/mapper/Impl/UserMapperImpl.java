@@ -17,6 +17,7 @@ public class UserMapperImpl implements UserMapper {
 
     @Autowired
     private RedisTemplate<String,Object> redisTemplate;
+    private static String USER_KEY = "ADMIN_USER";
     /**
      * 用户登陆类
      * 根据key值从Redis Hash中提取数据并进行验证
@@ -59,5 +60,11 @@ public class UserMapperImpl implements UserMapper {
         redisTemplate.opsForHash().put(user.getUserName(),"verifyTime",user.getVerifyTime());
         redisTemplate.opsForHash().put(user.getUserName(),"verifyCode",user.getVerifyCode());
         return 1;
+    }
+
+    public void doUserRegist(User user) throws Exception {
+        this.redisTemplate.opsForHash().put(user.getUserName(),"userName", user.getUserName());
+        this.redisTemplate.opsForHash().put(user.getUserName(),"password", user.getPassword());
+        this.redisTemplate.opsForHash().put(user.getUserName(),"nickName", user.getNickName());
     }
 }

@@ -24,7 +24,8 @@ public class UserVisitMapperImpl implements UserVisitMapper {
         redisTemplate.opsForList().leftPush(USER_VISIT_KEY,userVisitBean);
     }
     /**
-     *  写的有些问题，到时候讨论一下*/
+     *  写的有些问题，到时候讨论一下
+     *  */
 
     public UserFlow queryUserVisit() throws Exception {
         long size = redisTemplate.opsForList().size(USER_VISIT_KEY);

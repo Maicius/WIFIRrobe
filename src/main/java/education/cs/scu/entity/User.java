@@ -1,9 +1,11 @@
 package education.cs.scu.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by maicius on 2017/3/31.
  */
-public class User {
+public class User implements Serializable {
     private String userName;
     private String password;
     private String nickName;

@@ -12,6 +12,7 @@ import java.io.Serializable;
 public class UserVisitBean implements Serializable{
 
     private static final long serialVersionUID = 1647357927092562559L;
+
     private long shopId;
     private String mac;
     private String time;
