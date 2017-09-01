@@ -15,7 +15,7 @@ public interface ShopMapper {
     int addShopInfo(ShopInfo shopInfo);
     int updateShopInfo(ShopInfo shopInfo);
     long getUniqueShopId();
-    List<ProbeInfo> queryProbeInfos(ShopInfo shopInfo);
+    List<ProbeInfo> queryProbeInfos(ProbeInfo probeInfo);
     List<ProbeInfo> queryShopProbeInfo(ShopInfo shopInfo);
     int addProbeInfo(ProbeInfo probeInfo);
 }

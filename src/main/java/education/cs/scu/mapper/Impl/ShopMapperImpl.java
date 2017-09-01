@@ -31,7 +31,7 @@ public class ShopMapperImpl implements ShopMapper {
 
     /**
      * 批量查询多个商店的信息
-     * */
+     */
     public List<ShopInfo> queryShopInfos(List<ShopInfo> shopInfos) {
 
         List<ShopInfo> results = new ArrayList<ShopInfo>();
@@ -51,7 +51,7 @@ public class ShopMapperImpl implements ShopMapper {
 
     /**
      * 查询一个商店的信息
-     * */
+     */
     public List<ShopInfo> queryShopInfos(ShopInfo shopInfo) {
 
         List<ShopInfo> results = new ArrayList<ShopInfo>();
@@ -59,7 +59,7 @@ public class ShopMapperImpl implements ShopMapper {
 
         if (map.containsKey(shopInfo.getShop_owner())) {
             results = (List<ShopInfo>) map.get(shopInfo.getShop_owner());
-            System.out.println(map.get(shopInfo.getShop_owner()));
+            //System.out.println(map.get(shopInfo.getShop_owner()));
         }
         return results;
     }
@@ -87,9 +87,9 @@ public class ShopMapperImpl implements ShopMapper {
     public int updateShopInfo(ShopInfo shopInfo) {
         List<ShopInfo> shopInfoList = new ArrayList<ShopInfo>();
         shopInfoList = queryShopInfos(shopInfo);
-        for (int i = 0 ;i< shopInfoList.size() ;i++) {
+        for (int i = 0; i < shopInfoList.size(); i++) {
             if (shopInfo.getShop_id() == shopInfoList.get(i).getShop_id()) {
-                shopInfoList.set(i,shopInfo);
+                shopInfoList.set(i, shopInfo);
             }
         }
 
@@ -115,28 +115,56 @@ public class ShopMapperImpl implements ShopMapper {
 
     }
 
-    public List<ProbeInfo> queryProbeInfos(ShopInfo shopInfo) {
+    /**
+     * 查询用户的所有探针信息
+     *
+     * */
+    public List<ProbeInfo> queryProbeInfos(ProbeInfo probeInfo) {
         List<ProbeInfo> results = new ArrayList<ProbeInfo>();
-        results.add((ProbeInfo) redisTemplate.opsForHash().get(PROBE_INFO_KEY, shopInfo.getShop_id()));
+        try {
+            Map<Object, Object> map = redisTemplate.opsForHash().entries(PROBE_INFO_KEY);
+            if (map.containsKey(probeInfo.getUserName())) {
+                results = (List<ProbeInfo>) map.get(probeInfo.getUserName());
+            }
+        } catch (RedisConnectionFailureException e) {
+            return null;
+        }
         return results;
     }
 
+    /**
+     * 查询店铺的探针信息
+     * */
     public List<ProbeInfo> queryShopProbeInfo(ShopInfo shopInfo) {
         List<ProbeInfo> results = new ArrayList<ProbeInfo>();
-        results.add((ProbeInfo) redisTemplate.opsForHash().get(PROBE_INFO_KEY, shopInfo.getShop_id()));
+        try {
+            Map<Object, Object> map = redisTemplate.opsForHash().entries(PROBE_INFO_KEY);
+            if (map.containsKey(shopInfo.getShop_owner())) {
+                results = (List<ProbeInfo>) map.get(shopInfo.getShop_owner());
+            }
+            for (ProbeInfo pi:results) {
+                if (pi.getShopId() != shopInfo.getShop_id()) {
+                    results.remove(pi);
+                }
+            }
+        } catch (RedisConnectionFailureException e) {
+            return null;
+        }
         return results;
     }
 
     /**
      * 添加探针信息
-     * */
+     */
     public int addProbeInfo(ProbeInfo probeInfo) {
-
-        try{
-            redisTemplate.opsForHash().put(PROBE_INFO_KEY,probeInfo.getMmac(),probeInfo);
-        }catch (RedisConnectionFailureException e){
+        List<ProbeInfo> probeInfoList = new ArrayList<ProbeInfo>();
+        try {
+            probeInfoList = queryProbeInfos(probeInfo);
+            probeInfoList.add(probeInfo);
+            redisTemplate.opsForHash().put(PROBE_INFO_KEY, probeInfo.getUserName(), probeInfoList);
+        } catch (RedisConnectionFailureException e) {
             return 0;
         }
-        return 0;
+        return 1;
     }
 }

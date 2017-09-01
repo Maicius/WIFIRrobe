@@ -79,7 +79,7 @@ public class ShopController {
         if (success > 0) {
             return "{\"success\":1}";
         } else {
-            return "{\"failed\":1}";
+            return "{\"failed\":0}";
         }
     }
 
@@ -99,14 +99,14 @@ public class ShopController {
      * @throws Exception
      */
     @RequestMapping(value = "updateShopInfo", method = RequestMethod.GET)
-    public String addShopInfo(HttpServletRequest request,
-                              @RequestParam("userName") String userName,
-                              @RequestParam("shopID") Long shopID,
-                              @RequestParam("shopName") String shopName,
-                              @RequestParam("shopAddr") String shopAddr,
-                              @RequestParam("shopManager") String shopManager,
-                              @RequestParam("shopTelephone") String shopTelephone,
-                              @RequestParam("shopDescribe") String shopDescribe) throws Exception {
+    public String updateShopInfo(HttpServletRequest request,
+                                 @RequestParam("userName") String userName,
+                                 @RequestParam("shopID") Long shopID,
+                                 @RequestParam("shopName") String shopName,
+                                 @RequestParam("shopAddr") String shopAddr,
+                                 @RequestParam("shopManager") String shopManager,
+                                 @RequestParam("shopTelephone") String shopTelephone,
+                                 @RequestParam("shopDescribe") String shopDescribe) throws Exception {
 //http://localhost:8080/updateShopInfo.action?userName=110&shopID=1504193463328&shopName=110&shopAddr=testNew&shopManager=testNew&shopTelephone=330&shopDescribe=testnew
         ShopInfo shopInfo = new ShopInfo();
         shopInfo.setShop_id(shopID);
@@ -121,13 +121,13 @@ public class ShopController {
         if (success > 0) {
             return "{\"success\":1}";
         } else {
-            return "{\"failed\":1}";
+            return "{\"failed\":0}";
         }
     }
 
 
     /**
-     * 增加商场信息
+     * 增加探针信息
      *
      * @param request
      * @param mmac
@@ -142,22 +142,35 @@ public class ShopController {
      */
     @RequestMapping(value = "addProbeInfo", method = RequestMethod.GET)
     public String addProbeInfo(HttpServletRequest request,
+                               @RequestParam("userName") String userName,
                                @RequestParam("mmac") String mmac,
                                @RequestParam("shopName") String shopName,
                                @RequestParam("lat") Double lat,
                                @RequestParam("lon") Double lon,
                                @RequestParam("addr") String addr,
                                @RequestParam("state") String state,
-                               @RequestParam("totalData") Integer totalData) throws Exception {
+                               @RequestParam("totalData") Integer totalData,
+                               @RequestParam("rate") Double rate,
+                               @RequestParam("shopId") Long shopId) throws Exception {
+
+
+        //localhost:8080/addProbeInfo.action?userName=110&mmac=ff.ff.ff.ff.ff.ff&shopName=220&lat=123.45678&lon=321.1234567&addr=test2&state=test2&totalData=10000&rate=2.22&&shopId=1504193463328
         ProbeInfo probeInfo = new ProbeInfo();
+        probeInfo.setUserName(userName);
         probeInfo.setMmac(mmac);
         probeInfo.setShop_name(shopName);
         probeInfo.setLat(lat);
         probeInfo.setLon(lon);
         probeInfo.setAddr(addr);
         probeInfo.setState(state);
+        probeInfo.setRate(rate);
+        probeInfo.setShopId(shopId);
         probeInfo.setTotalData(totalData);
-        return "failed";
+        int success = shopService.addProbeInfo(probeInfo);
+        if (success > 0){
+            return "{\"success\":1}";
+        }
+            return "{\"failed\",0}";
     }
 
 
@@ -173,11 +186,9 @@ public class ShopController {
     public List<ProbeInfo> queryProbeInfos(HttpServletRequest request,
                                            @RequestParam("userName") String userName,
                                            @RequestParam("shopId") Long shopId) throws Exception {
-        ShopInfo shopInfo = new ShopInfo();
-        shopInfo.setShop_id(shopId);
-        shopInfo.setShop_owner(userName);
-
-        return shopService.queryProbeInfos(shopInfo);
+       ProbeInfo probeInfo = new ProbeInfo();
+       probeInfo.setUserName(userName);
+       probeInfo.setShopId(shopId);return shopService.queryProbeInfos(probeInfo);
     }
 
     /**

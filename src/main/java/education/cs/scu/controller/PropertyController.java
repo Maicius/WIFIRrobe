@@ -41,6 +41,7 @@ public class PropertyController {
                            @RequestParam("visitRssi") Integer visitRssi,
                            @RequestParam("activityDegree") String activityDegree,
                            @RequestParam("visitTimeSplit") String visitTimeSplit) throws Exception {
+
         PropertyBean propertyBean = new PropertyBean();
         propertyBean.setShopId(shop_id);
         propertyBean.setMmac(mmac);

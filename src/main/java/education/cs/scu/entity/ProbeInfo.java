@@ -8,6 +8,7 @@ import java.io.Serializable;
 public class ProbeInfo implements Serializable{
 
     private static final long serialVersionUID = 5759687546989052462L;
+    private String userName;
     private String mmac;
     private String shop_name;
     private Double lat;
@@ -16,8 +17,27 @@ public class ProbeInfo implements Serializable{
     private String state;
     private Integer totalData;
     private Double rate;
+    private Long shopId;
+
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     public String getMmac() {
         return mmac;
+    }
+
+    public Long getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(Long shopId) {
+        this.shopId = shopId;
     }
 
     public void setMmac(String mmac) {
