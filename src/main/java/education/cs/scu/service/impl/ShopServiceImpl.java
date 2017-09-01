@@ -46,4 +46,8 @@ public class ShopServiceImpl implements  ShopService{
     public List<ProbeInfo> queryshopProbeInfos(ShopInfo shopInfo) throws Exception {
         return shopMapper.queryShopProbeInfo(shopInfo);
     }
+
+    public int addProbeInfo(ProbeInfo probeInfo) {
+        return shopMapper.addProbeInfo(probeInfo);
+    }
 }

@@ -18,4 +18,5 @@ public interface ShopService {
     long getUniqueShopId() throws  Exception;
     List<ProbeInfo> queryProbeInfos(ShopInfo shopInfo) throws Exception;
     List<ProbeInfo> queryshopProbeInfos(ShopInfo shopInfo) throws Exception;
+    int addProbeInfo(ProbeInfo probeInfo);
 }

@@ -23,6 +23,9 @@ import java.util.regex.Pattern;
  * Copyright © 2017 Wang Han. SCU. All Rights Reserved.
  *
  * @author Wang Han
+ *
+ *
+ * Edited by lch on 2017/8/31 23:57
  */
 public class ExcelUtil {
 
@@ -113,9 +116,7 @@ public class ExcelUtil {
                 cell.setCellStyle(style2);
                 Field field = fields[i];
                 String fieldName = field.getName();
-                String getMethodName = "get"
-                        + fieldName.substring(0, 1).toUpperCase()
-                        + fieldName.substring(1);
+                String getMethodName = "get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
                 try {
                     Class tCls = t.getClass();
                     Method getMethod = tCls.getMethod(getMethodName,

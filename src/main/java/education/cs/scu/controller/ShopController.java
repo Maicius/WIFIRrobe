@@ -127,6 +127,42 @@ public class ShopController {
         }
     }
 
+
+    /**
+     * 增加商场信息
+     *
+     * @param request
+     * @param mmac
+     * @param shopName
+     * @param lat
+     * @param lon
+     * @param addr
+     * @param state
+     * @param totalData
+     * @return 成功返回"success",失败返回null
+     * @throws Exception
+     */
+    @RequestMapping(value = "addProbeInfo", method = RequestMethod.GET)
+    public String addProbeInfo(HttpServletRequest request,
+                               @RequestParam("mmac") String mmac,
+                               @RequestParam("shopName") String shopName,
+                               @RequestParam("lat") Double lat,
+                               @RequestParam("lon") Double lon,
+                               @RequestParam("addr") String addr,
+                               @RequestParam("state") String state,
+                               @RequestParam("totalData") Integer totalData) throws Exception {
+        ProbeInfo probeInfo = new ProbeInfo();
+        probeInfo.setMmac(mmac);
+        probeInfo.setShop_name(shopName);
+        probeInfo.setLat(lat);
+        probeInfo.setLon(lon);
+        probeInfo.setAddr(addr);
+        probeInfo.setState(state);
+        probeInfo.setTotalData(totalData);
+        return "failed";
+    }
+
+
     /**
      * 根据用户名查询探针信息
      *

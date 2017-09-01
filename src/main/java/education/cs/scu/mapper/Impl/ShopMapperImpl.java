@@ -126,4 +126,17 @@ public class ShopMapperImpl implements ShopMapper {
         results.add((ProbeInfo) redisTemplate.opsForHash().get(PROBE_INFO_KEY, shopInfo.getShop_id()));
         return results;
     }
+
+    /**
+     * 添加探针信息
+     * */
+    public int addProbeInfo(ProbeInfo probeInfo) {
+
+        try{
+            redisTemplate.opsForHash().put(PROBE_INFO_KEY,probeInfo.getMmac(),probeInfo);
+        }catch (RedisConnectionFailureException e){
+            return 0;
+        }
+        return 0;
+    }
 }
