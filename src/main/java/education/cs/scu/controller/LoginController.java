@@ -3,6 +3,7 @@ package education.cs.scu.controller;
 import education.cs.scu.entity.ProbeUser;
 import education.cs.scu.entity.User;
 import education.cs.scu.entity.UserFlow;
+import education.cs.scu.javautils.ExcelUtil;
 import education.cs.scu.service.LoginService;
 import education.cs.scu.service.ProbeUserService;
 import education.cs.scu.service.ShopService;
@@ -10,9 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.FileOutputStream;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -39,6 +43,7 @@ public class LoginController {
      */
     @RequestMapping(value = "testRedis", method = RequestMethod.GET)
     public void testRedis(HttpServletRequest request,
+                          HttpServletResponse response,
                           @RequestParam("userName") String userName) throws Exception {
         ProbeUser probeUser = new ProbeUser();
         probeUser.setMac("aa.bb.cc.dd.ee.ff");
@@ -54,6 +59,8 @@ public class LoginController {
         probeUser1.setBrand("brand_02");
         probeUser1.setActivity_degree("40");
         //System.out.println("唯一ID:" +  shopService.getUniqueShopId());
+
+        ExcelUtil<ProbeUser> excelUtil = new ExcelUtil<ProbeUser>();
 
         for (int i = 0;i<10;i++) {
             if (i < 5) {
@@ -73,6 +80,9 @@ public class LoginController {
         for (ProbeUser probeUser3 :list) {
             //System.out.println(probeUser3.getAddr()+ ":" +probeUser3.getMac());
         }
+
+        String[] header = {"mmac","addr","mac","brand","first_time","last_time","arise_time","degree"};
+        excelUtil.exportExcel(header,list,response.getOutputStream());
     }
 
     /**
