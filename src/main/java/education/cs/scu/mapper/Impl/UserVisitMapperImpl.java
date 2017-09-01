@@ -1,12 +1,11 @@
 package education.cs.scu.mapper.Impl;
 
+import com.alibaba.fastjson.JSON;
 import education.cs.scu.entity.UserFlow;
 import education.cs.scu.entity.UserVisitBean;
 import education.cs.scu.mapper.UserVisitMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * UserVisitMapperImpl
@@ -21,7 +20,9 @@ public class UserVisitMapperImpl implements UserVisitMapper {
     private static final String USER_VISIT_KEY = "USER_VISIT";
 
     public void addUserVisit(UserVisitBean userVisitBean) throws Exception {
-        redisTemplate.opsForList().leftPush(USER_VISIT_KEY,userVisitBean);
+        //redisTemplate.opsForList().leftPush(USER_VISIT_KEY,userVisitBean);
+
+        redisTemplate.opsForList().leftPush(USER_VISIT_KEY, JSON.toJSONString(userVisitBean));
     }
     /**
      *  写的有些问题，到时候讨论一下

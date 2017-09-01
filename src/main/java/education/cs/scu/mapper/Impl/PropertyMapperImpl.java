@@ -1,5 +1,6 @@
 package education.cs.scu.mapper.Impl;
 
+import com.alibaba.fastjson.JSON;
 import education.cs.scu.entity.PropertyBean;
 import education.cs.scu.mapper.PropertyMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,8 @@ public class PropertyMapperImpl implements PropertyMapper {
      * */
     public int addProperty(PropertyBean propertyBean){
         try {
-            redisTemplate.opsForHash().put(PROPERTY_BEAN_KEY,propertyBean.getMmac(),propertyBean);
+            //redisTemplate.opsForHash().put(PROPERTY_BEAN_KEY,propertyBean.getMmac(),propertyBean);
+            redisTemplate.opsForHash().put(PROPERTY_BEAN_KEY,propertyBean.getMmac(), JSON.toJSONString(propertyBean));
         }catch (RedisConnectionFailureException e){
             return 0;
         }
