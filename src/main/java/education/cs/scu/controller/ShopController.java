@@ -52,7 +52,7 @@ public class ShopController {
      * @param shopManager
      * @param shopTelephone
      * @param shopDescribe
-     * @return 成功返回"success",失败返回null
+     * @return 成功返回"success",失败返回failed
      * @throws Exception
      */
     @RequestMapping(value = "addShopInfo", method = RequestMethod.GET)
@@ -137,7 +137,7 @@ public class ShopController {
      * @param addr
      * @param state
      * @param totalData
-     * @return 成功返回"success",失败返回null
+     * @return 成功返回"success",失败返回failed
      * @throws Exception
      */
     @RequestMapping(value = "addProbeInfo", method = RequestMethod.GET)

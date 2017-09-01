@@ -27,19 +27,13 @@ import java.util.regex.Pattern;
  *
  * Edited by lch on 2017/8/31 23:57
  */
-public class ExcelUtil {
+public class ExcelUtil<T> {
 
-    public void exportExcel(Collection<T> dataset, OutputStream out) {
-        exportExcel("未命名", null, dataset, out, "yyyy-MM-dd");
-    }
-
-    public void exportExcel(String[] headers, Collection<T> dataset,
-                            OutputStream out) {
+    public void exportExcel(String[] headers, Collection<T> dataset, OutputStream out) {
         exportExcel("未命名", headers, dataset, out, "yyyy-MM-dd");
     }
 
-    public void exportExcel(String[] headers, Collection<T> dataset,
-                            OutputStream out, String pattern) {
+    public void exportExcel(String[] headers, Collection<T> dataset, OutputStream out, String pattern) {
         exportExcel("未命名", headers, dataset, out, pattern);
     }
 
@@ -111,16 +105,16 @@ public class ExcelUtil {
             T t = (T) it.next();
             //利用反射，根据javabean属性的先后顺序，动态调用getXxx()方法得到属性值
             Field[] fields = t.getClass().getDeclaredFields();
-            for (int i = 0; i < fields.length; i++) {
+            for (int i = 1; i < fields.length; i++) {
                 HSSFCell cell = row.createCell(i);
                 cell.setCellStyle(style2);
                 Field field = fields[i];
                 String fieldName = field.getName();
                 String getMethodName = "get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
+                System.out.println(getMethodName);
                 try {
                     Class tCls = t.getClass();
-                    Method getMethod = tCls.getMethod(getMethodName,
-                            new Class[]{});
+                    Method getMethod = tCls.getMethod(getMethodName, new Class[]{});
                     Object value = getMethod.invoke(t, new Object[]{});
                     //判断值的类型后进行强制类型转换
                     String textValue = null;

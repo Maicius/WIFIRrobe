@@ -33,7 +33,7 @@ public class PropertyController {
      * @throws Exception
      */
     @RequestMapping(value = "/setProperty", method = RequestMethod.GET)
-    public int setProperty(HttpServletRequest request,
+    public String setProperty(HttpServletRequest request,
                            @RequestParam("shop_id") Long shop_id,
                            @RequestParam("mmac") String mmac,
                            @RequestParam("visitCycle") String visitCycle,
@@ -54,9 +54,9 @@ public class PropertyController {
 
         int res = propertyService.setProperty(propertyBean);
         if (res > 0) {
-            return 1;
+            return "{\"success\":1}";
         } else {
-            return 0;
+            return "{\"failed\":0}";
         }
     }
 
@@ -75,7 +75,7 @@ public class PropertyController {
      * @throws Exception
      */
     @RequestMapping(value = "/addProperty", method = RequestMethod.GET)
-    public int addProperty(HttpServletRequest request,
+    public String addProperty(HttpServletRequest request,
                            @RequestParam("shop_id") Long shop_id,
                            @RequestParam("mmac") String mmac,
                            @RequestParam("visitCycle") String visitCycle,
@@ -84,6 +84,8 @@ public class PropertyController {
                            @RequestParam("activityDegree") String activityDegree,
                            @RequestParam("visitTimeSplit") String visitTimeSplit) throws Exception {
 
+
+        //localhost:8080/addProperty.action?shop_id=1504193496555&mmac=ff.ff.ff.ff.ff.ff&visitCycle=test&visitRange=2&visitRssi=1&activityDegree=test&visitTimeSplit=test
         PropertyBean propertyBean = new PropertyBean();
         propertyBean.setShopId(shop_id);
         propertyBean.setMmac(mmac);
@@ -96,9 +98,9 @@ public class PropertyController {
 
         int res = propertyService.addProperty(propertyBean);
         if (res > 0) {
-            return 1;
+            return "{\"success\":1}";
         } else {
-            return 0;
+            return "{\"failed\":0}";
         }
     }
 

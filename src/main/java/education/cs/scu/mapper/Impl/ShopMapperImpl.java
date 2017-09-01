@@ -154,7 +154,7 @@ public class ShopMapperImpl implements ShopMapper {
     }
 
     /**
-     * 添加探针信息
+     * 给指定用户添加探针信息
      */
     public int addProbeInfo(ProbeInfo probeInfo) {
         List<ProbeInfo> probeInfoList = new ArrayList<ProbeInfo>();

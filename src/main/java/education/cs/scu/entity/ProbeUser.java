@@ -15,7 +15,7 @@ public class ProbeUser implements Serializable{
     private String brand;
     private Timestamp first_time;
     private Timestamp last_time;
-    private int arise_times;
+    private Integer arise_times;
     private String activity_degree;
 
     public String getMmac() {
@@ -66,11 +66,11 @@ public class ProbeUser implements Serializable{
         this.last_time = last_time;
     }
 
-    public int getArise_times() {
+    public Integer getArise_times() {
         return arise_times;
     }
 
-    public void setArise_times(int arise_times) {
+    public void setArise_times(Integer arise_times) {
         this.arise_times = arise_times;
     }
 

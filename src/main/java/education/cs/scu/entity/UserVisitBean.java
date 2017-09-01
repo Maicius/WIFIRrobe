@@ -13,24 +13,24 @@ public class UserVisitBean implements Serializable{
 
     private static final long serialVersionUID = 1647357927092562559L;
 
-    private long shopId;
+    private Long shopId;
     private String mac;
-    private String time;
-    private int totalFlow;
-    private int checkInFlow;
-    private double checkInRate;
-    private double shallowVisitRate;
-    private double deepVisitRate;
+    private Long time;
+    private Integer totalFlow;
+    private Integer checkInFlow;
+    private Double checkInRate;
+    private Double shallowVisitRate;
+    private Double deepVisitRate;
 
     public UserVisitBean() {
 
     }
 
-    public long getShopId() {
+    public Long getShopId() {
         return shopId;
     }
 
-    public void setShopId(long shopId) {
+    public void setShopId(Long shopId) {
         this.shopId = shopId;
     }
 
@@ -42,52 +42,51 @@ public class UserVisitBean implements Serializable{
         this.mac = mac;
     }
 
-    public String getTime() {
+    public Long getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(Long time) {
         this.time = time;
     }
 
-    public int getTotalFlow() {
+    public Integer getTotalFlow() {
         return totalFlow;
     }
 
-    public void setTotalFlow(int totalFlow) {
+    public void setTotalFlow(Integer totalFlow) {
         this.totalFlow = totalFlow;
     }
 
-    public int getCheckInFlow() {
+    public Integer getCheckInFlow() {
         return checkInFlow;
     }
 
-    public void setCheckInFlow(int checkInFlow) {
+    public void setCheckInFlow(Integer checkInFlow) {
         this.checkInFlow = checkInFlow;
     }
 
-    public double getCheckInRate() {
+    public Double getCheckInRate() {
         return checkInRate;
     }
 
-    public void setCheckInRate(double checkInRate) {
+    public void setCheckInRate(Double checkInRate) {
         this.checkInRate = checkInRate;
     }
 
-    public double getShallowVisitRate() {
+    public Double getShallowVisitRate() {
         return shallowVisitRate;
     }
 
-    public void setShallowVisitRate(double shallowVisitRate) {
+    public void setShallowVisitRate(Double shallowVisitRate) {
         this.shallowVisitRate = shallowVisitRate;
     }
 
-    public double getDeepVisitRate() {
+    public Double getDeepVisitRate() {
         return deepVisitRate;
     }
 
-    public void setDeepVisitRate(double deepVisitRate) {
+    public void setDeepVisitRate(Double deepVisitRate) {
         this.deepVisitRate = deepVisitRate;
     }
-
 }
