@@ -26,10 +26,6 @@ public class ShopInfo implements Serializable{
         this.shop_id = shop_id;
     }
 
-    public void setShop_id(Integer shop_id) {
-        this.shop_id = shop_id;
-    }
-
     public String getShop_addr() {
         return shop_addr;
     }

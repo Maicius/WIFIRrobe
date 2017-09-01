@@ -10,12 +10,12 @@ public class ProbeInfo implements Serializable{
     private static final long serialVersionUID = 5759687546989052462L;
     private String mmac;
     private String shop_name;
-    private double lat;
-    private double lon;
+    private Double lat;
+    private Double lon;
     private String addr;
     private String state;
-    private int totalData;
-
+    private Integer totalData;
+    private Double rate;
     public String getMmac() {
         return mmac;
     }
@@ -32,19 +32,19 @@ public class ProbeInfo implements Serializable{
         this.shop_name = shop_name;
     }
 
-    public double getLat() {
+    public Double getLat() {
         return lat;
     }
 
-    public void setLat(double lat) {
+    public void setLat(Double lat) {
         this.lat = lat;
     }
 
-    public double getLon() {
+    public Double getLon() {
         return lon;
     }
 
-    public void setLon(double lon) {
+    public void setLon(Double lon) {
         this.lon = lon;
     }
 
@@ -56,11 +56,11 @@ public class ProbeInfo implements Serializable{
         this.state = state;
     }
 
-    public int getTotalData() {
+    public Integer getTotalData() {
         return totalData;
     }
 
-    public void setTotalData(int totalData) {
+    public void setTotalData(Integer totalData) {
         this.totalData = totalData;
     }
 
@@ -70,5 +70,13 @@ public class ProbeInfo implements Serializable{
 
     public void setAddr(String addr) {
         this.addr = addr;
+    }
+
+    public Double getRate() {
+        return rate;
+    }
+
+    public void setRate(Double rate) {
+        this.rate = rate;
     }
 }

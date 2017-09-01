@@ -2,7 +2,6 @@ package education.cs.scu.controller;
 
 import education.cs.scu.entity.ProbeInfo;
 import education.cs.scu.entity.ShopInfo;
-import education.cs.scu.entity.User;
 import education.cs.scu.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -79,9 +77,9 @@ public class ShopController {
         int success = shopService.addShopInfo(shopInfo);
         System.out.println(success);
         if (success > 0) {
-            return "success";
+            return "{\"success\":1}";
         } else {
-            return "failed";
+            return "{\"failed\":1}";
         }
     }
 
@@ -121,9 +119,9 @@ public class ShopController {
         int success = shopService.updateShopInfo(shopInfo);
         System.err.println(success);
         if (success > 0) {
-            return "success";
+            return "{\"success\":1}";
         } else {
-            return "failed";
+            return "{\"failed\":1}";
         }
     }
 
@@ -194,10 +192,10 @@ public class ShopController {
     @RequestMapping(value = "queryShopProbeInfos", method = RequestMethod.GET)
     public List<ProbeInfo> queryShopProbeInfos(HttpServletRequest request,
                                                @RequestParam("userName") String userName,
-                                               @RequestParam("shop_id") Long shop_id) throws Exception {
+                                               @RequestParam("shopId") String shop_id) throws Exception {
         ShopInfo shopInfo = new ShopInfo();
         shopInfo.setShop_owner(userName);
-        shopInfo.setShop_id(shop_id);
+        shopInfo.setShop_id(Long.parseLong(shop_id));
         return shopService.queryshopProbeInfos(shopInfo);
     }
 }
