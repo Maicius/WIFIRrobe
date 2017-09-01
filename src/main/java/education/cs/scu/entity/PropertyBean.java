@@ -14,8 +14,8 @@ public class PropertyBean implements Serializable {
     private Long shopId;
     private String mmac;
     private String visitCycle;
-    private double visitRange;
-    private int visitRSSI;
+    private Double visitRange;
+    private Integer visitRSSI;
     private String activityDegree;
     private String visitTimeSplit;
     private boolean propertyType;
@@ -31,15 +31,15 @@ public class PropertyBean implements Serializable {
         return propertyId;
     }
 
-    public void setPropertyId(int propertyId) {
+    public void setPropertyId(Integer propertyId) {
         this.propertyId = propertyId;
     }
 
-    public long getShopId() {
+    public Long getShopId() {
         return shopId;
     }
 
-    public void setShopId(long shopId) {
+    public void setShopId(Long shopId) {
         this.shopId = shopId;
     }
 
@@ -59,19 +59,19 @@ public class PropertyBean implements Serializable {
         this.visitCycle = visitCycle;
     }
 
-    public double getVisitRange() {
+    public Double getVisitRange() {
         return visitRange;
     }
 
-    public void setVisitRange(double visitRange) {
+    public void setVisitRange(Double visitRange) {
         this.visitRange = visitRange;
     }
 
-    public int getVisitRSSI() {
+    public Integer getVisitRSSI() {
         return visitRSSI;
     }
 
-    public void setVisitRSSI(int visitRSSI) {
+    public void setVisitRSSI(Integer visitRSSI) {
         this.visitRSSI = visitRSSI;
     }
 
@@ -91,7 +91,7 @@ public class PropertyBean implements Serializable {
         this.visitTimeSplit = visitTimeSplit;
     }
 
-    public boolean getPropertyType() {
+    public boolean isPropertyType() {
         return propertyType;
     }
 
