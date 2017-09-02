@@ -1,6 +1,7 @@
 package education.cs.scu.service.impl;
 
 import education.cs.scu.entity.User;
+import education.cs.scu.entity.UserBean;
 import education.cs.scu.entity.UserFlow;
 import education.cs.scu.entity.UserVisitBean;
 import education.cs.scu.mapper.UserVisitMapper;
@@ -30,7 +31,7 @@ public class UserVisitServiceImpl implements UserVisitService {
         return userVisitMapper.queryUserVisit(shopIdlist);
     }
 
-    public List<Object> queryUserShop(List<Integer> shopIdlist) throws Exception {
+    public List<UserBean> queryUserShop(List<Integer> shopIdlist) throws Exception {
         return userVisitMapper.queryUserShop(shopIdlist);
     }
 

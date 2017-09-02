@@ -3,6 +3,7 @@ package education.cs.scu.controller;
 import com.alibaba.fastjson.JSON;
 import education.cs.scu.component.QueryUsersShopInfo;
 import education.cs.scu.entity.ShopInfo;
+import education.cs.scu.entity.UserBean;
 import education.cs.scu.entity.UserVisitBean;
 import education.cs.scu.service.ShopService;
 import education.cs.scu.service.UserVisitService;
@@ -41,9 +42,9 @@ public class UserVisitController {
      */
 
     @RequestMapping(value = "queryUserShop", method = RequestMethod.GET)
-    public List<Object> queryUserShop(HttpServletRequest request,
-                                      HttpServletResponse response,
-                                      @RequestParam("userName") String userName) throws Exception {
+    public List<UserBean> queryUserShop(HttpServletRequest request,
+                                        HttpServletResponse response,
+                                        @RequestParam("userName") String userName) throws Exception {
         List<Integer> shopIdlist = queryUsersShopInfo.getShopId(userName);
         return userVisitService.queryUserShop(shopIdlist);
     }

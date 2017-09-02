@@ -2,6 +2,7 @@ package education.cs.scu.mapper.Impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import education.cs.scu.entity.UserBean;
 import education.cs.scu.entity.UserFlow;
 import education.cs.scu.entity.UserVisitBean;
 import education.cs.scu.mapper.UserVisitMapper;
@@ -57,9 +58,9 @@ public class UserVisitMapperImpl implements UserVisitMapper {
     /**
      * 根据username 查询table_user 中的所有商店
      */
-    public List<Object> queryUserShop(List<Integer> shopIdlist) throws Exception {
+    public List<UserBean> queryUserShop(List<Integer> shopIdlist) throws Exception {
 
-        List<Object> res = new ArrayList<Object>();
+        List<UserBean> res = new ArrayList<UserBean>();
         Map<Object, Object> map = redisTemplate.opsForHash().entries(TABLE_USER_KEY);
         //System.out.println("queryUserShop");
         Set<Object> set = map.keySet();
@@ -69,7 +70,7 @@ public class UserVisitMapperImpl implements UserVisitMapper {
                 keyValue = key.toString();
                 //System.out.println(keyValue);
                 if (id == Integer.parseInt(keyValue.split("||")[0])) {
-                    res.add(JSON.parse((String) map.get(keyValue)));
+                    res.add(JSON.parseObject((String) map.get(keyValue),UserBean.class));
                     //System.out.println(JSON.toJSONString( map.get(keyValue)));
                 }
             }
