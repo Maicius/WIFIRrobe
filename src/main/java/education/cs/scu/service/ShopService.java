@@ -11,7 +11,7 @@ import education.cs.scu.entity.User;
 import java.util.List;
 
 public interface ShopService {
-    List<ShopInfo> queryShopInfos(List<ShopInfo> shopInfos) throws Exception;
+   // List<ShopInfo> queryShopInfos(List<ShopInfo> shopInfos) throws Exception;
     List<ShopInfo> queryShopInfos(ShopInfo shopInfo) throws Exception;
     int addShopInfo(ShopInfo shopInfo) throws Exception;
     int updateShopInfo(ShopInfo shopInfo) throws Exception;

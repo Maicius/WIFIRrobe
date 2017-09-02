@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class ShopInfo implements Serializable{
 
     private static final long serialVersionUID = -8211531756489532620L;
-    private long shop_id;
+    private Integer shop_id;
     private String shop_owner;
     private String shop_addr;
     private String shop_name;
@@ -18,12 +18,20 @@ public class ShopInfo implements Serializable{
     public ShopInfo(){
     }
 
-    public long getShop_id() {
+    public Integer getShop_id() {
         return shop_id;
     }
 
-    public void setShop_id(long shop_id) {
+    public void setShop_id(Integer shop_id) {
         this.shop_id = shop_id;
+    }
+
+    public String getShop_owner() {
+        return shop_owner;
+    }
+
+    public void setShop_owner(String shop_owner) {
+        this.shop_owner = shop_owner;
     }
 
     public String getShop_addr() {
@@ -56,14 +64,6 @@ public class ShopInfo implements Serializable{
 
     public void setShop_telephone(String shop_telephone) {
         this.shop_telephone = shop_telephone;
-    }
-
-    public String getShop_owner() {
-        return shop_owner;
-    }
-
-    public void setShop_owner(String shop_owner) {
-        this.shop_owner = shop_owner;
     }
 
     public String getShop_describe() {

@@ -65,9 +65,7 @@ public class ShopController {
                              @RequestParam("shopDescribe") String shopDescribe) throws Exception {
 
         //localhost:8080/addShopInfo.action?userName=110&shopName=110110&shopAddr=test&shopManager&shopTelephone=110110&shopDescribe=test
-        long shopID = shopService.getUniqueShopId();
         ShopInfo shopInfo = new ShopInfo();
-        shopInfo.setShop_id(shopID);
         shopInfo.setShop_name(shopName);
         shopInfo.setShop_addr(shopAddr);
         shopInfo.setShop_telephone(shopTelephone);
@@ -101,7 +99,7 @@ public class ShopController {
     @RequestMapping(value = "updateShopInfo", method = RequestMethod.GET)
     public String updateShopInfo(HttpServletRequest request,
                                  @RequestParam("userName") String userName,
-                                 @RequestParam("shopID") Long shopID,
+                                 @RequestParam("shopID") Integer shopID,
                                  @RequestParam("shopName") String shopName,
                                  @RequestParam("shopAddr") String shopAddr,
                                  @RequestParam("shopManager") String shopManager,
@@ -151,12 +149,12 @@ public class ShopController {
                                @RequestParam("state") String state,
                                @RequestParam("totalData") Integer totalData,
                                @RequestParam("rate") Double rate,
-                               @RequestParam("shopId") Long shopId) throws Exception {
+                               @RequestParam("shopId") Integer shopId) throws Exception {
 
 
         //localhost:8080/addProbeInfo.action?userName=110&mmac=ff.ff.ff.ff.ff.ff&shopName=220&lat=123.45678&lon=321.1234567&addr=test2&state=test2&totalData=10000&rate=2.22&&shopId=1504193463328
         ProbeInfo probeInfo = new ProbeInfo();
-        probeInfo.setUserName(userName);
+        probeInfo.setUser_name(userName);
         probeInfo.setMmac(mmac);
         probeInfo.setShop_name(shopName);
         probeInfo.setLat(lat);
@@ -164,8 +162,8 @@ public class ShopController {
         probeInfo.setAddr(addr);
         probeInfo.setState(state);
         probeInfo.setRate(rate);
-        probeInfo.setShopId(shopId);
-        probeInfo.setTotalData(totalData);
+        probeInfo.setShop_id(shopId);
+        probeInfo.setTotal_data(totalData);
         int success = shopService.addProbeInfo(probeInfo);
         if (success > 0){
             return "{\"success\":1}";
@@ -185,10 +183,11 @@ public class ShopController {
     @RequestMapping(value = "queryProbeInfos", method = RequestMethod.GET)
     public List<ProbeInfo> queryProbeInfos(HttpServletRequest request,
                                            @RequestParam("userName") String userName,
-                                           @RequestParam("shopId") Long shopId) throws Exception {
+                                           @RequestParam("shopId") Integer shopId) throws Exception {
        ProbeInfo probeInfo = new ProbeInfo();
-       probeInfo.setUserName(userName);
-       probeInfo.setShopId(shopId);return shopService.queryProbeInfos(probeInfo);
+       probeInfo.setUser_name(userName);
+       probeInfo.setShop_id(shopId);
+       return shopService.queryProbeInfos(probeInfo);
     }
 
     /**
@@ -203,10 +202,10 @@ public class ShopController {
     @RequestMapping(value = "queryShopProbeInfos", method = RequestMethod.GET)
     public List<ProbeInfo> queryShopProbeInfos(HttpServletRequest request,
                                                @RequestParam("userName") String userName,
-                                               @RequestParam("shopId") String shop_id) throws Exception {
+                                               @RequestParam("shopId") Integer shop_id) throws Exception {
         ShopInfo shopInfo = new ShopInfo();
         shopInfo.setShop_owner(userName);
-        shopInfo.setShop_id(Long.parseLong(shop_id));
+        shopInfo.setShop_id(shop_id);
         return shopService.queryshopProbeInfos(shopInfo);
     }
 }

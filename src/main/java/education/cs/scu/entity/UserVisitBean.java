@@ -13,7 +13,7 @@ public class UserVisitBean implements Serializable{
 
     private static final long serialVersionUID = 1647357927092562559L;
 
-    private Long shopId;
+    private Integer shopId;
     private String mac;
     private Long time;
     private Integer totalFlow;
@@ -26,11 +26,11 @@ public class UserVisitBean implements Serializable{
 
     }
 
-    public Long getShopId() {
+    public Integer getShopId() {
         return shopId;
     }
 
-    public void setShopId(Long shopId) {
+    public void setShopId(Integer shopId) {
         this.shopId = shopId;
     }
 

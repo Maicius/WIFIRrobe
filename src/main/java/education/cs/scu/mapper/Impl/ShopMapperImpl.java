@@ -20,7 +20,7 @@ import java.util.Map;
  * @Author lch
  * @Create on 2017/08/25 15:09
  **/
-public class ShopMapperImpl implements ShopMapper {
+public class ShopMapperImpl  {
 
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;

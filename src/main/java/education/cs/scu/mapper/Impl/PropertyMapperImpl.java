@@ -13,7 +13,7 @@ import org.springframework.data.redis.core.RedisTemplate;
  * @Author lch
  * @Create on 2017/08/25 12:22
  **/
-public class PropertyMapperImpl implements PropertyMapper {
+public class PropertyMapperImpl {
 
     @Autowired
     private RedisTemplate<String, PropertyBean> redisTemplate;

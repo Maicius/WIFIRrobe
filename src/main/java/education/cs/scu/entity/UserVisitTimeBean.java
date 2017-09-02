@@ -11,9 +11,9 @@ public class UserVisitTimeBean implements Serializable {
     private static final long serialVersinUID = 351877796426921776L;
 
     // 自增长ID
-    private int autoId;
+    private Integer autoId;
     // 商店ID
-    private Long shopId;
+    private Integer shopId;
     // Mac地址
     private String mac;
     // 访问时间
@@ -23,15 +23,15 @@ public class UserVisitTimeBean implements Serializable {
         return autoId;
     }
 
-    public void setAutoId(int autoId) {
+    public void setAutoId(Integer autoId) {
         this.autoId = autoId;
     }
 
-    public Long getShopId() {
+    public Integer getShopId() {
         return shopId;
     }
 
-    public void setShopId(Long shopId) {
+    public void setShopId(Integer shopId) {
         this.shopId = shopId;
     }
 

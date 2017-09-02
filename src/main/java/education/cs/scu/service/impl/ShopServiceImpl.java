@@ -19,9 +19,9 @@ public class ShopServiceImpl implements  ShopService{
     @Autowired
     ShopMapper shopMapper;
 
-    public List<ShopInfo> queryShopInfos(List<ShopInfo> shopInfos) throws Exception {
-        return shopMapper.queryShopInfos(shopInfos);
-    }
+//    public List<ShopInfo> queryShopInfos(List<ShopInfo> shopInfos) throws Exception {
+//        return shopMapper.queryShopInfos(shopInfos);
+//    }
 
     public List<ShopInfo> queryShopInfos(ShopInfo shopInfo) throws Exception {
         return shopMapper.queryShopInfos(shopInfo);

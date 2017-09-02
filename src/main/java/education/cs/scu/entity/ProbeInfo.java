@@ -8,36 +8,28 @@ import java.io.Serializable;
 public class ProbeInfo implements Serializable{
 
     private static final long serialVersionUID = 5759687546989052462L;
-    private String userName;
+    private String user_name;
     private String mmac;
     private String shop_name;
     private Double lat;
     private Double lon;
     private String addr;
     private String state;
-    private Integer totalData;
+    private Integer total_data;
     private Double rate;
-    private Long shopId;
+    private Integer shop_id;
 
 
-    public String getUserName() {
-        return userName;
+    public String getUser_name() {
+        return user_name;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
     }
 
     public String getMmac() {
         return mmac;
-    }
-
-    public Long getShopId() {
-        return shopId;
-    }
-
-    public void setShopId(Long shopId) {
-        this.shopId = shopId;
     }
 
     public void setMmac(String mmac) {
@@ -68,22 +60,6 @@ public class ProbeInfo implements Serializable{
         this.lon = lon;
     }
 
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public Integer getTotalData() {
-        return totalData;
-    }
-
-    public void setTotalData(Integer totalData) {
-        this.totalData = totalData;
-    }
-
     public String getAddr() {
         return addr;
     }
@@ -92,11 +68,35 @@ public class ProbeInfo implements Serializable{
         this.addr = addr;
     }
 
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public Integer getTotal_data() {
+        return total_data;
+    }
+
+    public void setTotal_data(Integer total_data) {
+        this.total_data = total_data;
+    }
+
     public Double getRate() {
         return rate;
     }
 
     public void setRate(Double rate) {
         this.rate = rate;
+    }
+
+    public Integer getShop_id() {
+        return shop_id;
+    }
+
+    public void setShop_id(Integer shop_id) {
+        this.shop_id = shop_id;
     }
 }

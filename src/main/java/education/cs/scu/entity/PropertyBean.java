@@ -11,7 +11,7 @@ public class PropertyBean implements Serializable {
 
     private static final long serialVersionUID = 351877796426921776L;
     private Integer propertyId;
-    private Long shopId;
+    private Integer shopId;
     private String mmac;
     private String visitCycle;
     private Double visitRange;
@@ -23,10 +23,6 @@ public class PropertyBean implements Serializable {
     public PropertyBean() {
     }
 
-    public static long getSerialVersinUID() {
-        return serialVersionUID;
-    }
-
     public Integer getPropertyId() {
         return propertyId;
     }
@@ -35,11 +31,11 @@ public class PropertyBean implements Serializable {
         this.propertyId = propertyId;
     }
 
-    public Long getShopId() {
+    public Integer getShopId() {
         return shopId;
     }
 
-    public void setShopId(Long shopId) {
+    public void setShopId(Integer shopId) {
         this.shopId = shopId;
     }
 
