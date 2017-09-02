@@ -30,7 +30,6 @@
             INSERT INTO shop_info(shop_name, shop_addr, shop_manager,shop_owner, shop_telephone, shop_describe)
             VALUES ( #{shop_name}, #{shop_addr}, #{shop_manager},#{shop_owner},#{shop_telephone}, #{shop_describe});
         </insert>
-
     <select id="queryShopInfos" parameterType="ShopInfo" resultMap="shopInfos">
             SELECT * FROM shop_info
             WHERE shop_owner = #{shop_owner}
@@ -43,22 +42,18 @@
             WHERE shop_id = #{shop_id}
         </update>
 
+    <insert id="addProbeInfo" parameterType="ProbeInfo">
+        INSERT INTO  probe(shop_id,mmac,lat,lon,addr,state,total_data,shop_name,rate,user_name)
+        VALUES (#{shop_id},#{mmac},#{lat},#{lon},#{addr},#{state},#{total_data},#{shop_name},#{rate},#{user_name});
+    </insert>
     <select id="queryProbeInfos" parameterType="ProbeInfo" resultMap="probeInfos">
             SELECT *
-            FROM probe,shop_info
-            WHERE shop_info.shop_owner = #{user_name}
-            AND shop_info.shop_id = probe.shop_id
+            FROM probe
+            WHERE user_name = #{user_name}
         </select>
-
-    <insert id="addProbeInfo" parameterType="ProbeInfo">
-            INSERT INTO  probe(shop_id,mmac,lat,lon,addr,state,total_data,shop_name,rate,user_name)
-            VALUES (#{shop_id},#{mmac},#{lat},#{lon},#{addr},#{state},#{total_data},#{shop_name},#{rate},#{user_name});
-    </insert>
-
     <select id="queryShopProbeInfo" parameterType="ShopInfo" resultMap="probeInfos">
-            SELECT shop_name, mmac, lat, lon, addr, state, totalData
-            FROM probe, shop_info
-            WHERE shop_info.shop_owner = #{shop_owner}
-            AND probe.shop_id = #{shop_id}
+            SELECT *
+            FROM probe
+            WHERE probe.shop_id = #{shop_id};
     </select>
 </mapper>

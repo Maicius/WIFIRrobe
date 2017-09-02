@@ -8,10 +8,10 @@
 
 
 
-   <bean id="shopMapper" class="education.cs.scu.mapper.Impl.ShopMapperImpl"/>
+   <!--<bean id="shopMapper" class="education.cs.scu.mapper.Impl.ShopMapperImpl"/>-->
    <bean id="userMapper" class="education.cs.scu.mapper.Impl.UserMapperImpl"/>
    <bean id="probeUserMapper" class="education.cs.scu.mapper.Impl.ProbeUserMapperImpl"/>
-   <bean id="propertyMapper" class="education.cs.scu.mapper.Impl.PropertyMapperImpl"/>
+   <!--<bean id="propertyMapper" class="education.cs.scu.mapper.Impl.PropertyMapperImpl"/>-->
    <bean id="queryHistoryDataMapper" class="education.cs.scu.mapper.Impl.QueryHistoryDataMapperImpl"/>
    <bean id="userFlowMapper" class="education.cs.scu.mapper.Impl.UserFlowMapperImpl"/>
    <bean id="userVisitMapper" class="education.cs.scu.mapper.Impl.UserVisitMapperImpl"/>

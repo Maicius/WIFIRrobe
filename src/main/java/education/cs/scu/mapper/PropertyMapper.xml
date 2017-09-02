@@ -19,7 +19,6 @@
         visit_range = #{visitRange}, visit_rssi = #{visitRSSI},
         activity_degree = #{activityDegree}, visit_time_split = #{visitTimeSplit},
         property_type = #{propertyType}
-
         WHERE property_id = #{propertyId}
     </update>
 

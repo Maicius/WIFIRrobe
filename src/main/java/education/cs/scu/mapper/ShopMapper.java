@@ -10,7 +10,6 @@ import java.util.List;
  * Created by maicius on 2017/6/27.
  */
 public interface ShopMapper {
-    //List<ShopInfo> queryShopInfos(List<ShopInfo> shopInfos);
     List<ShopInfo> queryShopInfos(ShopInfo shopInfo);
     int addShopInfo(ShopInfo shopInfo);
     int updateShopInfo(ShopInfo shopInfo);

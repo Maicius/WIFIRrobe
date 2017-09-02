@@ -3,10 +3,12 @@ package education.cs.scu.controller;
 import education.cs.scu.entity.ProbeUser;
 import education.cs.scu.entity.User;
 import education.cs.scu.entity.UserFlow;
+import education.cs.scu.entity.UserVisitBean;
 import education.cs.scu.javautils.ExcelUtil;
 import education.cs.scu.service.LoginService;
 import education.cs.scu.service.ProbeUserService;
 import education.cs.scu.service.ShopService;
+import education.cs.scu.service.UserVisitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,6 +38,10 @@ public class LoginController {
 
     @Autowired
     private ProbeUserService probeUserService;
+
+
+
+
     List<ProbeUser> probeUsers = new ArrayList<ProbeUser>();
 
     /**
@@ -43,8 +49,9 @@ public class LoginController {
      */
     @RequestMapping(value = "testRedis", method = RequestMethod.GET)
     public void testRedis(HttpServletRequest request,
-                          HttpServletResponse response,
-                          @RequestParam("userName") String userName) throws Exception {
+                            HttpServletResponse response,
+                            @RequestParam("userName") String userName) throws Exception {
+
         ProbeUser probeUser = new ProbeUser();
         probeUser.setMac("aa.bb.cc.dd.ee.ff");
         probeUser.setAddr("四川省成都市双流区四川大学江安校区西园7舍");
@@ -145,11 +152,11 @@ public class LoginController {
         }
     }
 
-    @RequestMapping(value="/userRegist", method= RequestMethod.GET)
+    @RequestMapping(value = "/userRegist", method = RequestMethod.GET)
     public void userRegist(HttpServletRequest request,
-                           @RequestParam(value="userName") String userName,
-                           @RequestParam(value="password") String password,
-                           @RequestParam(value="nickName") String nickName) throws Exception{
+                           @RequestParam(value = "userName") String userName,
+                           @RequestParam(value = "password") String password,
+                           @RequestParam(value = "nickName") String nickName) throws Exception {
         User user = new User();
         user.setUserName(userName);
         user.setNickName(nickName);

@@ -89,4 +89,8 @@ public class UserVisitBean implements Serializable{
     public void setDeepVisitRate(Double deepVisitRate) {
         this.deepVisitRate = deepVisitRate;
     }
+
+
+
+
 }

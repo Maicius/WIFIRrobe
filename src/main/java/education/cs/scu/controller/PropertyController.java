@@ -19,7 +19,7 @@ public class PropertyController {
     private PropertyService propertyService;
 
     /**
-     * 属性设置类
+     * 更新属性
      *
      * @param request
      * @param shop_id
@@ -34,15 +34,17 @@ public class PropertyController {
      */
     @RequestMapping(value = "/setProperty", method = RequestMethod.GET)
     public String setProperty(HttpServletRequest request,
-                           @RequestParam("shop_id") Integer shop_id,
-                           @RequestParam("mmac") String mmac,
-                           @RequestParam("visitCycle") String visitCycle,
-                           @RequestParam("visitRange") Double visitRange,
-                           @RequestParam("visitRssi") Integer visitRssi,
-                           @RequestParam("activityDegree") String activityDegree,
-                           @RequestParam("visitTimeSplit") String visitTimeSplit) throws Exception {
+                              @RequestParam("property_id") Integer property_id,
+                              @RequestParam("shop_id") Integer shop_id,
+                              @RequestParam("mmac") String mmac,
+                              @RequestParam("visitCycle") String visitCycle,
+                              @RequestParam("visitRange") Double visitRange,
+                              @RequestParam("visitRssi") Integer visitRssi,
+                              @RequestParam("activityDegree") String activityDegree,
+                              @RequestParam("visitTimeSplit") String visitTimeSplit) throws Exception {
 
         PropertyBean propertyBean = new PropertyBean();
+        propertyBean.setPropertyId(property_id);
         propertyBean.setShopId(shop_id);
         propertyBean.setMmac(mmac);
         propertyBean.setVisitCycle(visitCycle);
@@ -76,13 +78,13 @@ public class PropertyController {
      */
     @RequestMapping(value = "/addProperty", method = RequestMethod.GET)
     public String addProperty(HttpServletRequest request,
-                           @RequestParam("shop_id") Integer shop_id,
-                           @RequestParam("mmac") String mmac,
-                           @RequestParam("visitCycle") String visitCycle,
-                           @RequestParam("visitRange") Double visitRange,
-                           @RequestParam("visitRssi") Integer visitRssi,
-                           @RequestParam("activityDegree") String activityDegree,
-                           @RequestParam("visitTimeSplit") String visitTimeSplit) throws Exception {
+                              @RequestParam("shop_id") Integer shop_id,
+                              @RequestParam("mmac") String mmac,
+                              @RequestParam("visitCycle") String visitCycle,
+                              @RequestParam("visitRange") Double visitRange,
+                              @RequestParam("visitRssi") Integer visitRssi,
+                              @RequestParam("activityDegree") String activityDegree,
+                              @RequestParam("visitTimeSplit") String visitTimeSplit) throws Exception {
 
 
         //localhost:8080/addProperty.action?shop_id=1504193496555&mmac=ff.ff.ff.ff.ff.ff&visitCycle=test&visitRange=2&visitRssi=1&activityDegree=test&visitTimeSplit=test

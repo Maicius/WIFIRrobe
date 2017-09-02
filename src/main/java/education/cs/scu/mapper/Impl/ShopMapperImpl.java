@@ -123,8 +123,8 @@ public class ShopMapperImpl  {
         List<ProbeInfo> results = new ArrayList<ProbeInfo>();
         try {
             Map<Object, Object> map = redisTemplate.opsForHash().entries(PROBE_INFO_KEY);
-            if (map.containsKey(probeInfo.getUserName())) {
-                results = (List<ProbeInfo>) map.get(probeInfo.getUserName());
+            if (map.containsKey(probeInfo.getUser_name())) {
+                results = (List<ProbeInfo>) map.get(probeInfo.getUser_name());
             }
         } catch (RedisConnectionFailureException e) {
             return null;
@@ -143,7 +143,7 @@ public class ShopMapperImpl  {
                 results = (List<ProbeInfo>) map.get(shopInfo.getShop_owner());
             }
             for (ProbeInfo pi:results) {
-                if (pi.getShopId() != shopInfo.getShop_id()) {
+                if (pi.getShop_id() != shopInfo.getShop_id()) {
                     results.remove(pi);
                 }
             }
@@ -161,7 +161,7 @@ public class ShopMapperImpl  {
         try {
             probeInfoList = queryProbeInfos(probeInfo);
             probeInfoList.add(probeInfo);
-            redisTemplate.opsForHash().put(PROBE_INFO_KEY, probeInfo.getUserName(), probeInfoList);
+            redisTemplate.opsForHash().put(PROBE_INFO_KEY, probeInfo.getUser_name(), probeInfoList);
         } catch (RedisConnectionFailureException e) {
             return 0;
         }

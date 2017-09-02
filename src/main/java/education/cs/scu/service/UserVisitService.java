@@ -1,7 +1,10 @@
 package education.cs.scu.service;
 
+import education.cs.scu.entity.User;
 import education.cs.scu.entity.UserFlow;
 import education.cs.scu.entity.UserVisitBean;
+
+import java.util.List;
 
 /**
  * Created by Wang Han on 2017/6/18 15:18.
@@ -10,5 +13,6 @@ import education.cs.scu.entity.UserVisitBean;
  */
 public interface UserVisitService {
     void addUserVisit(UserVisitBean userFlow) throws Exception;
-    UserFlow queryUserVisit() throws Exception;
+    String queryUserVisit() throws Exception;
+    List<Object> queryUserShop(List<Integer> shopIdlist) throws Exception;
 }

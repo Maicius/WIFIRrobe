@@ -28,7 +28,7 @@ public class Monitor implements Runnable {
             //System.out.println("clockDBManager" + clockDataDBManager.toString());
             rs = clockDataDBManager.executeQuery();
             if (rs.next()) {
-                userFlow.setTime(rs.getString("time"));
+                userFlow.setTime(rs.getLong("time"));
                 userFlow.setTotalFlow(rs.getInt("total_flow"));
                 userFlow.setCheckInFlow(rs.getInt("check_in_flow"));
                 userFlow.setCheckInRate(rs.getDouble("check_in_rate"));

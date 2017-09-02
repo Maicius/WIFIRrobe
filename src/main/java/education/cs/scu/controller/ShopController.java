@@ -182,29 +182,24 @@ public class ShopController {
      */
     @RequestMapping(value = "queryProbeInfos", method = RequestMethod.GET)
     public List<ProbeInfo> queryProbeInfos(HttpServletRequest request,
-                                           @RequestParam("userName") String userName,
-                                           @RequestParam("shopId") Integer shopId) throws Exception {
+                                           @RequestParam("userName") String userName) throws Exception {
        ProbeInfo probeInfo = new ProbeInfo();
        probeInfo.setUser_name(userName);
-       probeInfo.setShop_id(shopId);
        return shopService.queryProbeInfos(probeInfo);
     }
 
     /**
-     * 根据用户名和商场ID查询探针
+     * 根据商场ID查询探针
      *
      * @param request
-     * @param userName
      * @param shop_id
      * @return
      * @throws Exception
      */
     @RequestMapping(value = "queryShopProbeInfos", method = RequestMethod.GET)
     public List<ProbeInfo> queryShopProbeInfos(HttpServletRequest request,
-                                               @RequestParam("userName") String userName,
                                                @RequestParam("shopId") Integer shop_id) throws Exception {
         ShopInfo shopInfo = new ShopInfo();
-        shopInfo.setShop_owner(userName);
         shopInfo.setShop_id(shop_id);
         return shopService.queryshopProbeInfos(shopInfo);
     }
