@@ -56,21 +56,12 @@ public class UserVisitController {
      */
 
     @RequestMapping(value = "queryUserVisit", method = RequestMethod.GET)
-    public List<Object> queryUserVisit(HttpServletRequest request,
+    public List<UserVisitBean> queryUserVisit(HttpServletRequest request,
                                        HttpServletResponse response,
                                        @RequestParam("userName") String userName) throws Exception {
 
-        ShopInfo shopInfo = new ShopInfo();
-        shopInfo.setShop_owner(userName);
-
-        List<Integer> shopIdlist = new ArrayList<Integer>();
-        List<ShopInfo> shopInfoList = new ArrayList<ShopInfo>();
-        shopInfoList = shopService.queryShopInfos(shopInfo);
-        for (ShopInfo si : shopInfoList) {
-            shopIdlist.add(si.getShop_id());
-            //System.out.println(si.getShop_id());
-        }
-        return null;
+        List<Integer> shopIdlist = queryUsersShopInfo.getShopId(userName);
+        return userVisitService.queryUserVisit(shopIdlist);
     }
 
 }

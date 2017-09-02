@@ -14,13 +14,14 @@ public class UserVisitBean implements Serializable{
     private static final long serialVersionUID = 1647357927092562559L;
 
     private Integer shopId;
-    private String mac;
+    private String mmac;
     private Long time;
     private Integer totalFlow;
     private Integer checkInFlow;
     private Double checkInRate;
     private Double shallowVisitRate;
     private Double deepVisitRate;
+
 
     public UserVisitBean() {
 
@@ -34,12 +35,12 @@ public class UserVisitBean implements Serializable{
         this.shopId = shopId;
     }
 
-    public String getMac() {
-        return mac;
+    public String getMmac() {
+        return mmac;
     }
 
-    public void setMac(String mac) {
-        this.mac = mac;
+    public void setMmac(String mmac) {
+        this.mmac = mmac;
     }
 
     public Long getTime() {
@@ -89,8 +90,4 @@ public class UserVisitBean implements Serializable{
     public void setDeepVisitRate(Double deepVisitRate) {
         this.deepVisitRate = deepVisitRate;
     }
-
-
-
-
 }
