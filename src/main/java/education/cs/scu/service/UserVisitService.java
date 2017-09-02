@@ -13,6 +13,6 @@ import java.util.List;
  */
 public interface UserVisitService {
     void addUserVisit(UserVisitBean userFlow) throws Exception;
-    String queryUserVisit() throws Exception;
+    List<UserVisitBean>  queryUserVisit(List<Integer> shopIdlist) throws Exception;
     List<Object> queryUserShop(List<Integer> shopIdlist) throws Exception;
 }

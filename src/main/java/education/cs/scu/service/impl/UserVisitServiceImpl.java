@@ -26,8 +26,8 @@ public class UserVisitServiceImpl implements UserVisitService {
         userVisitMapper.addUserVisit(userFlow);
     }
 
-    public String queryUserVisit() throws Exception {
-        return userVisitMapper.queryUserVisit();
+    public List<UserVisitBean> queryUserVisit(List<Integer> shopIdlist) throws Exception {
+        return userVisitMapper.queryUserVisit(shopIdlist);
     }
 
     public List<Object> queryUserShop(List<Integer> shopIdlist) throws Exception {

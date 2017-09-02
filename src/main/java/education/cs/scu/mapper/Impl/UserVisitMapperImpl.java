@@ -2,6 +2,7 @@ package education.cs.scu.mapper.Impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import education.cs.scu.entity.UserFlow;
 import education.cs.scu.entity.UserVisitBean;
 import education.cs.scu.mapper.UserVisitMapper;
 import org.apache.poi.ss.formula.functions.T;
@@ -37,9 +38,20 @@ public class UserVisitMapperImpl implements UserVisitMapper {
      * 读取table_user_visit中的最新数据
      */
 
-    public String queryUserVisit() throws Exception {
-        redisTemplate.opsForHash().entries(TABLE_USER_VISIT_KEY);
-        return null;
+    public  List<UserVisitBean>  queryUserVisit(List<Integer> shopIdlist) throws Exception {
+
+        List<UserVisitBean> res = new ArrayList<UserVisitBean>();
+        Map<Object, Object> map = redisTemplate.opsForHash().entries(TABLE_USER_VISIT_KEY);
+        Set<Object> set = map.keySet();
+        for (Integer id : shopIdlist) {
+            for (Object key:set) {
+                String keyValue = key.toString();
+                if (id == Integer.parseInt(keyValue.split("||")[0])) {
+                   res.add((UserVisitBean) JSON.parse((String) map.get(keyValue)));
+                }
+            }
+        }
+        return res;
     }
 
     /**
@@ -53,7 +65,8 @@ public class UserVisitMapperImpl implements UserVisitMapper {
         Set<Object> set = map.keySet();
         for (Integer id : shopIdlist) {
             for (Object key:set) {
-                String keyValue = key.toString();
+                String keyValue;
+                keyValue = key.toString();
                 //System.out.println(keyValue);
                 if (id == Integer.parseInt(keyValue.split("||")[0])) {
                     res.add(JSON.parse((String) map.get(keyValue)));
@@ -63,4 +76,5 @@ public class UserVisitMapperImpl implements UserVisitMapper {
         }
         return res;
     }
+
 }

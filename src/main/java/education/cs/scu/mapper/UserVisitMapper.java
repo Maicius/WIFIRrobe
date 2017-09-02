@@ -12,6 +12,6 @@ import java.util.List;
  */
 public interface UserVisitMapper {
     void addUserVisit(UserVisitBean userVisitBean) throws Exception;
-    String queryUserVisit() throws Exception;
+    List<UserVisitBean>  queryUserVisit(List<Integer> shopIdlist) throws Exception;
     List<Object> queryUserShop(List<Integer> shopIdlist) throws Exception;
 }

@@ -3,7 +3,9 @@ package education.cs.scu.webSocket;
 import education.cs.scu.DBHelper.DBHelper;
 import education.cs.scu.DBHelper.DataDBManager;
 import education.cs.scu.entity.UserVisitBean;
+import education.cs.scu.service.UserVisitService;
 import education.cs.scu.webSocket.handler.WebSocketEndPointTest;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -16,6 +18,9 @@ public class Monitor implements Runnable {
 //    int getRandomNumber(){
 //        return (int)(Math.random() * 300);
 //    }
+
+    @Autowired
+    UserVisitService userVisitService;
 
     private static ResultSet rs = null;
     private static DataDBManager clockDataDBManager = null;

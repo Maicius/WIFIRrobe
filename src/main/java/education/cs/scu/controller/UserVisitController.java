@@ -1,6 +1,7 @@
 package education.cs.scu.controller;
 
 import com.alibaba.fastjson.JSON;
+import education.cs.scu.component.QueryUsersShopInfo;
 import education.cs.scu.entity.ShopInfo;
 import education.cs.scu.entity.UserVisitBean;
 import education.cs.scu.service.ShopService;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import sun.nio.cs.US_ASCII;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,16 +31,34 @@ public class UserVisitController {
     @Autowired
     private ShopService shopService;
 
+    @Autowired
+    QueryUsersShopInfo queryUsersShopInfo;
+
     /**
      * 根据userName 查询其名下的商店
-     *
+     * <p>
      * 查询redis中的table_user表
-     * */
+     */
 
     @RequestMapping(value = "queryUserShop", method = RequestMethod.GET)
     public List<Object> queryUserShop(HttpServletRequest request,
-                                 HttpServletResponse response,
-                                 @RequestParam("userName") String userName) throws Exception {
+                                      HttpServletResponse response,
+                                      @RequestParam("userName") String userName) throws Exception {
+        List<Integer> shopIdlist = queryUsersShopInfo.getShopId(userName);
+        return userVisitService.queryUserShop(shopIdlist);
+    }
+
+
+    /**
+     * 查询redis中的table_user_visit表
+     * 通过webSocket 推送到 前端
+     */
+
+    @RequestMapping(value = "queryUserVisit", method = RequestMethod.GET)
+    public List<Object> queryUserVisit(HttpServletRequest request,
+                                       HttpServletResponse response,
+                                       @RequestParam("userName") String userName) throws Exception {
+
         ShopInfo shopInfo = new ShopInfo();
         shopInfo.setShop_owner(userName);
 
@@ -47,11 +67,9 @@ public class UserVisitController {
         shopInfoList = shopService.queryShopInfos(shopInfo);
         for (ShopInfo si : shopInfoList) {
             shopIdlist.add(si.getShop_id());
-            System.out.println(si.getShop_id());
+            //System.out.println(si.getShop_id());
         }
-        String res = JSON.toJSONString(userVisitService.queryUserShop(shopIdlist),true);
-        System.out.println(res);
-        return userVisitService.queryUserShop(shopIdlist);
+        return null;
     }
 
 }
