@@ -11,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import javax.json.Json;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 
 /**
@@ -37,7 +34,7 @@ public class UserVisitMapperImpl implements UserVisitMapper {
     }
 
     /**
-     * 读取table_user_visit中的最新数据
+     * 根据shopId读取table_user_visit中的最新数据
      *
      * 利用redis list的trim删去已经读的数据
      */
@@ -46,25 +43,23 @@ public class UserVisitMapperImpl implements UserVisitMapper {
 
 
         //在push数据的时候要采用rpush
-        long size = redisTemplate.opsForList().size(TABLE_USER_VISIT_KEY);
-        List<Object> tempList = redisTemplate.opsForList().range(TABLE_USER_VISIT_KEY, 0, size);
+        long size = redisTemplate.opsForList().size(TEST_KEY);
+        List<Object> tempList = redisTemplate.opsForList().range(TEST_KEY, 0, size);
         List<UserVisitBean> resList = JSONArray.parseArray(tempList.toString(), UserVisitBean.class);
-        redisTemplate.opsForList().trim(TABLE_USER_VISIT_KEY, size, -1);
-        return resList;
-
-
-/*        List<UserVisitBean> res = new ArrayList<UserVisitBean>();
-        Map<Object, Object> map = redisTemplate.opsForHash().entries(TABLE_USER_VISIT_KEY);
-        Set<Object> set = map.keySet();
-        for (Integer id : shopIdlist) {
-            for (Object key : set) {
-                String keyValue = key.toString();
-                if (id == Integer.parseInt(keyValue.split("||")[0])) {
-                    res.add(JSON.parseObject((String) map.get(keyValue), UserVisitBean.class));
-                }
+        redisTemplate.opsForList().trim(TEST_KEY, size, -1);
+        if (resList.isEmpty()) {
+            return null;
+        }
+        //筛选特定shop_id的记录
+        Iterator<UserVisitBean> iterator = resList.iterator();
+        while (iterator.hasNext()) {
+            UserVisitBean userVisitBean = iterator.next();
+            if (!shopIdlist.contains(userVisitBean.getShopId())) {
+                iterator.remove();
             }
         }
-        return res;*/
+        return resList;
+
     }
 
     /**

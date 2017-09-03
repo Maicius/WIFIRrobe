@@ -61,6 +61,9 @@ public class UserVisitController {
                                        @RequestParam("userName") String userName) throws Exception {
 
         List<Integer> shopIdlist = queryUsersShopInfo.getShopId(userName);
+        for(Integer I:shopIdlist) {
+            System.out.print(I);
+        }
         return userVisitService.queryUserVisit(shopIdlist);
     }
 
