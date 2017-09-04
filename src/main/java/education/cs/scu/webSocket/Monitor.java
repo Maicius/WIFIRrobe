@@ -1,14 +1,19 @@
 package education.cs.scu.webSocket;
 
-import education.cs.scu.DBHelper.DBHelper;
 import education.cs.scu.DBHelper.DataDBManager;
 import education.cs.scu.entity.UserVisitBean;
 import education.cs.scu.service.UserVisitService;
 import education.cs.scu.webSocket.handler.WebSocketEndPointTest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 
 public class Monitor implements Runnable {
@@ -28,32 +33,43 @@ public class Monitor implements Runnable {
 
     public void run() {
         try {
-            Connection conn = DBHelper.createInstance();
-            clockDataDBManager = new DataDBManager(conn);
-            //System.out.println("clockDBManager" + clockDataDBManager.toString());
-            rs = clockDataDBManager.executeQuery();
-            if (rs.next()) {
-                userFlow.setTime(rs.getLong("time"));
-                userFlow.setTotalFlow(rs.getInt("total_flow"));
-                userFlow.setCheckInFlow(rs.getInt("check_in_flow"));
-                userFlow.setCheckInRate(rs.getDouble("check_in_rate"));
-                userFlow.setDeepVisitRate(rs.getDouble("deep_visit_rate"));
-                userFlow.setShallowVisitRate(rs.getDouble("shallow_visit_rate"));
-                WebSocketEndPointTest webSocketTest = new WebSocketEndPointTest();
-//                System.out.println("推送消息:" + userFlow);
-                webSocketTest.sendMsg(userFlow);
+//            Connection conn = DBHelper.createInstance();
+//            clockDataDBManager = new DataDBManager(conn);
+//            //System.out.println("clockDBManager" + clockDataDBManager.toString());
+//            rs = clockDataDBManager.executeQuery();
+//            if (rs.next()) {
+//                userFlow.setTime(rs.getLong("time"));
+//                userFlow.setTotalFlow(rs.getInt("total_flow"));
+//                userFlow.setCheckInFlow(rs.getInt("check_in_flow"));
+//                userFlow.setCheckInRate(rs.getDouble("check_in_rate"));
+//                userFlow.setDeepVisitRate(rs.getDouble("deep_visit_rate"));
+//                userFlow.setShallowVisitRate(rs.getDouble("shallow_visit_rate"));
+//                WebSocketEndPointTest webSocketTest = new WebSocketEndPointTest();
+////                System.out.println("推送消息:" + userFlow);
+//                webSocketTest.sendMsg(userFlow);
+//            }
+//            DBHelper.closeDB();
+//            //UserFlow userFlow = userVisitDao.queryUserVisit();
+            ApplicationContext ctx = new ClassPathXmlApplicationContext(new String[]{
+                    "classpath:applicationContext-service.xml", "classpath:applicationContext-redis.xml", "classpath:applicationContext-dao.xml"});
+            UserVisitService userVisitService = (UserVisitService) ctx.getBean("userVisitService");
+            List<Integer> shopList = userVisitService.queryShopList("18996720676");
+            List<UserVisitBean> userVisitBeanList = new ArrayList<UserVisitBean>();
+            if(shopList !=null) {
+                userVisitBeanList = userVisitService.queryUserVisit(shopList);
+                if(userVisitBeanList.size() > 0) {
+                    WebSocketEndPointTest webSocketEndPointTest = new WebSocketEndPointTest();
+                    webSocketEndPointTest.sendMsg(userVisitBeanList.get(0));
+                }
             }
-            DBHelper.closeDB();
-            //UserFlow userFlow = userVisitDao.queryUserVisit();
-
         }catch (Exception e){
             e.printStackTrace();
         }
     }
     public void sendMsg() {
-//        System.out.println("sendMsg");
-//        ScheduledExecutorService newScheduledThreadPool = Executors.newSingleThreadScheduledExecutor();
-//        newScheduledThreadPool.scheduleWithFixedDelay(new Monitor(), 10, 2, TimeUnit.SECONDS);
+        System.out.println("sendMsg");
+        ScheduledExecutorService newScheduledThreadPool = Executors.newSingleThreadScheduledExecutor();
+        newScheduledThreadPool.scheduleWithFixedDelay(new Monitor(), 10, 2, TimeUnit.SECONDS);
     }
 }
 

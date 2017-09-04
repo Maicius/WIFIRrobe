@@ -1,19 +1,14 @@
 package education.cs.scu.controller;
 
-import com.alibaba.fastjson.JSON;
 import education.cs.scu.component.QueryUsersShopInfo;
-import education.cs.scu.entity.ShopInfo;
 import education.cs.scu.entity.UserBean;
-import education.cs.scu.entity.UserVisitBean;
 import education.cs.scu.service.ShopService;
 import education.cs.scu.service.UserVisitService;
-import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import sun.nio.cs.US_ASCII;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -77,38 +72,39 @@ public class UserVisitController {
      * 通过webSocket 推送到 前端
      */
 
-    @RequestMapping(value = "queryUserVisit", method = RequestMethod.GET)
-    public UserVisitBean queryUserVisit(HttpServletRequest request,
-                                        HttpServletResponse response,
-                                        @RequestParam("userName") String userName) throws Exception {
-
-
-        UserVisitBean userVisitBean = new UserVisitBean();
-        userVisitBean.setTotalFlow(0);
-        userVisitBean.setTime(0l);
-        userVisitBean.setShopId(0);
-        userVisitBean.setShallowVisitRate(0d);
-        userVisitBean.setDeepVisitRate(0d);
-        userVisitBean.setCheckInRate(0d);
-        userVisitBean.setCheckInFlow(0);
-        userVisitBean.setMmac("0");
-
-        List<Integer> shopIdlist = queryUsersShopInfo.getShopId(userName);
-        if (shopIdlist == null) {
-            return null;
-        }
-        if (shopIdlist.size() > 0) {
-            List<UserVisitBean> res = new ArrayList<UserVisitBean>();
-            res = userVisitService.queryUserVisit(shopIdlist);
-            if (res == null) {
-                return userVisitBean;
-            }
-            return res.get(0);
-        } else {
-
-            return userVisitBean;
-        }
-
-    }
-
+//    @RequestMapping(value = "queryUserVisit", method = RequestMethod.GET)
+//    public UserVisitBean queryUserVisit(HttpServletRequest request,
+//                                        HttpServletResponse response,
+//                                        @RequestParam("userName") String userName) throws Exception {
+//
+//
+//        UserVisitBean userVisitBean = new UserVisitBean();
+//        userVisitBean.setTotalFlow(0);
+//        userVisitBean.setTime(0l);
+//        userVisitBean.setShopId(0);
+//        userVisitBean.setShallowVisitRate(0d);
+//        userVisitBean.setDeepVisitRate(0d);
+//        userVisitBean.setCheckInRate(0d);
+//        userVisitBean.setCheckInFlow(0);
+//        userVisitBean.setMmac("0");
+//
+//        List<Integer> shopIdlist = queryUsersShopInfo.getShopId(userName);
+//        if (shopIdlist == null) {
+//            return null;
+//        }
+//        if (shopIdlist.size() > 0) {
+//            List<UserVisitBean> res = new ArrayList<UserVisitBean>();
+//            res = userVisitService.queryUserVisit(shopIdlist);
+//            if (res == null) {
+//                return userVisitBean;
+//            }
+//            return res.get(0);
+//        } else {
+//
+//            return userVisitBean;
+//        }
+//
+//    }
+//
+//}
 }

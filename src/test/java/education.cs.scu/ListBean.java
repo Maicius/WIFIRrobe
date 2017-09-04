@@ -5,7 +5,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class ListBean {
     public static void main(String args[]){
-        ApplicationContext ctx = new ClassPathXmlApplicationContext("classpath:applicationContext-service.xml");
+        ApplicationContext ctx = new ClassPathXmlApplicationContext(new String[]{"classpath:applicationContext-service.xml", "classpath:applicationContext-redis.xml"});
         String[] beanNames = ctx.getBeanDefinitionNames();
         int allBeansCount = ctx.getBeanDefinitionCount();
         System.out.println("所有beans的数量是：" + allBeansCount);
