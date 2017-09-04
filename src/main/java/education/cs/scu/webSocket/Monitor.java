@@ -11,6 +11,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -83,7 +84,10 @@ public class Monitor implements Runnable {
     public void sendMsg() {
         System.out.println("sendMsg");
         ScheduledExecutorService newScheduledThreadPool = Executors.newSingleThreadScheduledExecutor();
-        newScheduledThreadPool.scheduleWithFixedDelay(new Monitor(), 1, 2, TimeUnit.SECONDS);
+        Random random = new Random();
+        int delay = random.nextInt(3) + 1;
+        System.out.println("delay = " + delay);
+        newScheduledThreadPool.scheduleWithFixedDelay(new Monitor(), 1, delay, TimeUnit.SECONDS);
     }
 }
 

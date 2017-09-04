@@ -43,10 +43,12 @@ public class UserVisitMapperImpl implements UserVisitMapper {
 
 
         //在push数据的时候要采用rpush
-        long size = redisTemplate.opsForList().size(TEST_KEY);
-        List<Object> tempList = redisTemplate.opsForList().range(TEST_KEY, 0, size);
+        long size = redisTemplate.opsForList().size(TABLE_USER_VISIT_KEY);
+        List<Object> tempList = redisTemplate.opsForList().range(TABLE_USER_VISIT_KEY, 0, 1);
+        //List<Object> tempList = redisTemplate.opsForList().range(TEST_KEY, 0, size);
         List<UserVisitBean> resList = JSONArray.parseArray(tempList.toString(), UserVisitBean.class);
-        redisTemplate.opsForList().trim(TEST_KEY, size, -1);
+        //redisTemplate.opsForList().trim(TEST_KEY, size, -1);
+        redisTemplate.opsForList().trim(TABLE_USER_VISIT_KEY, 1, -1);
         if (resList.isEmpty()) {
             return null;
         }
