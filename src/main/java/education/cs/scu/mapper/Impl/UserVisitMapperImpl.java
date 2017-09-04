@@ -25,8 +25,8 @@ public class UserVisitMapperImpl implements UserVisitMapper {
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
     private static final String USER_VISIT_KEY = "USER_VISIT";
-    private static final String TABLE_USER_KEY = "table_user";
-    private static final String TABLE_USER_VISIT_KEY = "table_user_visit";
+    private static final String TABLE_USER_KEY = "TABLE_USER";
+    private static final String TABLE_USER_VISIT_KEY = "TABLE_USER_VISIT";
     private static final String TEST_KEY = "testlist";
 
     public void addUserVisit(UserVisitBean userVisitBean) throws Exception {
