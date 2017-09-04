@@ -5,6 +5,7 @@ import education.cs.scu.service.UserVisitTimeService;
 import org.junit.Test;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,5 +31,21 @@ public class testExcel {
 
     @Test
     public void test2() {
+
+        int n = 100;//迭代的步数
+        int[] rec = new int[4]; //各点状态
+        List<Integer> current = new ArrayList<Integer>() ;//满足的当前层级的点
+        for (int i = 0; i < n; i++) {
+            for (int j = 0;j < 4;j++) {
+                if (isFit(rec[j])) { //判断各点是否满足状态
+                    current.add(rec[j]); //如果满足则得到当前层次的所有点
+                }
+            }
+        }
+
+    }
+
+    private boolean isFit(int i) {
+        return true;
     }
 }

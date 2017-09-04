@@ -46,7 +46,15 @@ public class UserVisitController {
                                         HttpServletResponse response,
                                         @RequestParam("userName") String userName) throws Exception {
         List<Integer> shopIdlist = queryUsersShopInfo.getShopId(userName);
-        return userVisitService.queryUserShop(shopIdlist);
+        if (shopIdlist.size() > 0) {
+            List<UserBean> res = userVisitService.queryUserShop(shopIdlist);
+            if (res == null) {
+                return null;
+            }
+            return res;
+        } else {
+            return null;
+        }
     }
 
 
@@ -56,15 +64,34 @@ public class UserVisitController {
      */
 
     @RequestMapping(value = "queryUserVisit", method = RequestMethod.GET)
-    public List<UserVisitBean> queryUserVisit(HttpServletRequest request,
+    public UserVisitBean queryUserVisit(HttpServletRequest request,
                                        HttpServletResponse response,
                                        @RequestParam("userName") String userName) throws Exception {
 
+
+        UserVisitBean userVisitBean = new UserVisitBean();
+        userVisitBean.setTotalFlow(0);
+        userVisitBean.setTime(0l);
+        userVisitBean.setShopId(0);
+        userVisitBean.setShallowVisitRate(0d);
+        userVisitBean.setDeepVisitRate(0d);
+        userVisitBean.setCheckInRate(0d);
+        userVisitBean.setCheckInFlow(0);
+        userVisitBean.setMmac("0");
+
         List<Integer> shopIdlist = queryUsersShopInfo.getShopId(userName);
-        for(Integer I:shopIdlist) {
-            System.out.print(I);
+        if (shopIdlist.size() >0) {
+            List<UserVisitBean> res = new ArrayList<UserVisitBean>();
+            res = userVisitService.queryUserVisit(shopIdlist);
+            if (res == null) {
+                return userVisitBean;
+            }
+            return res.get(0);
+        } else {
+
+            return userVisitBean;
         }
-        return userVisitService.queryUserVisit(shopIdlist);
+
     }
 
 }

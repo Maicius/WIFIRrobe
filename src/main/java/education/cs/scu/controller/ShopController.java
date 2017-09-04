@@ -201,6 +201,10 @@ public class ShopController {
                                                @RequestParam("shopId") Integer shop_id) throws Exception {
         ShopInfo shopInfo = new ShopInfo();
         shopInfo.setShop_id(shop_id);
-        return shopService.queryshopProbeInfos(shopInfo);
+        List<ProbeInfo> probeInfoList = shopService.queryshopProbeInfos(shopInfo);
+        if (probeInfoList == null || probeInfoList.size()<=0) {
+            return null;
+        }
+        return probeInfoList;
     }
 }
