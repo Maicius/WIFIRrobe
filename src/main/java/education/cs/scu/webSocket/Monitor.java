@@ -4,7 +4,6 @@ import education.cs.scu.DBHelper.DataDBManager;
 import education.cs.scu.entity.UserVisitBean;
 import education.cs.scu.service.UserVisitService;
 import education.cs.scu.webSocket.handler.WebSocketEndPointTest;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -85,7 +84,7 @@ public class Monitor implements Runnable {
         System.out.println("sendMsg");
         ScheduledExecutorService newScheduledThreadPool = Executors.newSingleThreadScheduledExecutor();
         Random random = new Random();
-        int delay = random.nextInt(3) + 1;
+        int delay = random.nextInt(2) + 1;
         System.out.println("delay = " + delay);
 
         newScheduledThreadPool.scheduleWithFixedDelay(new Monitor(), 1, delay, TimeUnit.SECONDS);
