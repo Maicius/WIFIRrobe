@@ -46,10 +46,24 @@ public class UserVisitController {
                                         HttpServletResponse response,
                                         @RequestParam("userName") String userName) throws Exception {
         List<Integer> shopIdlist = queryUsersShopInfo.getShopId(userName);
+        List<String> shopNameList = new ArrayList<String>();//名字列表
         if (shopIdlist.size() > 0) {
+
+            for (int i = 0; i < shopIdlist.size(); i++) {
+                shopNameList.add(queryUsersShopInfo.getShopName(shopIdlist.get(i)));
+            }
+
             List<UserBean> res = userVisitService.queryUserShop(shopIdlist);
             if (res == null) {
                 return null;
+            }
+            for (int k = 0; k < res.size(); k++) {
+                for (int i = 0; i < shopIdlist.size(); i++) {
+                    if (res.get(k).getShopId() == shopIdlist.get(i)) {
+                        res.get(k).setShopName(shopNameList.get(i));
+                        System.out.println(res.get(k).getShopName());
+                    }
+                }
             }
             return res;
         } else {
@@ -65,8 +79,8 @@ public class UserVisitController {
 
     @RequestMapping(value = "queryUserVisit", method = RequestMethod.GET)
     public UserVisitBean queryUserVisit(HttpServletRequest request,
-                                       HttpServletResponse response,
-                                       @RequestParam("userName") String userName) throws Exception {
+                                        HttpServletResponse response,
+                                        @RequestParam("userName") String userName) throws Exception {
 
 
         UserVisitBean userVisitBean = new UserVisitBean();
@@ -80,7 +94,10 @@ public class UserVisitController {
         userVisitBean.setMmac("0");
 
         List<Integer> shopIdlist = queryUsersShopInfo.getShopId(userName);
-        if (shopIdlist.size() >0) {
+        if (shopIdlist == null) {
+            return null;
+        }
+        if (shopIdlist.size() > 0) {
             List<UserVisitBean> res = new ArrayList<UserVisitBean>();
             res = userVisitService.queryUserVisit(shopIdlist);
             if (res == null) {

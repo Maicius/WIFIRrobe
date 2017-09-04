@@ -32,11 +32,22 @@ public class QueryUsersShopInfo {
 
         List<Integer> shopIdlist = new ArrayList<Integer>();
         List<ShopInfo> shopInfoList = shopService.queryShopInfos(shopInfo);
-
         for (ShopInfo si : shopInfoList) {
             shopIdlist.add(si.getShop_id());
         }
-
         return shopIdlist;
     }
+
+    public String getShopName(Integer shopId) throws Exception {
+        ShopInfo shopInfo = new ShopInfo();
+        shopInfo.setShop_id(shopId);
+        String shopName = "";
+        List<ShopInfo> shopInfoList = shopService.queryShopNameById(shopInfo);
+        for (ShopInfo si : shopInfoList) {
+           shopName = si.getShop_name();
+        }
+        return shopName;
+
+    }
+
 }

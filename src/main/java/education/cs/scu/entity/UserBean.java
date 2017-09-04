@@ -22,6 +22,16 @@ public class UserBean implements Serializable {
     //来访周期
     private Long visitCycle;
 
+    private String shopName;
+
+    public String getShopName() {
+        return shopName;
+    }
+
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
+    }
+
     public static long getSerialVersinUID() {
         return serialVersionUID;
     }

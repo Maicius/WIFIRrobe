@@ -19,4 +19,5 @@ public interface ShopService {
     List<ProbeInfo> queryProbeInfos(ProbeInfo probeInfo) throws Exception;
     List<ProbeInfo> queryshopProbeInfos(ShopInfo shopInfo) throws Exception;
     int addProbeInfo(ProbeInfo probeInfo);
+    List<ShopInfo> queryShopNameById(ShopInfo shopInfo);
 }

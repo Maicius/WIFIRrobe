@@ -47,4 +47,8 @@ public class ShopServiceImpl implements  ShopService{
     public int addProbeInfo(ProbeInfo probeInfo) {
         return shopMapper.addProbeInfo(probeInfo);
     }
+
+    public List<ShopInfo> queryShopNameById(ShopInfo shopInfo) {
+        return shopMapper.queryShopNameById(shopInfo);
+    }
 }

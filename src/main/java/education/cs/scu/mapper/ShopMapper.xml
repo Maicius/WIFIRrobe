@@ -34,6 +34,12 @@
             SELECT * FROM shop_info
             WHERE shop_owner = #{shop_owner}
         </select>
+
+
+    <select id="queryShopNameById" parameterType="ShopInfo" resultMap="shopInfos">
+        SELECT * FROM shop_info
+        WHERE shop_id = #{shop_id}
+    </select>
     <update id="updateShopInfo" parameterType="ShopInfo">
             UPDATE shop_info
             SET shop_name=#{shop_name}, shop_addr = #{shop_addr}, shop_manager = #{shop_manager},
