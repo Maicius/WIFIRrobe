@@ -51,15 +51,29 @@ public class Monitor implements Runnable {
 //            DBHelper.closeDB();
 //            //UserFlow userFlow = userVisitDao.queryUserVisit();
             ApplicationContext ctx = new ClassPathXmlApplicationContext(new String[]{
-                    "classpath:applicationContext-service.xml", "classpath:applicationContext-redis.xml", "classpath:applicationContext-dao.xml"});
+                    "classpath:applicationContext-service.xml", "classpath:applicationContext-redis.xml", "classpath:applicationContext-dao.xml", "classpath:springMVC.xml"});
+//            String[] beanNames = ctx.getBeanDefinitionNames();
+//            int allBeansCount = ctx.getBeanDefinitionCount();
+//            System.out.println("所有beans的数量是：" + allBeansCount);
+//            for (String beanName : beanNames) {
+//                Class<?> beanType = ctx.getType(beanName);
+//                Package beanPackage = beanType.getPackage();
+//                //Object bean = ctx.getBean(beanName);
+//                System.out.println("BeanName:" + beanName);
+//                System.out.println("Bean的类型：" + beanType);
+//                System.out.println("Bean所在的包：" + beanPackage);
+//                System.out.println("\r\n");
+//            }
             UserVisitService userVisitService = (UserVisitService) ctx.getBean("userVisitService");
             List<Integer> shopList = userVisitService.queryShopList("18996720676");
             List<UserVisitBean> userVisitBeanList = new ArrayList<UserVisitBean>();
             if(shopList !=null) {
                 userVisitBeanList = userVisitService.queryUserVisit(shopList);
-                if(userVisitBeanList.size() > 0) {
+                if(userVisitBeanList != null && userVisitBeanList.size() > 0) {
                     WebSocketEndPointTest webSocketEndPointTest = new WebSocketEndPointTest();
                     webSocketEndPointTest.sendMsg(userVisitBeanList.get(0));
+                }else{
+                    System.out.println("no data");
                 }
             }
         }catch (Exception e){
@@ -69,7 +83,7 @@ public class Monitor implements Runnable {
     public void sendMsg() {
         System.out.println("sendMsg");
         ScheduledExecutorService newScheduledThreadPool = Executors.newSingleThreadScheduledExecutor();
-        newScheduledThreadPool.scheduleWithFixedDelay(new Monitor(), 10, 2, TimeUnit.SECONDS);
+        newScheduledThreadPool.scheduleWithFixedDelay(new Monitor(), 1, 2, TimeUnit.SECONDS);
     }
 }
 

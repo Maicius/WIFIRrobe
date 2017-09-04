@@ -1,6 +1,6 @@
 package education.cs.scu.webSocket.handler;
 
-import education.cs.scu.DBHelper.DBHelper;
+import education.cs.scu.webSocket.Monitor;
 
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
@@ -34,6 +34,8 @@ public class WebSocketEndPointTest {
         webSocketSet.add(this);     //加入set中
         addOnlineCount();           //在线数加1
         System.out.println("建立新连接，ID:" + getOnlineCount());
+        Monitor monitor = new Monitor();
+        monitor.sendMsg();
     }
 
     /**
@@ -44,9 +46,6 @@ public class WebSocketEndPointTest {
         webSocketSet.remove(this);  //从set中删除
         subOnlineCount();           //在线数减1
         System.out.println("有一连接关闭！当前连接数:" + getOnlineCount());
-        if(getOnlineCount() < 1) {
-            DBHelper.closeDB();
-        }
     }
 
     /**
