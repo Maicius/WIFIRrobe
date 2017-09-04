@@ -25,13 +25,11 @@ public class Monitor implements Runnable {
 //        return (int)(Math.random() * 300);
 //    }
 
-    @Autowired
-    UserVisitService userVisitService;
 
     private static ResultSet rs = null;
     private static DataDBManager clockDataDBManager = null;
     private UserVisitBean userFlow = new UserVisitBean();
-
+    List<Integer> shopList = new ArrayList<Integer>();
     public void run() {
         try {
 //            Connection conn = DBHelper.createInstance();
@@ -66,7 +64,9 @@ public class Monitor implements Runnable {
 //                System.out.println("\r\n");
 //            }
             UserVisitService userVisitService = (UserVisitService) ctx.getBean("userVisitService");
-            List<Integer> shopList = userVisitService.queryShopList("18996720676");
+           // List<Integer> shopList = userVisitService.queryShopList("18996720676");
+            shopList.add(1);
+
             List<UserVisitBean> userVisitBeanList = new ArrayList<UserVisitBean>();
             if(shopList !=null) {
                 userVisitBeanList = userVisitService.queryUserVisit(shopList);
@@ -87,6 +87,7 @@ public class Monitor implements Runnable {
         Random random = new Random();
         int delay = random.nextInt(3) + 1;
         System.out.println("delay = " + delay);
+
         newScheduledThreadPool.scheduleWithFixedDelay(new Monitor(), 1, delay, TimeUnit.SECONDS);
     }
 }

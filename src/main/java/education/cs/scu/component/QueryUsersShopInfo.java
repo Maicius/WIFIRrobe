@@ -34,6 +34,7 @@ public class QueryUsersShopInfo {
         List<ShopInfo> shopInfoList = shopService.queryShopInfos(shopInfo);
         for (ShopInfo si : shopInfoList) {
             shopIdlist.add(si.getShop_id());
+            System.out.println("shop_id = " + si.getShop_id());
         }
         return shopIdlist;
     }
