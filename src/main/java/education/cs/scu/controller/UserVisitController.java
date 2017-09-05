@@ -47,7 +47,6 @@ public class UserVisitController {
             for (int i = 0; i < shopIdlist.size(); i++) {
                 shopNameList.add(queryUsersShopInfo.getShopName(shopIdlist.get(i)));
             }
-
             List<UserBean> res = userVisitService.queryUserShop(shopIdlist);
             if (res == null) {
                 return null;
