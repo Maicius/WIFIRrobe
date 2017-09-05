@@ -58,7 +58,7 @@ public class PropertyController {
         if (res > 0) {
             return "{\"success\":1}";
         } else {
-            return "{\"failed\":0}";
+            return "{}";
         }
     }
 
@@ -122,7 +122,12 @@ public class PropertyController {
         PropertyBean propertyBean = new PropertyBean();
         propertyBean.setShopId(shop_id);
         propertyBean.setMmac(mmac);
-
+        PropertyBean propertyBean1 = propertyService.queryProperty(propertyBean);
+        if (propertyBean1 == null){
+            propertyBean1 = new PropertyBean();
+            propertyBean1.setMmac("");
+            return propertyBean1;
+        }
         return propertyService.queryProperty(propertyBean);
     }
 }

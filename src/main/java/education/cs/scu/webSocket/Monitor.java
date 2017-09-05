@@ -31,37 +31,9 @@ public class Monitor implements Runnable {
     List<Integer> shopList = new ArrayList<Integer>();
     public void run() {
         try {
-//            Connection conn = DBHelper.createInstance();
-//            clockDataDBManager = new DataDBManager(conn);
-//            //System.out.println("clockDBManager" + clockDataDBManager.toString());
-//            rs = clockDataDBManager.executeQuery();
-//            if (rs.next()) {
-//                userFlow.setTime(rs.getLong("time"));
-//                userFlow.setTotalFlow(rs.getInt("total_flow"));
-//                userFlow.setCheckInFlow(rs.getInt("check_in_flow"));
-//                userFlow.setCheckInRate(rs.getDouble("check_in_rate"));
-//                userFlow.setDeepVisitRate(rs.getDouble("deep_visit_rate"));
-//                userFlow.setShallowVisitRate(rs.getDouble("shallow_visit_rate"));
-//                WebSocketEndPointTest webSocketTest = new WebSocketEndPointTest();
-////                System.out.println("推送消息:" + userFlow);
-//                webSocketTest.sendMsg(userFlow);
-//            }
-//            DBHelper.closeDB();
-//            //UserFlow userFlow = userVisitDao.queryUserVisit();
             ApplicationContext ctx = new ClassPathXmlApplicationContext(new String[]{
                     "classpath:applicationContext-service.xml", "classpath:applicationContext-redis.xml", "classpath:applicationContext-dao.xml", "classpath:springMVC.xml"});
-//            String[] beanNames = ctx.getBeanDefinitionNames();
-//            int allBeansCount = ctx.getBeanDefinitionCount();
-//            System.out.println("所有beans的数量是：" + allBeansCount);
-//            for (String beanName : beanNames) {
-//                Class<?> beanType = ctx.getType(beanName);
-//                Package beanPackage = beanType.getPackage();
-//                //Object bean = ctx.getBean(beanName);
-//                System.out.println("BeanName:" + beanName);
-//                System.out.println("Bean的类型：" + beanType);
-//                System.out.println("Bean所在的包：" + beanPackage);
-//                System.out.println("\r\n");
-//            }
+
             UserVisitService userVisitService = (UserVisitService) ctx.getBean("userVisitService");
            // List<Integer> shopList = userVisitService.queryShopList("18996720676");
             shopList.add(1);

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -185,7 +186,12 @@ public class ShopController {
                                            @RequestParam("userName") String userName) throws Exception {
        ProbeInfo probeInfo = new ProbeInfo();
        probeInfo.setUser_name(userName);
-       return shopService.queryProbeInfos(probeInfo);
+       List<ProbeInfo> probeInfos =  shopService.queryProbeInfos(probeInfo);
+       if(probeInfos != null && probeInfos.size() > 0){
+           return probeInfos;
+       }else{
+           return new ArrayList<ProbeInfo>();
+       }
     }
 
     /**
