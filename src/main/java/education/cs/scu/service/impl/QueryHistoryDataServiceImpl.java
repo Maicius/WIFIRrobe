@@ -1,6 +1,10 @@
 package education.cs.scu.service.impl;
 
 import education.cs.scu.entity.HistoryData;
+import education.cs.scu.entity.entityData.Day;
+import education.cs.scu.entity.entityData.Hour;
+import education.cs.scu.entity.entityData.Month;
+import education.cs.scu.entity.entityData.Year;
 import education.cs.scu.mapper.QueryHistoryDataMapper;
 import education.cs.scu.service.QueryHistoryDataService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,15 +20,20 @@ public class QueryHistoryDataServiceImpl implements QueryHistoryDataService{
     @Autowired
     QueryHistoryDataMapper queryHistoryData;
 
-    public List<HistoryData> queryActivityYear(HistoryData historyData) throws Exception {
-        return queryHistoryData.queryActivityYear(historyData);
+    public int addActivityData() throws Exception {
+        return queryHistoryData.addActivityData();
     }
 
-    public List<HistoryData> queryActivityMonth(HistoryData historyData) throws Exception {
-        return queryHistoryData.queryActivityMonth(historyData);
+    public List<Year> queryActivityYear() throws Exception {
+        return queryHistoryData.queryActivityYear();
     }
 
-    public List<HistoryData> queryActivityDay(HistoryData historyData) throws Exception {
-        return queryHistoryData.queryActivityDay(historyData);
+    public List<Month> queryActivityMonth() throws Exception {
+        return queryHistoryData.queryActivityMonth();
     }
+
+    public List<Hour> queryActivityDay(String date) throws Exception {
+        return queryHistoryData.queryActivityDay(date);
+    }
+
 }

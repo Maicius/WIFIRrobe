@@ -1,6 +1,10 @@
 package education.cs.scu.controller;
 
 import education.cs.scu.entity.HistoryData;
+import education.cs.scu.entity.entityData.Day;
+import education.cs.scu.entity.entityData.Hour;
+import education.cs.scu.entity.entityData.Month;
+import education.cs.scu.entity.entityData.Year;
 import education.cs.scu.service.QueryHistoryDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +23,7 @@ public class queryHistoryDataController {
 
     /**
      * 根据月度查询活跃数据
+     *
      * @param request
      * @param userName
      * @param activityMonth
@@ -26,36 +31,37 @@ public class queryHistoryDataController {
      * @throws Exception
      */
     @RequestMapping(value = "/queryActivityMonth", method = RequestMethod.GET)
-    public List<HistoryData> queryActivityMonth(HttpServletRequest request,
-                                                @RequestParam("userName") String userName,
-                                                @RequestParam("activityMonth") String activityMonth) throws Exception{
-        HistoryData historyData = new HistoryData();
-        historyData.setYear(activityMonth);
-        historyData.setUserName(userName);
-        return queryHistoryDataService.queryActivityMonth(historyData);
+    public List<Month> queryActivityMonth(HttpServletRequest request) throws Exception {
+
+
+//        HistoryData historyData = new HistoryData();
+//        historyData.setYear(activityMonth);
+//        historyData.setUserName(userName);
+
+
+        //queryHistoryDataService.addActivityData();
+        return queryHistoryDataService.queryActivityMonth();
     }
 
     /**
      * 根据年度查询活跃信息
+     *
      * @param request
-     * @param userName
-     * @param activityYear
      * @return
      * @throws Exception
      */
     @RequestMapping(value = "/queryActivityYear", method = RequestMethod.GET)
-    public List<HistoryData> queryActivityYear(HttpServletRequest request,
-                                               @RequestParam("userName") String userName,
-                                               @RequestParam("activityYear") String activityYear) throws Exception{
-        HistoryData historyData = new HistoryData();
-        historyData.setYear(activityYear);
-        historyData.setUserName(userName);
-
-        return queryHistoryDataService.queryActivityYear(historyData);
+    public List<Year> queryActivityYear(HttpServletRequest request) throws Exception {
+//        HistoryData historyData = new HistoryData();
+//        historyData.setYear(activityYear);
+//        historyData.setUserName(userName);
+        //queryHistoryDataService.addActivityData();
+        return queryHistoryDataService.queryActivityYear();
     }
 
     /**
      * 根据日期查询一天中每个小时的活跃信息
+     *
      * @param request
      * @param userName
      * @param activityDay
@@ -63,14 +69,13 @@ public class queryHistoryDataController {
      * @throws Exception
      */
     @RequestMapping(value = "/queryActivityDay", method = RequestMethod.GET)
-    public List<HistoryData> queryActivityDay(HttpServletRequest request,
-                                              @RequestParam("userName") String userName,
-                                              @RequestParam("activityDay") String activityDay) throws Exception{
-        HistoryData historyData = new HistoryData();
-        historyData.setUserName(userName);
-        historyData.setDay(activityDay);
-
-        return queryHistoryDataService.queryActivityDay(historyData);
+    public List<Hour> queryActivityDay(HttpServletRequest request,
+                                       @RequestParam("activityDay") String activityDay) throws Exception {
+//        HistoryData historyData = new HistoryData();
+//        historyData.setUserName(userName);
+//        historyData.setDay(activityDay);
+        //queryHistoryDataService.addActivityData();
+        return queryHistoryDataService.queryActivityDay(activityDay);
     }
 
 }
