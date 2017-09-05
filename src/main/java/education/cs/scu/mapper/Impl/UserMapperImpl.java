@@ -33,7 +33,8 @@ public class UserMapperImpl implements UserMapper {
         try {
             HashOperations<String,Object,Object> hashOperations = redisTemplate.opsForHash();
             Map<Object, Object> userMap = hashOperations.entries(user.getUserName());
-
+            System.out.println("userpassword:" + user.getPassword());
+            System.out.println("userpassword:" + userMap.get("password"));
             if (user.getPassword().equals(userMap.get("password")) &&
                     user.getVerifyCode().equals(userMap.get("verifyCode"))) {
                 //登陆成功返回用户名

@@ -24,6 +24,11 @@ public class UserBean implements Serializable {
 
     private String shopName;
 
+    // 首次出现时间
+    private String firstTime;
+
+    // 最近出现时间
+    private String recentTime;
     public String getShopName() {
         return shopName;
     }
@@ -74,5 +79,21 @@ public class UserBean implements Serializable {
 
     public void setVisitCycle(Long visitCycle) {
         this.visitCycle = visitCycle;
+    }
+
+    public String getFirstTime() {
+        return firstTime;
+    }
+
+    public void setFirstTime(String firstTime) {
+        this.firstTime = firstTime;
+    }
+
+    public String getRecentTime() {
+        return recentTime;
+    }
+
+    public void setRecentTime(String recentTime) {
+        this.recentTime = recentTime;
     }
 }
