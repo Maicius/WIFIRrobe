@@ -73,7 +73,7 @@ public class Monitor implements Runnable {
                     WebSocketEndPointTest webSocketEndPointTest = new WebSocketEndPointTest();
                     webSocketEndPointTest.sendMsg(userVisitBeanList.get(0));
                 }else{
-                    System.out.println("no data");
+                    //System.out.println("no data");
                 }
             }
         }catch (Exception e){

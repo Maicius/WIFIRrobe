@@ -23,9 +23,9 @@ import java.util.regex.Pattern;
  * Copyright © 2017 Wang Han. SCU. All Rights Reserved.
  *
  * @author Wang Han
- *
- *
- * Edited by lch on 2017/8/31 23:57
+ *         <p>
+ *         <p>
+ *         Edited by lch on 2017/8/31 23:57
  */
 public class ExcelUtil<T> {
 
@@ -100,16 +100,21 @@ public class ExcelUtil<T> {
         Iterator<T> it = dataset.iterator();
         int index = 0;
         while (it.hasNext()) {
+            System.out.println("while============>>>");
             index++;
             row = sheet.createRow(index);
             T t = (T) it.next();
             //利用反射，根据javabean属性的先后顺序，动态调用getXxx()方法得到属性值
             Field[] fields = t.getClass().getDeclaredFields();
-            for (int i = 1; i < fields.length; i++) {
-                HSSFCell cell = row.createCell(i);
-                cell.setCellStyle(style2);
+            for (int i = 0; i < fields.length; i++) {
+
                 Field field = fields[i];
                 String fieldName = field.getName();
+//                if (fieldName.equals("serialVersionUID")) {
+//                    continue;
+//                }
+                HSSFCell cell = row.createCell(i);
+                cell.setCellStyle(style2);
                 String getMethodName = "get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
                 System.out.println(getMethodName);
                 try {
@@ -117,50 +122,8 @@ public class ExcelUtil<T> {
                     Method getMethod = tCls.getMethod(getMethodName, new Class[]{});
                     Object value = getMethod.invoke(t, new Object[]{});
                     //判断值的类型后进行强制类型转换
-                    String textValue = null;
-//              if (value instanceof Integer) {
-//                 int intValue = (Integer) value;
-//                 cell.setCellValue(intValue);
-//              } else if (value instanceof Float) {
-//                 float fValue = (Float) value;
-//                 textValue = new HSSFRichTextString(
-//                       String.valueOf(fValue));
-//                 cell.setCellValue(textValue);
-//              } else if (value instanceof Double) {
-//                 double dValue = (Double) value;
-//                 textValue = new HSSFRichTextString(
-//                       String.valueOf(dValue));
-//                 cell.setCellValue(textValue);
-//              } else if (value instanceof Long) {
-//                 long longValue = (Long) value;
-//                 cell.setCellValue(longValue);
-//              }
-                    if (value instanceof Boolean) {
-                        boolean bValue = (Boolean) value;
-                        textValue = "男";
-                        if (!bValue) {
-                            textValue = "女";
-                        }
-                    } else if (value instanceof Date) {
-                        Date date = (Date) value;
-                        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-                        textValue = sdf.format(date);
-                    } else if (value instanceof byte[]) {
-                        // 有图片时，设置行高为60px;
-                        row.setHeightInPoints(60);
-                        // 设置图片所在列宽度为80px,注意这里单位的一个换算
-                        sheet.setColumnWidth(i, (short) (35.7 * 80));
-                        // sheet.autoSizeColumn(i);
-                        byte[] bsValue = (byte[]) value;
-                        HSSFClientAnchor anchor = new HSSFClientAnchor(0, 0,
-                                1023, 255, (short) 6, index, (short) 6, index);
-                        anchor.setAnchorType(2);
-                        patriarch.createPicture(anchor, workbook.addPicture(
-                                bsValue, HSSFWorkbook.PICTURE_TYPE_JPEG));
-                    } else {
-                        //其它数据类型都当作字符串简单处理
-                        textValue = value.toString();
-                    }
+                    String textValue =value.toString();
+
                     //如果不是图片数据，就利用正则表达式判断textValue是否全部由数字组成
                     if (textValue != null) {
                         Pattern p = Pattern.compile("^//d+(//.//d+)?$");
@@ -177,20 +140,24 @@ public class ExcelUtil<T> {
                         }
                     }
                 } catch (SecurityException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    System.out.println("SecurityException============>>>");
+                    //e.printStackTrace();
                 } catch (NoSuchMethodException e) {
                     // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    //.printStackTrace();
+                    System.out.println("NoSuchMethodException============>>>");
                 } catch (IllegalArgumentException e) {
+                    System.out.println("IllegalArgumentException============>>>");
                     // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    //e.printStackTrace();
                 } catch (IllegalAccessException e) {
+                    System.out.println("IllegalAccessException============>>>");
                     // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    //e.printStackTrace();
                 } catch (InvocationTargetException e) {
+                    System.out.println("InvocationTargetException============>>>");
                     // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    //e.printStackTrace();
                 } finally {
                     //清理资源
                 }
