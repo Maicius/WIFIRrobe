@@ -1,13 +1,10 @@
 package education.cs.scu.controller;
 
-import education.cs.scu.component.QueryUsersShopInfo;
 import education.cs.scu.entity.ShopInfo;
 import education.cs.scu.entity.TaskBean;
-import education.cs.scu.entity.UserVisitBean;
 import education.cs.scu.javautils.ExcelUtil;
 import education.cs.scu.service.ShopService;
 import education.cs.scu.service.TaskService;
-import education.cs.scu.service.UserVisitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.List;
@@ -74,7 +70,7 @@ public class TaskController {
         }
 
         if (shopInfoList != null && shopInfoList.size() > 0) {
-            OutputStream outputStream = new FileOutputStream("/Users/lch/Desktop/" + userName + ".xls");
+            OutputStream outputStream = new FileOutputStream("/Users/maicius/Desktop/" + userName + ".xls");
             excelUtil.exportExcel(header, shopInfoList, outputStream);
             outputStream.close();
         } else {

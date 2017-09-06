@@ -32,14 +32,10 @@ public class queryHistoryDataController {
      */
     @RequestMapping(value = "/queryActivityMonth", method = RequestMethod.GET)
     public List<Month> queryActivityMonth(HttpServletRequest request) throws Exception {
-
-
 //        HistoryData historyData = new HistoryData();
 //        historyData.setYear(activityMonth);
 //        historyData.setUserName(userName);
-
-
-        //queryHistoryDataService.addActivityData();
+        queryHistoryDataService.addActivityData();
         return queryHistoryDataService.queryActivityMonth();
     }
 

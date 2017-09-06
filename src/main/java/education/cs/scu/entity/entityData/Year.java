@@ -11,7 +11,7 @@ public class Year implements Serializable {
     private static final long serialVersionUID = -6998992770158457776L;
     private Integer year;
     private Integer number;
-
+    private Integer checkInnum;
     public Integer getYear() {
         return year;
     }
@@ -26,5 +26,13 @@ public class Year implements Serializable {
 
     public void setNumber(Integer number) {
         this.number = number;
+    }
+
+    public Integer getCheckInnum() {
+        return checkInnum;
+    }
+
+    public void setCheckInnum(Integer checkInnum) {
+        this.checkInnum = checkInnum;
     }
 }

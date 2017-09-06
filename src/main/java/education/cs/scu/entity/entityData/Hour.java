@@ -11,6 +11,7 @@ public class Hour implements Serializable{
     private static final long serialVersionUID = -5247104210598820601L;
     private Integer hour;
     private Integer number;
+    private Integer checkInnum;
 
     public Integer getHour() {
         return hour;
@@ -26,5 +27,13 @@ public class Hour implements Serializable{
 
     public void setNumber(Integer number) {
         this.number = number;
+    }
+
+    public Integer getCheckInnum() {
+        return checkInnum;
+    }
+
+    public void setCheckInnum(Integer checkInnum) {
+        this.checkInnum = checkInnum;
     }
 }

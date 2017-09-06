@@ -47,7 +47,9 @@ public class QueryHistoryDataMapperImpl implements QueryHistoryDataMapper {
         for (int k = 0; k < 12; k++) {
             Month month = new Month();
             month.setMonth(k + 1);
-            month.setNumber(((new Random()).nextInt(10) + k + 1) * 425);
+            int temp1 = ((new Random()).nextInt(10) + k + 1) * 425;
+            month.setNumber(temp1);
+            month.setCheckInnum((int)(temp1 * Math.random()));
             monthList.add(month);
             if (k < 9)
                 redisTemplateMonth.opsForHash().put("MONTH", "2017-0" + String.valueOf(k + 1)
@@ -64,7 +66,7 @@ public class QueryHistoryDataMapperImpl implements QueryHistoryDataMapper {
             temp += monthList.get(i).getNumber();
         }
         year.setNumber(temp);
-
+        year.setCheckInnum((int)(temp * Math.random()));
         redisTemplateYear.opsForHash().put("YEAR", "2017", JSON.toJSONString(year));
         System.out.println("qqqqqqqqqqqqqqqqqqqqqqqqqqq");
 
@@ -73,7 +75,7 @@ public class QueryHistoryDataMapperImpl implements QueryHistoryDataMapper {
         Long initDayStamp = dateToStamp(initDay);
         Long dayStamp = initDayStamp;
 
-        int num = temp / (365 * 24);
+        int num = temp / (365 * 12);
         for (int i = 0; i < 366; i++) {
 //                Day day = new Day();
 //            day.setDay(dayStamp);
@@ -82,9 +84,15 @@ public class QueryHistoryDataMapperImpl implements QueryHistoryDataMapper {
                 Hour hour = new Hour();
                 hour.setHour(j + 1);
                 if (j >= 8 && j <= 20) {
-                    hour.setNumber((int) (num * (Math.random() + 1.0)));
+                    int temp1 = (int)(num * (Math.random() + 1.0));
+                    int temp2 = (int)(temp1* (Math.random()));
+                    hour.setNumber((temp1));
+                    hour.setCheckInnum((temp2));
                 } else {
-                    hour.setNumber((int) (num * (Math.random())));
+                    int temp1 = (int)(num * (Math.random()));
+                    int temp2 = (int)(temp1* (Math.random()));
+                    hour.setNumber(temp1);
+                    hour.setCheckInnum(temp2);
                 }
                 hourList.add(hour);
             }
@@ -120,7 +128,6 @@ public class QueryHistoryDataMapperImpl implements QueryHistoryDataMapper {
     public List<Hour> queryActivityDay(String date) throws Exception {
 
         List<Day> dayList = new ArrayList<Day>();
-
         return JSONArray.parseArray((String) redisTemplateDay.opsForHash().get("DAY", date),Hour.class);
         //return dayList;
     }
