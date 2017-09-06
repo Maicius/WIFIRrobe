@@ -47,7 +47,7 @@ public class QueryHistoryDataMapperImpl implements QueryHistoryDataMapper {
         for (int k = 0; k < 12; k++) {
             Month month = new Month();
             month.setMonth(k + 1);
-            int temp1 = ((new Random()).nextInt(10) + k + 1) * 425;
+            int temp1 = ((new Random()).nextInt(10) + k + 1) * 825;
             month.setNumber(temp1);
             month.setCheckInnum((int)(temp1 * Math.random()));
             monthList.add(month);
@@ -74,7 +74,7 @@ public class QueryHistoryDataMapperImpl implements QueryHistoryDataMapper {
         String initDay = "2016-01-01";
         Long initDayStamp = dateToStamp(initDay);
         Long dayStamp = initDayStamp;
-
+        //Map<String,String> map = new HashMap<String, String>();
         int num = temp / (365 * 12);
         for (int i = 0; i < 366; i++) {
 //                Day day = new Day();
@@ -96,10 +96,13 @@ public class QueryHistoryDataMapperImpl implements QueryHistoryDataMapper {
                 }
                 hourList.add(hour);
             }
+           // map.put(stampToDate(dayStamp),JSON.toJSONString(hourList));
+
 //            day.setHour(hourList);
             redisTemplateDay.opsForHash().put("DAY", stampToDate(dayStamp), JSON.toJSONString(hourList));
             dayStamp += 24 * 3600 * 1000;
         }
+        //redisTemplateDay.opsForHash().putAll("DAY",map);
         System.out.println("pppppppppppppppppppppppppp");
         return 1;
 
@@ -118,7 +121,7 @@ public class QueryHistoryDataMapperImpl implements QueryHistoryDataMapper {
         Map<Object, Object> map = redisTemplateMonth.opsForHash().entries("MONTH");
         Set set = map.keySet();
         for (Object key:map.keySet()) {
-            System.out.println("--------" + key.toString());
+            //System.out.println("--------" + key.toString());
 
             monthList.add(JSON.parseObject((String) map.get(key.toString()),Month.class));
         }

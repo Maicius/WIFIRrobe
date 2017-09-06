@@ -35,7 +35,7 @@ public class queryHistoryDataController {
 //        HistoryData historyData = new HistoryData();
 //        historyData.setYear(activityMonth);
 //        historyData.setUserName(userName);
-        queryHistoryDataService.addActivityData();
+        //queryHistoryDataService.addActivityData();
         return queryHistoryDataService.queryActivityMonth();
     }
 
