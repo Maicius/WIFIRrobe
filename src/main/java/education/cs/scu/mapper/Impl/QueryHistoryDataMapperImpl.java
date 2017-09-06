@@ -74,7 +74,7 @@ public class QueryHistoryDataMapperImpl implements QueryHistoryDataMapper {
         String initDay = "2016-01-01";
         Long initDayStamp = dateToStamp(initDay);
         Long dayStamp = initDayStamp;
-        //Map<String,String> map = new HashMap<String, String>();
+        Map<String,String> map = new HashMap<String, String>();
         int num = temp / (365 * 12);
         for (int i = 0; i < 366; i++) {
 //                Day day = new Day();
@@ -96,13 +96,13 @@ public class QueryHistoryDataMapperImpl implements QueryHistoryDataMapper {
                 }
                 hourList.add(hour);
             }
-           // map.put(stampToDate(dayStamp),JSON.toJSONString(hourList));
+           map.put(stampToDate(dayStamp),JSON.toJSONString(hourList));
 
 //            day.setHour(hourList);
-            redisTemplateDay.opsForHash().put("DAY", stampToDate(dayStamp), JSON.toJSONString(hourList));
+            //redisTemplateDay.opsForHash().put("DAY", stampToDate(dayStamp), JSON.toJSONString(hourList));
             dayStamp += 24 * 3600 * 1000;
         }
-        //redisTemplateDay.opsForHash().putAll("DAY",map);
+        redisTemplateDay.opsForHash().putAll("DAY-TEST",map);
         System.out.println("pppppppppppppppppppppppppp");
         return 1;
 
@@ -131,8 +131,11 @@ public class QueryHistoryDataMapperImpl implements QueryHistoryDataMapper {
     public List<Hour> queryActivityDay(String date) throws Exception {
 
         List<Day> dayList = new ArrayList<Day>();
-        return JSONArray.parseArray((String) redisTemplateDay.opsForHash().get("DAY", date),Hour.class);
-        //return dayList;
+        return JSONArray.parseArray((String) redisTemplateDay.opsForHash().get("DAY-TEST", date),Hour.class);
+
+
+
+        // dayList;
     }
 
     /**
