@@ -56,7 +56,8 @@ public class Monitor implements Runnable {
         System.out.println("sendMsg");
         ScheduledExecutorService newScheduledThreadPool = Executors.newSingleThreadScheduledExecutor();
         Random random = new Random();
-        int delay = random.nextInt(2) + 1;
+//        int delay = random.nextInt(2) + 1;
+        int delay = 3;
         System.out.println("delay = " + delay);
 
         newScheduledThreadPool.scheduleWithFixedDelay(new Monitor(), 1, delay, TimeUnit.SECONDS);
