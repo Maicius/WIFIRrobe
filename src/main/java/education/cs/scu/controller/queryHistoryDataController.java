@@ -22,11 +22,23 @@ public class queryHistoryDataController {
     private QueryHistoryDataService queryHistoryDataService;
 
     /**
+     * 添加历史模拟数据
+     *
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/addActivityData", method = RequestMethod.GET)
+    public void addActivityData(HttpServletRequest request) throws Exception {
+//        HistoryData historyData = new HistoryData();
+//        historyData.setYear(activityMonth);
+//        historyData.setUserName(userName);
+        queryHistoryDataService.addActivityData();
+    }
+
+    /**
      * 根据月度查询活跃数据
      *
      * @param request
-     * @param userName
-     * @param activityMonth
      * @return
      * @throws Exception
      */
@@ -35,7 +47,6 @@ public class queryHistoryDataController {
 //        HistoryData historyData = new HistoryData();
 //        historyData.setYear(activityMonth);
 //        historyData.setUserName(userName);
-        queryHistoryDataService.addActivityData();
         return queryHistoryDataService.queryActivityMonth();
     }
 
@@ -59,7 +70,6 @@ public class queryHistoryDataController {
      * 根据日期查询一天中每个小时的活跃信息
      *
      * @param request
-     * @param userName
      * @param activityDay
      * @return
      * @throws Exception

@@ -42,14 +42,15 @@ public class QueryHistoryDataMapperImpl implements QueryHistoryDataMapper {
     public int addActivityData() throws Exception {
 
         List<Month> monthList = new ArrayList<Month>();
-
+        long startTime = System.currentTimeMillis();
+        long endTime = startTime;
         //随机生成month数据
         for (int k = 0; k < 12; k++) {
             Month month = new Month();
             month.setMonth(k + 1);
-            int temp1 = ((new Random()).nextInt(10) + k + 1) * 425;
+            int temp1 = ((new Random()).nextInt(10) + k + 1) * 825;
             month.setNumber(temp1);
-            month.setCheckInnum((int)(temp1 * Math.random()));
+            month.setCheckInnum((int) (temp1 * Math.random()));
             monthList.add(month);
             if (k < 9)
                 redisTemplateMonth.opsForHash().put("MONTH", "2017-0" + String.valueOf(k + 1)
@@ -66,15 +67,16 @@ public class QueryHistoryDataMapperImpl implements QueryHistoryDataMapper {
             temp += monthList.get(i).getNumber();
         }
         year.setNumber(temp);
-        year.setCheckInnum((int)(temp * Math.random()));
+        year.setCheckInnum((int) (temp * Math.random()));
         redisTemplateYear.opsForHash().put("YEAR", "2017", JSON.toJSONString(year));
-        System.out.println("qqqqqqqqqqqqqqqqqqqqqqqqqqq");
+
+        //System.out.println("qqqqqqqqqqqqqqqqqqqqqqqqqqq");
 
         //随机生成day数据
         String initDay = "2016-01-01";
         Long initDayStamp = dateToStamp(initDay);
         Long dayStamp = initDayStamp;
-
+        Map<String, String> map = new HashMap<String, String>();
         int num = temp / (365 * 12);
         for (int i = 0; i < 366; i++) {
 //                Day day = new Day();
@@ -84,23 +86,27 @@ public class QueryHistoryDataMapperImpl implements QueryHistoryDataMapper {
                 Hour hour = new Hour();
                 hour.setHour(j + 1);
                 if (j >= 8 && j <= 20) {
-                    int temp1 = (int)(num * (Math.random() + 1.0));
-                    int temp2 = (int)(temp1* (Math.random()));
+                    int temp1 = (int) (num * (Math.random() + 1.0));
+                    int temp2 = (int) (temp1 * (Math.random()));
                     hour.setNumber((temp1));
                     hour.setCheckInnum((temp2));
                 } else {
-                    int temp1 = (int)(num * (Math.random()));
-                    int temp2 = (int)(temp1* (Math.random()));
+                    int temp1 = (int) (num * (Math.random()));
+                    int temp2 = (int) (temp1 * (Math.random()));
                     hour.setNumber(temp1);
                     hour.setCheckInnum(temp2);
                 }
                 hourList.add(hour);
             }
+            map.put(stampToDate(dayStamp), JSON.toJSONString(hourList));
+
 //            day.setHour(hourList);
-            redisTemplateDay.opsForHash().put("DAY", stampToDate(dayStamp), JSON.toJSONString(hourList));
+            //redisTemplateDay.opsForHash().put("DAY", stampToDate(dayStamp), JSON.toJSONString(hourList));
             dayStamp += 24 * 3600 * 1000;
         }
-        System.out.println("pppppppppppppppppppppppppp");
+        redisTemplateDay.opsForHash().putAll("DAY", map);
+        endTime = System.currentTimeMillis();
+        System.out.println("生成模拟数据一共耗时 = " + (endTime-startTime)/1000 + "秒");
         return 1;
 
     }
@@ -108,7 +114,7 @@ public class QueryHistoryDataMapperImpl implements QueryHistoryDataMapper {
     public List<Year> queryActivityYear() throws Exception {
         List<Year> yearList = new ArrayList<Year>();
         String tmp = (String) redisTemplateYear.opsForHash().get("YEAR", "2017");
-        yearList.add(JSON.parseObject(tmp,Year.class));
+        yearList.add(JSON.parseObject(tmp, Year.class));
 
         return yearList;
     }
@@ -117,10 +123,10 @@ public class QueryHistoryDataMapperImpl implements QueryHistoryDataMapper {
         List<Month> monthList = new ArrayList<Month>();
         Map<Object, Object> map = redisTemplateMonth.opsForHash().entries("MONTH");
         Set set = map.keySet();
-        for (Object key:map.keySet()) {
-            System.out.println("--------" + key.toString());
+        for (Object key : map.keySet()) {
+            //System.out.println("--------" + key.toString());
 
-            monthList.add(JSON.parseObject((String) map.get(key.toString()),Month.class));
+            monthList.add(JSON.parseObject((String) map.get(key.toString()), Month.class));
         }
         return monthList;
     }
@@ -128,8 +134,10 @@ public class QueryHistoryDataMapperImpl implements QueryHistoryDataMapper {
     public List<Hour> queryActivityDay(String date) throws Exception {
 
         List<Day> dayList = new ArrayList<Day>();
-        return JSONArray.parseArray((String) redisTemplateDay.opsForHash().get("DAY", date),Hour.class);
-        //return dayList;
+        return JSONArray.parseArray((String) redisTemplateDay.opsForHash().get("DAY", date), Hour.class);
+
+
+        // dayList;
     }
 
     /**
